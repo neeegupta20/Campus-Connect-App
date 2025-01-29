@@ -1,16 +1,16 @@
 import { SafeAreaView,ScrollView,Image, Text, TextInput, StyleSheet, View, Alert } from "react-native";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "expo-router/build/hooks";
+import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import axios from "axios";
 
 export default function otpVerify(){
         
-        const searchParams=useSearchParams();
         const router=useRouter();
-        const name=searchParams.get('name');
-        const email=searchParams.get('email');
-        const telno=searchParams.get('telno');
-        const password=searchParams.get('password')
+        const searchParams=useGlobalSearchParams();
+        const name=searchParams?.name ?? '';
+        const email=searchParams?.email ?? '';
+        const telno=searchParams?.telno ?? '';
+        const password=searchParams?.password ?? '';
         const [otp,setOtp]=useState(['','','','']);
 
         const handleChange=(value:string,index:number)=>{
@@ -30,18 +30,18 @@ export default function otpVerify(){
         const refs:any=[];
         
         const VerifyOTP=async()=>{
-            router.replace('/(auth)/login');
+            //router.replace('/(auth)/login');
             const otpString=otp.join('');
             if(otpString.length!=4){
                 Alert.alert('PLEASE ENTER VALID OTP.')
                 return;
             }
             try{
-                const response1=await axios.post('http://172.16.34.152:3000/verify-otp',{email,OTP:otpString});
+                const response1=await axios.post('http://172.16.40.51:3000/verify-otp',{email,OTP:otpString});
                 if(response1.status===200){
                     try{
                         const dataUser={name,email,password,telno};
-                        const response2=await axios.post('http://172.16.34.152:3000/register',dataUser);
+                        const response2=await axios.post('http://172.16.40.51:3000/register',dataUser);
                         if(response2.status===200){
                             Alert.alert("USER REGISTERED. PLEASE LOGIN");
                             router.replace('/(auth)/login');
@@ -69,7 +69,7 @@ export default function otpVerify(){
     return(
         <SafeAreaView style={[styles.container,{flex:1}]}>
             <ScrollView contentContainerStyle={{flexGrow:1}}>
-                <Image style={styles.logo} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/logo.jpg')}></Image>
+                <Image style={styles.logo} source={require('../../assets/images/logo.jpg')}></Image>
                 <Text style={styles.title}>
                     ENTER OTP
                 </Text>  

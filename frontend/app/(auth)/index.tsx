@@ -20,27 +20,27 @@ export default function Register() {
     const mobileNumberRegex = /^\d{9}$/;
 
     const SendOTP=async(name:string,telno:string,email:string,password:string)=>{
-      router.replace('/(tabs)')
-      // if(!nameVerify || !phoneNumberVerify || !emailVerify || !password){
-      //   Alert.alert("PLEASE FILL ALL FIELDS CORRECTLY.");
-      //   return;
-      // }
-      // try{
-      //   const response=await axios.post('http://172.16.34.152:3000/send-otp',{email});
-      //   if(response.status===200){
-      //     router.replace({
-      //       pathname:'/(auth)/OTPVerify',
-      //       params:{name,telno,email,password}});
-      //       console.log('OTP SENT.')
-      //   }
-      // }catch(error){
-      //   if(axios.isAxiosError(error)){
-      //     if(error.response?.status===402){
-      //       Alert.alert("OTP NOT DELIVERABLE.");
-      //     }
-      //   }
-      //   console.log(error);
-      // }
+      //router.replace('/(tabs)')
+      if(!nameVerify || !phoneNumberVerify || !emailVerify || !password){
+        Alert.alert("PLEASE FILL ALL FIELDS CORRECTLY.");
+        return;
+      }
+      try{
+        const response=await axios.post('http://172.16.40.51:3000/send-otp',{email});
+        if(response.status===200){
+          router.replace({
+            pathname:'/(auth)/OTPVerify',
+            params:{name,telno,email,password}});
+            console.log('OTP SENT.')
+        }
+      }catch(error){
+        if(axios.isAxiosError(error)){
+          if(error.response?.status===402){
+            Alert.alert("OTP NOT DELIVERABLE.");
+          }
+        }
+        console.log(error);
+      }
     }
 
     const handleName=()=>{
@@ -71,7 +71,7 @@ export default function Register() {
     return (
       <SafeAreaView style={[PageStyles.container,{flex:1}]}>
         <ScrollView contentContainerStyle={{flexGrow:1}}>
-          <Image style={PageStyles.logo} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/logo.jpg')}></Image>
+          <Image style={PageStyles.logo} source={require('../../assets/images/logo.jpg')}></Image>
           <Text style={PageStyles.title}>Create Account</Text>
           <View style={PageStyles.grid}>
             <View style={PageStyles.inputContainer}>
@@ -125,7 +125,7 @@ export default function Register() {
                 PLEASE ENTER A VALID PHONE NO.
               </Text>
             )}
-            <View style={[PageStyles.inputContainer,{width:'105%'}]}>
+            <View style={[PageStyles.inputContainer,{width:'109%'}]}>
               <TextInput
                 placeholder="SET PASSWORD"
                 value={password}
@@ -153,73 +153,70 @@ export default function Register() {
   );
 }
 
-const PageStyles=StyleSheet.create(
-    {
-        container:{
-            flex:1,
-            justifyContent:"center",
-            alignItems:"center",
-            padding:20,
-            backgroundColor:"black",
-        },
-        title:{
-            fontSize:35,
-            marginBottom:10,
-            fontWeight:"bold",
-            color:"white"
-        },
-        grid:{
-            padding:20,
-            height:"35%",
-        },
-        input:{
-            flex: 1,
-            height: 45,
-            borderColor: "#333",
-            borderWidth: 1,
-            borderRadius:16,
-            paddingHorizontal: 12,
-            fontSize: 16,
-            backgroundColor:"white",
-            marginBlock:6
-        },
-        inputContainer:{
-            width:"100%",
-            flex:1,
-            height:45,
-            flexDirection:"row",
-            alignItems:"center",
-            borderWidth:1,
-            borderRadius:20,
-            position:"relative",
-            marginBlock:6,
-        },
-        buttonContainer:{
-            width: "100%",
-            marginHorizontal:2
-        },
-        button:{
-            backgroundColor: "#63D0D8",
-            padding: 15,
-            borderRadius:16,
-            alignItems: "center",
-            marginHorizontal:30
-        },
-        buttonText:{
+const PageStyles=StyleSheet.create({
+    container:{
+      flex:1,
+      justifyContent:"center",
+      alignItems:"center",
+      padding:20,
+      backgroundColor:"black",
+    },
+    title:{
+      fontSize:35,
+      marginBottom:10,
+      fontWeight:"bold",
+      color:"white"
+    },
+    grid:{
+      padding:20,
+      height:"35%",
+    },
+    input:{
+      flex: 1,
+      height: 45,
+      borderColor:"#63D0D8",
+      borderWidth:1,
+      borderRadius:10,
+      paddingHorizontal: 12,
+      fontSize:16,
+      marginBlock:6,
+      color:"white"
+    },
+    inputContainer:{
+      width:"100%",
+      flex:1,
+      height:45,
+      flexDirection:"row",
+      alignItems:"center",
+      borderWidth:1,
+      position:"relative",
+      marginBlock:6,
+    },
+    buttonContainer:{
+      width: "100%",
+      marginHorizontal:2
+    },
+    button:{
+      backgroundColor: "#63D0D8",
+        padding: 15,
+        borderRadius:16,
+        alignItems: "center",
+        marginHorizontal:30
+    },
+  buttonText:{
             color: "#fff",
             fontSize: 18,
             fontWeight: "bold",
-        },
-        icon:{
-            color: "#888",
+  },
+  icon:{
+            color:"#888",
             marginLeft:6
-        },
-        logo:{
+  },
+  logo:{
             justifyContent:"center",
             height:"7.5%",
             width:"85%",
             marginVertical:70,
             marginHorizontal:15,
-        }
-    }
-)
+  }
+})

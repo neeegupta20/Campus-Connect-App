@@ -1,14 +1,14 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
+const express=require("express");
+const app=express();
+const cors=require("cors");
 const user=require('./models/user');
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcryptjs')
-const cookieParser = require('cookie-parser');
+const cookieParser=require('cookie-parser');
 const nodemailer=require('nodemailer');
 const path=require('path')
-const reservation = require("./models/reservation");
-const Razorpay = require("razorpay");
+const reservation=require("./models/reservation");
+const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890"
 
@@ -31,12 +31,76 @@ const razorpay=new Razorpay({
 app.use(express.json());
 app.use(cors({
     credentials:true,
-    origin:['https://campusconnect.me','exp://192.168.1.88:8081','exp://172.16.34.36:8081']
+    origin:['https://campusconnect.me','exp://192.168.1.88:8081','exp://172.16.40.51:8081']
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.set('trust proxy', true)
+app.set('trust proxy',true)
 
+const otpStore=new Map();
+
+app.post("/send-otp",async(req,res)=>{
+    const {email}=req.body;
+    try{
+      const otp=Math.floor(1000+Math.random()*9000).toString();
+      otpStore.set(email,{otp,expiresAt:Date.now()+5*60*1000});
+  
+      const mailOptions={
+        from:"support@campusconnect.me",
+        to:email,
+        subject: "Your OTP Code",
+        html:`
+          <div style="font-family: Arial, sans-serif; color: #333;">
+            <h2 style="color: #4CAF50;">OTP Verification</h2>
+            <p>Dear Campus Connect User,</p>
+            <p>Your OTP code is: <strong>${otp}</strong></p>
+            <p>This code will expire in 5 minutes. Do not share it with anyone.</p>
+            <p>Best regards,</p>
+            <p><strong>Campus Connect Team</strong></p>
+          </div>
+        `,
+      };
+  
+      await transporter.sendMail(mailOptions);
+  
+      res.status(200).json({
+        success:true,
+        message:"OTP SENT.",
+      });
+    }catch(error){
+      if(error.responseCode===550||error.code==="EAUTH"){
+        return res.status(402).json({
+          error: "INVALID EMAIL ADDRESS OR OTP NOT DELIVERABLE.",
+        });
+      }
+      res.status(500).json({
+        error: "FAILED TO SEND OTP. TRY AGAIN LATER.",
+      });
+    }
+});
+
+app.post("/verify-otp",async(req,res)=>{
+    const {email,OTP}=req.body;
+    const storedData=otpStore.get(email);
+  
+    try{
+      if(!storedData){
+        return res.status(403).json({error: "OTP NOT FOUND IN STORED DATA."});
+      }
+      if(Date.now()>storedData.expiresAt){
+        otpStore.delete(email);
+        return res.status(403).json({error:"OTP HAS EXPIRED."});
+      }
+      if(storedData.otp.toString()!==OTP.toString()){
+        return res.status(403).json({error:"INVALID OTP"});
+      }
+      otpStore.delete(email);
+      res.status(200).json({message:"OTP VERIFICATION SUCCESSFUL."});
+    }catch(error){
+      res.status(403).json({error:"OTP VERFICATION FAILED."});
+    }
+});
+  
 app.post("/register", async(req,res)=>{
 
     const {name, email,password,telno}=req.body;
@@ -57,7 +121,7 @@ app.post("/register", async(req,res)=>{
     
         const exists=await user.find({email});
         if(exists.length===0){
-            const userData = await user.create({name, email,password:hashedPassword, telno})
+            const userData=await user.create({name, email,password:hashedPassword,telno})
             res.status(200).json(userData);
         }
         else{
@@ -452,70 +516,5 @@ app.post('/create-order',async(req,res)=>{
         res.status(500).json({error:"FAILED TO CREATE RAZORPAY ORDER"});
     }
 })
-
-const otpStore=new Map();
-
-app.post("/send-otp",async(req,res)=>{
-    const {email}=req.body;
-    try{
-      const otp=Math.floor(1000+Math.random()*9000).toString();
-      otpStore.set(email,{otp,expiresAt:Date.now()+5*60*1000});
-  
-      const mailOptions={
-        from:"support@campusconnect.me",
-        to:email,
-        subject: "Your OTP Code",
-        html:`
-          <div style="font-family: Arial, sans-serif; color: #333;">
-            <h2 style="color: #4CAF50;">OTP Verification</h2>
-            <p>Dear Campus Connect User,</p>
-            <p>Your OTP code is: <strong>${otp}</strong></p>
-            <p>This code will expire in 5 minutes. Do not share it with anyone.</p>
-            <p>Best regards,</p>
-            <p><strong>Campus Connect Team</strong></p>
-          </div>
-        `,
-      };
-  
-      await transporter.sendMail(mailOptions);
-  
-      res.status(200).json({
-        success:true,
-        message:"OTP SENT.",
-      });
-    }catch(error){
-      if(error.responseCode===550||error.code==="EAUTH"){
-        return res.status(402).json({
-          error: "INVALID EMAIL ADDRESS OR OTP NOT DELIVERABLE.",
-        });
-      }
-      res.status(500).json({
-        error: "FAILED TO SEND OTP. TRY AGAIN LATER.",
-      });
-    }
-  });
-  
-  
-  app.post("/verify-otp",async(req,res)=>{
-      const {email,OTP}=req.body;
-      const storedData=otpStore.get(email);
-    
-      try{
-        if(!storedData){
-          return res.status(403).json({error: "OTP NOT FOUND IN STORED DATA."});
-        }
-        if(Date.now()>storedData.expiresAt){
-          otpStore.delete(email);
-          return res.status(403).json({error:"OTP HAS EXPIRED."});
-        }
-        if(storedData.otp.toString()!==OTP.toString()){
-          return res.status(403).json({error:"INVALID OTP"});
-        }
-        otpStore.delete(email);
-        res.status(200).json({message:"OTP VERIFICATION SUCCESSFUL."});
-      }catch(error){
-        res.status(403).json({error:"OTP VERFICATION FAILED."});
-      }
-});
 
 app.listen(3000);

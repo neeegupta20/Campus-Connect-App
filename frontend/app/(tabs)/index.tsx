@@ -41,7 +41,7 @@ export default function Home(){
                 </View>
                 <View style={styles.line}></View>
                 <View>
-                    <ImageBackground style={styles.balancebox} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/wallet.png')}>
+                    <ImageBackground style={styles.balancebox} source={require('../../assets/images/wallet.png')}>
                         <Text style={styles.text1}>CAMPUS COINS BALANCE</Text>
                         <Text style={styles.text2}>0</Text>
                         <Text style={styles.text3}>COMING SOON !</Text>
@@ -51,16 +51,16 @@ export default function Home(){
                 <View style={styles.line}></View>
                 <View style={{flexDirection:'row',justifyContent:'flex-start',marginTop:-20,marginHorizontal:-2}}>
                     <TouchableOpacity onPress={()=>router.push('/(tabs)/connectzones')}>
-                        <ImageBackground style={[styles.infoBox,{marginLeft:-10}]} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/CARDS.png')}>
+                        <ImageBackground style={[styles.infoBox,{marginLeft:-10}]} source={require('../../assets/images/CARDS.png')}>
                             <Text style={styles.text4}>CONNECT</Text>
                             <Text style={styles.text5}>ZONES</Text>
-                            <Image style={{width:60,height:40,position:'absolute',bottom:85,left:80}} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/zoneImage.png')}></Image>
+                            <Image style={{width:60,height:40,position:'absolute',bottom:85,left:80}} source={require('../../assets/images/zoneImage.png')}></Image>
                         </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>
-                        <ImageBackground style={styles.infoBox} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/CARDS.png')}>
+                        <ImageBackground style={styles.infoBox} source={require('../../assets/images/CARDS.png')}>
                             <Text style={styles.text6}>EVENTS</Text>
-                            <Image style={{width:70,height:60,position:'absolute',bottom:85,left:70}} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/ticketImage.png')}></Image>
+                            <Image style={{width:70,height:60,position:'absolute',bottom:85,left:70}} source={require('../../assets/images/ticketImage.png')}></Image>
                         </ImageBackground>
                     </TouchableOpacity>
                 </View>

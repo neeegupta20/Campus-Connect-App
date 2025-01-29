@@ -18,7 +18,7 @@ export default function LoginTab(){
 
     const LoginUser=async()=>{
         try{
-            const response=await axios.post('http://172.16.34.152:3000/login',{email,password});
+            const response=await axios.post('http://172.16.40.51:3000/login',{email,password});
             if(response.data.token){
                 await SecureStore.setItemAsync('authToken',response.data.token);
                 Alert.alert("LOGIN SUCCESSFUL.");
@@ -43,7 +43,7 @@ export default function LoginTab(){
     return(
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{flexGrow:1}}>
-                <Image style={styles.logo} source={require('/Users/nee.gupta20/CAMPUS CONNECT APP/frontend/assets/images/logo.jpg')}></Image>
+                <Image style={styles.logo} source={require('../../assets/images/logo.jpg')}></Image>
                 <Text style={styles.title}>LOGIN</Text> 
                 <View style={styles.grid}>
                     <View style={styles.inputContainer}>
@@ -109,12 +109,12 @@ const styles=StyleSheet.create(
         input:{
             flex:1,
             height:45,
-            borderColor:"#333",
             borderWidth:1,
-            borderRadius:16,
+            borderRadius:12,
             paddingHorizontal:12,
             fontSize:16,
-            backgroundColor:"white",
+            borderColor:"#63D0D8",
+            color:"white",
         },
         inputContainer:{
             width:"100%",

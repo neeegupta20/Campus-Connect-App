@@ -19,11 +19,9 @@ export default function AuthProvider({children}:{children:ReactNode}){
   
   const loadAuthState=async()=>{
     const token=await SecureStore.getItemAsync("authToken");
-    console.log("AUTH TOKEN RETRIEVED",token);
     if(token){
       setIsLoggedIn(true);
     }
-    console.log("STATE UPDATED",isLoggedIn)
   }
 
   useEffect(()=>{
