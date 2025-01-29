@@ -20,27 +20,27 @@ export default function Register() {
     const mobileNumberRegex = /^\d{9}$/;
 
     const SendOTP=async(name:string,telno:string,email:string,password:string)=>{
-      //router.replace('/(tabs)')
-      if(!nameVerify || !phoneNumberVerify || !emailVerify || !password){
-        Alert.alert("PLEASE FILL ALL FIELDS CORRECTLY.");
-        return;
-      }
-      try{
-        const response=await axios.post('http://172.16.40.51:3000/send-otp',{email});
-        if(response.status===200){
-          router.replace({
-            pathname:'/(auth)/OTPVerify',
-            params:{name,telno,email,password}});
-            console.log('OTP SENT.')
-        }
-      }catch(error){
-        if(axios.isAxiosError(error)){
-          if(error.response?.status===402){
-            Alert.alert("OTP NOT DELIVERABLE.");
-          }
-        }
-        console.log(error);
-      }
+      router.replace('/(tabs)')
+      // if(!nameVerify || !phoneNumberVerify || !emailVerify || !password){
+      //   Alert.alert("PLEASE FILL ALL FIELDS CORRECTLY.");
+      //   return;
+      // }
+      // try{
+      //   const response=await axios.post('http://172.16.40.51:3000/send-otp',{email});
+      //   if(response.status===200){
+      //     router.replace({
+      //       pathname:'/(auth)/OTPVerify',
+      //       params:{name,telno,email,password}});
+      //       console.log('OTP SENT.')
+      //   }
+      // }catch(error){
+      //   if(axios.isAxiosError(error)){
+      //     if(error.response?.status===402){
+      //       Alert.alert("OTP NOT DELIVERABLE.");
+      //     }
+      //   }
+      //   console.log(error);
+      // }
     }
 
     const handleName=()=>{
