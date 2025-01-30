@@ -20,7 +20,7 @@ export default function Register() {
     const mobileNumberRegex = /^\d{9}$/;
 
     const SendOTP=async(name:string,telno:string,email:string,password:string)=>{
-      router.replace('/(tabs)')
+      router.replace('/(tabs)/')
       // if(!nameVerify || !phoneNumberVerify || !emailVerify || !password){
       //   Alert.alert("PLEASE FILL ALL FIELDS CORRECTLY.");
       //   return;
@@ -198,25 +198,25 @@ const PageStyles=StyleSheet.create({
     },
     button:{
       backgroundColor: "#63D0D8",
-        padding: 15,
-        borderRadius:16,
-        alignItems: "center",
-        marginHorizontal:30
+      padding: 15,
+      borderRadius:16,
+      alignItems: "center",
+      marginHorizontal:30
     },
-  buttonText:{
-            color: "#fff",
-            fontSize: 18,
-            fontWeight: "bold",
-  },
-  icon:{
-            color:"#888",
-            marginLeft:6
-  },
-  logo:{
-            justifyContent:"center",
-            height:"7.5%",
-            width:"85%",
-            marginVertical:70,
-            marginHorizontal:15,
-  }
+    buttonText:{
+      color: "#fff",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    icon:{
+      color:"#888",
+      marginLeft:6
+    },
+    logo:{
+      justifyContent:"center",
+      height:"7.5%",
+      width:"85%",
+      marginVertical:70,
+      marginHorizontal:15,
+    }
 })

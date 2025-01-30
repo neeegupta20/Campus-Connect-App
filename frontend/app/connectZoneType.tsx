@@ -1,4 +1,4 @@
-interface ConnectZone{
+export default interface ConnectZone{
   id: number,
   name: string,
   description: string,
@@ -6,5 +6,3 @@ interface ConnectZone{
   latitude: number,
   imageUrl: string
 }
-
-export default ConnectZone
