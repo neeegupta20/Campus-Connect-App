@@ -33,9 +33,9 @@ export default function Events(){
                         ))}
                     </View>
                     <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
-                            <Text onPress={()=>{router.push(`/event/${item.id}`)}} style={styles.buttonText}>Reserve</Text>
-                        </View>
+                        <TouchableOpacity style={styles.button} onPress={()=>{router.push(`/event/${item.id}`)}} >
+                            <Text style={styles.buttonText}>Reserve</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             )}>

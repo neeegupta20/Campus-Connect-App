@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { View, StyleSheet, Linking, Dimensions, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -17,11 +17,21 @@ export default function MapScreen(){
 
 
   const handleGetDirections=()=>{
-    if(selectedZone){
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${selectedZone.latitude},${selectedZone.longitude}`;
+      const url = `http://maps.google.com/maps?daddr=<span class="math-inline">\{selectedZone\.latitude\},</span>{selectedZone.longitude}`;     
       Linking.openURL(url).catch((err) => console.error("Error opening URL: ", err));
-    }
   }
+
+  const handleMapPress = () => {
+    if (showBottomSlider) {
+      setShowBottomSlider(false);
+      setSelectedZone(null);
+    }
+  };
+
+  const handleSliderClose = () => {
+    setShowBottomSlider(false);
+    setSelectedZone(null);
+  };
 
   return(
     <GestureHandlerRootView style={styles.container}>
@@ -37,6 +47,7 @@ export default function MapScreen(){
           zoomEnabled={true}
           scrollEnabled={true}
           showsUserLocation={true}
+          onPress={handleMapPress}
           >
           {Zones.map((zone)=>(
             <Marker
@@ -63,7 +74,7 @@ export default function MapScreen(){
         <TouchableOpacity onPress={handleGetDirections} style={styles.directionsIcon}>
           <FontAwesome name="map-marker" size={24} color="white" />
         </TouchableOpacity>
-        <BottomSlider isOpen={showBottomSlider} zone={selectedZone} onClose={()=>setShowBottomSlider(false)}/>
+        <BottomSlider isOpen={showBottomSlider} zone={selectedZone} onClose={handleSliderClose}/>
       </View>
     </GestureHandlerRootView>
   )

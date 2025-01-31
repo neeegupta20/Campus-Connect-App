@@ -142,11 +142,16 @@ export default function Register() {
             </View>
           </View>
           <View style={[PageStyles.buttonContainer,{marginTop:!(nameVerify && emailVerify && phoneNumberVerify)?40:5}]}>
-            <View style={PageStyles.button}>
+            {/* <View style={PageStyles.button}>
               <Text style={PageStyles.buttonText} onPress={()=>SendOTP(name,telno,email,password)}>
                 Register
               </Text>
-            </View>
+            </View> */}
+            <TouchableOpacity style={PageStyles.button}  onPress={()=>SendOTP(name,telno,email,password)}>
+              <Text style={PageStyles.buttonText}>
+                Register
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
     </SafeAreaView>

@@ -68,16 +68,16 @@ export default function SingleEventScreen(){
                 ₹ {event?.price} /-
                 </Text>
                 <View style={styles.buttonContainer}>
-                    <View style={styles.button}>
-                        <Text onPress={()=>{
+                    <TouchableOpacity style={styles.button} onPress={()=>{
                             if(numericId){
                                 router.push(`/event/${numericId}/seat`)
                             }
                             else{
                                 console.log("INVALID ID.")
                             }
-                        }} style={styles.buttonText}>Book Tickets</Text>
-                    </View>
+                        }}>
+<                           Text style={styles.buttonText}>Book Tickets</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>

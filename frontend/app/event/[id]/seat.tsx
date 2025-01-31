@@ -84,9 +84,9 @@ export default function AddSeats(){
             <View style={styles.checkoutBar}>
                 <Text style={styles.totalPrice}>₹ {totalAmount}</Text>
                 <View style={styles.buttonContainer}>
-                    <View style={styles.button}>
+                    <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText}>Checkout</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>
