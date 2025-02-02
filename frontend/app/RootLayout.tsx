@@ -10,7 +10,7 @@ export default function RootLayout(){
 
     useEffect(()=>{
         loadAuthState();
-    },[loadAuthState])
+    },[]);
 
     if(isLoggedIn===undefined){
         return(
@@ -23,7 +23,7 @@ export default function RootLayout(){
             <Stack screenOptions={{headerShown:false}}>
                 {!isLoggedIn ? (
                     <Stack.Screen
-                        name='(auth)/index'
+                        name='(auth)'
                     />
                 ):(
                     <Stack.Screen
