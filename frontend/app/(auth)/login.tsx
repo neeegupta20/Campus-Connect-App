@@ -18,7 +18,7 @@ export default function LoginTab(){
 
     const LoginUser=async()=>{
         try{
-            const response=await axios.post('http://172.16.40.51:3000/login',{email,password});
+            const response=await axios.post('http://192.168.1.130:3000/login',{email,password});
             if(response.data.token){
                 await SecureStore.setItemAsync('authToken',response.data.token);
                 Alert.alert("LOGIN SUCCESSFUL.");
@@ -54,7 +54,7 @@ export default function LoginTab(){
                             onChangeText={(text)=>SetEmail(text)}>
                         </TextInput>
                     </View>
-                    <View style={[styles.inputContainer,{width:'108%'}]}>
+                    <View style={[styles.inputContainer]}>
                         <TextInput
                             placeholder="PASSWORD"
                             value={password}
@@ -65,7 +65,7 @@ export default function LoginTab(){
                         <TouchableOpacity 
                             onPress={togglePasswordVisibility}>
                             <Text style={styles.icon}>
-                                {isPasswordVisible ? <FontAwesome size={24} name="eye"></FontAwesome> : <FontAwesome size={24} name="eye-slash"></FontAwesome>}
+                                {isPasswordVisible ? <FontAwesome size={28} name="eye"></FontAwesome> : <FontAwesome size={28} name="eye-slash"></FontAwesome>}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -148,7 +148,9 @@ const styles=StyleSheet.create(
         },
         icon:{
             color: "#888",
-            marginLeft:6
+            position:'absolute',
+            right:15,
+            top:-14
         },
     }
 )

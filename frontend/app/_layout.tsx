@@ -7,15 +7,15 @@ export default function App(){
     
     const [isLoading,setIsLoading]=useState(true);
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            setIsLoading(false);
-        },4550);
-    },[]);
+    // useEffect(()=>{
+    //     setTimeout(()=>{
+    //         setIsLoading(false);
+    //     },4550);
+    // },[]);
 
-  if(isLoading){
-    return <SplashScreen />;
-  }
+    // if(isLoading){
+    //     return <SplashScreen />;
+    // }
     return(
         <AuthProvider>
             <RootLayout/>

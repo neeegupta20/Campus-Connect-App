@@ -31,7 +31,7 @@ const razorpay=new Razorpay({
 app.use(express.json());
 app.use(cors({
     credentials:true,
-    origin:['https://campusconnect.me','exp://192.168.1.88:8081','exp://172.16.40.51:8081']
+    origin:['https://campusconnect.me','exp://172.16.40.51:8081','exp://192.168.1.130:8081']
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
@@ -103,25 +103,28 @@ app.post("/verify-otp",async(req,res)=>{
   
 app.post("/register", async(req,res)=>{
 
-    const {name, email,password,telno}=req.body;
+    const {name, email,password,telno,avatar}=req.body;
     const hashedPassword=bcrypt.hashSync(password,bcryptSalt);
 
         if(!name){
-        return res.status(400).json("NAME IS REQUIRED.");
+            return res.status(400).json("NAME IS REQUIRED.");
         }
         else if(!email){
-        return res.status(400).json("EMAIL IS REQUIRED.");
+            return res.status(400).json("EMAIL IS REQUIRED.");
         }
         else if(!password){
-        return res.status(400).json("PASSWORD IS REQUIRED.");
+            return res.status(400).json("PASSWORD IS REQUIRED.");
         }
         else if(!telno){
-        return res.status(400).json("PHONE NUMBER IS REQUIRED.");
+            return res.status(400).json("PHONE NUMBER IS REQUIRED.");
+        } 
+        else if(!avatar){
+            return res.status(400).json("AVATAR KEY IS REQUIRED.");
         } 
     
         const exists=await user.find({email});
         if(exists.length===0){
-            const userData=await user.create({name, email,password:hashedPassword,telno})
+            const userData=await user.create({name,email,password:hashedPassword,telno,avatar})
             res.status(200).json(userData);
         }
         else{
@@ -162,8 +165,8 @@ app.get('/profile',async(req,res)=>{
             if(!userData){
                 return res.status(404).json({ error:"USER NOT FOUND"});
             }
-            const {name,email,_id,likedEvents,likedRestaurants }=userData;
-            res.json({name,email,_id,likedEvents,likedRestaurants,token});
+            const {name,email,_id,avatar}=userData;
+            res.json({name,email,_id,avatar,token});
         });
     }catch(error){
         res.status(500).json({error:"SERVER ERROR"});
