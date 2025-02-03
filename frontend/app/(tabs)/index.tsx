@@ -5,6 +5,7 @@ import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@exp
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import {Literata_400Regular,Literata_500Medium,Literata_700Bold} from '@expo-google-fonts/literata';
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Home(){
 
@@ -20,8 +21,9 @@ export default function Home(){
 
     if(!user){
         return(
-            <SafeAreaView>
-                <Text>Loading...</Text>
+            <SafeAreaView style={styles.errorContainer}>
+                <Ionicons name="bug-outline" size={30} color="red"></Ionicons>
+                <Text style={{fontSize:20, marginTop:10}}>NETWORK ERROR</Text>
             </SafeAreaView>
         )
     }
@@ -75,6 +77,10 @@ const styles=StyleSheet.create(
         container:{
             flex:1,
             backgroundColor:"black",
+        },
+        errorContainer:{
+            alignItems:'center',
+            marginTop:350
         },
         textcontainer:{
             marginTop:45,

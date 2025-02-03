@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { SafeAreaView, StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
@@ -8,8 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 
 export default function Account() {
     
-    const { setIsLoggedIn }=useContext(AuthContext);
-    const { user }=useContext(UserContext);
+    const { user,setUser }=useContext(UserContext);
     const router=useRouter();
 
     const avatarMap:Record<string,any>={
@@ -25,12 +23,21 @@ export default function Account() {
     const handleLogout=async()=>{
         try{
             await SecureStore.deleteItemAsync("authToken");
-            setIsLoggedIn(false);
+            setUser(null);
             router.replace('/(auth)');
         }catch(error){
             console.error("Error logging out:", error);
         }
     };
+
+     if(!user){
+            return(
+                <SafeAreaView style={styles.errorContainer}>
+                    <Ionicons name="bug-outline" size={30} color="red"></Ionicons>
+                    <Text style={{fontSize:20, marginTop:10}}>NETWORK ERROR</Text>
+                </SafeAreaView>
+            )
+        }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -101,5 +108,9 @@ const styles=StyleSheet.create({
         color:"white",
         fontSize:18,
         fontWeight:"bold",
+    },
+    errorContainer:{
+        alignItems:'center',
+        marginTop:350
     },
 });

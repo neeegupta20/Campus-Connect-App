@@ -1,24 +1,59 @@
-import { useState, useEffect } from "react";
-import AuthProvider from "./context/AuthContext";
-import RootLayout from "./RootLayout";
-import SplashScreen from "@/components/SplashScreen";
+import { useContext, useEffect, useState } from "react";
+import { Slot, useRouter } from "expo-router";
+import { SafeAreaView, Text } from "react-native";
+import UserProvider, { UserContext } from "./context/UserContext";
+import { StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function App(){
-    
-    const [isLoading,setIsLoading]=useState(true);
+function RootLayoutInner(){
+    const { user,fetchUserProfile }=useContext(UserContext);
+    const router=useRouter();
+    const [hasCheckedAuth,setHasCheckedAuth]=useState(false);
 
-    // useEffect(()=>{
-    //     setTimeout(()=>{
-    //         setIsLoading(false);
-    //     },4550);
-    // },[]);
+    useEffect(()=>{
+        const initializeAuth=async()=>{
+            await fetchUserProfile();
+            setHasCheckedAuth(true);
+        };
+        initializeAuth();
+    }, []);
 
-    // if(isLoading){
-    //     return <SplashScreen />;
-    // }
-    return(
-        <AuthProvider>
-            <RootLayout/>
-        </AuthProvider>
-    )
+    useEffect(()=>{
+        if(hasCheckedAuth){
+            if(user){
+                router.replace("/(tabs)");
+            } 
+            else{
+                router.replace("/(auth)");
+            }
+        }
+    },[user,hasCheckedAuth]);
+
+    if(!hasCheckedAuth){
+        return(
+            <SafeAreaView style={styles.errorContainer}>
+                <Ionicons name="bug-outline" size={30} color="red"></Ionicons>
+                <Text style={{fontSize:20,marginTop:10}}>NETWORK ERROR</Text>
+            </SafeAreaView>
+        )
+    }
+
+    return <Slot/>;
 }
+
+export default function RootLayout() {
+    return(
+        <UserProvider>
+            <RootLayoutInner />
+        </UserProvider>
+    );
+}
+
+const styles=StyleSheet.create(
+    {
+        errorContainer:{
+            alignItems:'center',
+            marginTop:350
+        },
+    }
+);

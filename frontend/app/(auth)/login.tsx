@@ -4,7 +4,6 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 import { useRouter } from "expo-router";
-import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 
 export default function LoginTab(){
@@ -13,7 +12,6 @@ export default function LoginTab(){
     const [password,SetPassword]=useState('');
     const [isPasswordVisible,setIsPasswordVisible]=useState(false);
     const router=useRouter();
-    const {setIsLoggedIn}=useContext(AuthContext);
     const {fetchUserProfile}=useContext(UserContext);
 
     const LoginUser=async()=>{
@@ -23,7 +21,6 @@ export default function LoginTab(){
                 await SecureStore.setItemAsync('authToken',response.data.token);
                 Alert.alert("LOGIN SUCCESSFUL.");
                 fetchUserProfile();
-                setIsLoggedIn(true);
                 router.replace('/(tabs)');
             }
         }catch(error){
