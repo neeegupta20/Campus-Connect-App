@@ -4,6 +4,7 @@ export default function AuthLayout(){
     return(
         <Stack screenOptions={{headerShown:false}}>
             <Stack.Screen name="index"/>
+            <Stack.Screen name="chooseAvatar"/>
             <Stack.Screen name="enterName"/>
             <Stack.Screen name="enterPhoneNo"/>
             <Stack.Screen name="enterEmail"/>

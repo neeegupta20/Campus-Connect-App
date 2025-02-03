@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, ScrollView } from "react-native";
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, ScrollView, Alert } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
@@ -9,7 +9,7 @@ import { events } from "../../eventsList";
 import { useGlobalSearchParams } from "expo-router/build/hooks";
 import { useState } from "react";
 import axios from "axios";
-//import RazorpayCheckout from "react-native-razorpay";
+import RazorpayCheckout from "react-native-razorpay";
 
 export default function AddSeats(){
 
@@ -30,26 +30,27 @@ export default function AddSeats(){
     const [numberOfPeople,setNumberOfPeople]=useState(1);
     const totalAmount=ticketPrice*numberOfPeople;
 
-    // const reserveEvent=async()=>{
-    //     try {
-    //         const orderResponse=await axios.post('http://172.16.40.51:3000/create-order',{amount:totalAmount})
-    //         const options={
-    //             key:"rzp_live_oIOf24vws5pHYy",
-    //             amount:orderResponse.data.amount,
-    //             currency:orderResponse.data.currency,
-    //             name:"CAMPUS CONNECT",
-    //             description:"Event Reservation Payment",
-    //             order_id:orderResponse.data.id,
-    //             theme: {
-    //             color: "#3399cc",
-    //             },
-    //         };
+    const reserveEvent=async()=>{
+        try {
+            const orderResponse=await axios.post('http://192.168.1.130:3000/create-order',{amount:totalAmount})
+            const options={
+                key:"rzp_live_oIOf24vws5pHYy",
+                amount:orderResponse.data.amount,
+                currency:orderResponse.data.currency,
+                name:"CAMPUS CONNECT",
+                description:"Event Reservation Payment",
+                order_id:orderResponse.data.id,
+                theme: {
+                color: "#3399cc",
+                },
+            };
 
-    //         const paymentResponse = await RazorpayCheckout.open(options);
-    //     }catch(error){
-            
-    //     }
-    // }
+            const paymentResponse=await RazorpayCheckout.open(options);
+            Alert.alert("Success", `Payment ID: ${paymentResponse.razorpay_payment_id}`);
+        }catch(error){
+            Alert.alert("ERROR OCCURED");
+        }
+    }
 
     return(
         <SafeAreaView style={styles.container}>

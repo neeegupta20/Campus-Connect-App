@@ -5,6 +5,7 @@ import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 import { useRouter } from "expo-router";
 import { UserContext } from "../context/UserContext";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function LoginTab(){
 
@@ -39,6 +40,9 @@ export default function LoginTab(){
 
     return(
         <SafeAreaView style={styles.container}>
+            <TouchableOpacity onPress={()=>router.push('/(auth)')} style={styles.backIcon}>
+                    <Ionicons name="arrow-back-outline" color="white" size={32}/>
+            </TouchableOpacity>
             <ScrollView contentContainerStyle={{flexGrow:1}}>
                 <Image style={styles.logo} source={require('../../assets/images/logo.jpg')}></Image>
                 <Text style={styles.title}>LOGIN</Text> 
@@ -48,7 +52,8 @@ export default function LoginTab(){
                             placeholder="EMAIL ID" 
                             value={email} 
                             style={styles.input}
-                            onChangeText={(text)=>SetEmail(text)}>
+                            onChangeText={(text)=>SetEmail(text)}
+                            placeholderTextColor="gray">
                         </TextInput>
                     </View>
                     <View style={[styles.inputContainer]}>
@@ -57,7 +62,8 @@ export default function LoginTab(){
                             value={password}
                             secureTextEntry={!isPasswordVisible}
                             style={styles.input}
-                            onChangeText={(text) => SetPassword(text)}
+                            onChangeText={(text)=>SetPassword(text)}
+                            placeholderTextColor="gray"
                         />
                         <TouchableOpacity 
                             onPress={togglePasswordVisibility}>
@@ -67,13 +73,11 @@ export default function LoginTab(){
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText} onPress={LoginUser}>
-                            LOGIN
-                        </Text>
-                    </View>
-                </View>
+                <TouchableOpacity style={styles.button} onPress={LoginUser}>
+                    <Text style={styles.buttonText}>
+                        Login
+                    </Text>
+                </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
     )
@@ -83,10 +87,14 @@ const styles=StyleSheet.create(
     {
         container:{
             flex:1,
-            justifyContent:"center",
             alignItems:"center",
             padding:20,
             backgroundColor:"black",
+        },
+        backIcon:{
+            position:"absolute",
+            left:20,
+            top:70
         },
         logo:{
             marginTop:100,
@@ -105,11 +113,11 @@ const styles=StyleSheet.create(
         },
         input:{
             flex:1,
-            height:45,
+            height:50,
             borderWidth:1,
             borderRadius:12,
             paddingHorizontal:12,
-            fontSize:16,
+            fontSize:20,
             borderColor:"#63D0D8",
             color:"white",
         },
@@ -124,7 +132,7 @@ const styles=StyleSheet.create(
             position:"relative",
         },
         buttonContainer:{
-            width: "100%",
+            width:"100%",
             marginHorizontal:2
         },
         button:{

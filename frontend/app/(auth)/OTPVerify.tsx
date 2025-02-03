@@ -1,4 +1,4 @@
-import { SafeAreaView,ScrollView,Image, Text, TextInput, StyleSheet, View, Alert } from "react-native";
+import { SafeAreaView,ScrollView,Image, Text, TextInput, StyleSheet, View, Alert, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import axios from "axios";
@@ -31,7 +31,6 @@ export default function otpVerify(){
         const refs:any=[];
         
         const VerifyOTP=async()=>{
-            //router.replace('/(auth)/login');
             const otpString=otp.join('');
             if(otpString.length!=4){
                 Alert.alert('PLEASE ENTER VALID OTP.')
@@ -91,13 +90,11 @@ export default function otpVerify(){
                         />
                     ))}
                 </View>
-                <View style={[styles.buttonContainer,{marginTop:50}]}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText} onPress={VerifyOTP}>
-                            VERIFY
-                        </Text>
-                    </View>
-                </View>
+                <TouchableOpacity style={styles.button} onPress={VerifyOTP}>
+                    <Text style={styles.buttonText}>
+                        Verify
+                    </Text>
+                </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
     )
@@ -151,7 +148,8 @@ const styles=StyleSheet.create(
             padding: 15,
             borderRadius:16,
             alignItems: "center",
-            marginHorizontal:30
+            marginHorizontal:30,
+            marginTop:30
         },
         buttonText:{
             color: "#fff",

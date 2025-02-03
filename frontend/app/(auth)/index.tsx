@@ -1,78 +1,93 @@
-import { useRouter } from "expo-router";
-import { useState } from "react";
-import { SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
-import { StyleSheet } from "react-native";
-import { Image } from "react-native";
-import { Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { useRouter } from 'expo-router';
+import React from 'react';
 
-export default function AvatarSelectionTab(){
-
-    const avatar1=require('../../assets/AVATARS/avatar1.png');
-    const avatar2=require('../../assets/AVATARS/avatar2.png');
-    const avatar3=require('../../assets/AVATARS/avatar3.png');
-    const avatar4=require('../../assets/AVATARS/avatar4.png');
-
-    const [selectedAvatar,setSelectedAvatar]=useState<string|null>(null);
-    const router=useRouter();
-
-    const handleAvatarSelect=(avatarPath:string)=>{
-        setSelectedAvatar(avatarPath);
-        router.push({pathname:'/(auth)/enterName',params:{selectedAvatar:avatarPath}});
-    }
+export default function HomePage(){
     
+    const router=useRouter();
+    const navigateToLogin=()=>{
+        router.push('/(auth)/login');
+    };
+
+    const navigateToSignUp = () => {
+        router.push('/(auth)/chooseAvatar');
+    };
+
     return(
         <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <Text style={styles.headText}>Choose Avatar</Text>
-                <View style={styles.avatarGrid}>
-                    <TouchableOpacity onPress={()=>router.push('/(tabs)')}>
-                        <Image source={avatar1} style={styles.avatarImage} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>handleAvatarSelect('avatar2')}>
-                        <Image source={avatar2} style={styles.avatarImage} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>handleAvatarSelect('avatar3')}>
-                        <Image source={avatar3} style={styles.avatarImage} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>handleAvatarSelect('avatar4')}>
-                        <Image source={avatar4} style={styles.avatarImage} />
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
+            <View style={styles.header}>
+                <Image style={styles.logo} source={require('../../assets/images/logo.jpg')} />
+                <Text style={styles.subtitle}>YOUR GO-TO CONNECTING PLATFORM</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={navigateToLogin}>
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
+                <Text style={{color:"white",marginBottom:15,fontWeight:'bold'}}>OR</Text>
+                <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={navigateToSignUp}>
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.footer}>
+                <Text style={styles.footerText}>© 2025 Campus Connect</Text>
+            </View>
         </SafeAreaView>
-    )
-}
+    );
+};
+
 
 const styles=StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:"black",
-  },
-  headText:{
-    color:"white",
-    marginVertical:50,
-    fontFamily:"OpenSans_700Bold",
-    fontSize:30,
-  },
-  scrollContainer:{
-    alignItems:"center",
-  },
-  avatarGrid:{
-    flexDirection:'row',
-    flexWrap:'wrap',
-    justifyContent:'space-evenly',
-    width:"100%",
-  },
-  avatarImage:{
-    width:150,
-    height:150,
-    borderRadius:700,
-    margin:10,
-    borderWidth:2,
-    borderColor:"#ccc",
-  },
-  selected:{
-    borderColor:"blue",
-    borderWidth: 3,
-  },
+    container:{
+        flex:1,
+        backgroundColor:'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding:20,
+    },
+    header:{
+        alignItems:'center',
+        marginBottom: 60,
+    },
+    logo: {
+        width:300,
+        height:80,
+        marginBottom:20,
+    },
+    subtitle: {
+        color:'white',
+        fontSize: 16,
+        marginTop:40,
+        textAlign:'center',
+        paddingHorizontal:40,
+    },
+    buttonContainer:{
+        width:'100%',
+        alignItems:'center',
+    },
+    button:{
+        width:'80%',
+        paddingVertical:15,
+        backgroundColor:'#63D0D8',
+        borderRadius:12,
+        marginBottom:20,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    signUpButton: {
+        backgroundColor:'#63D0D8',
+    },
+    buttonText:{
+        color:'#fff',
+        fontSize:18,
+        fontWeight:'bold',
+    },
+    footer:{
+        marginTop:40,
+        alignItems:'center',
+    },
+    footerText:{
+        color:'#888',
+        fontSize:14,
+    },
 });
