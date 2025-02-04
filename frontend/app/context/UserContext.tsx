@@ -33,7 +33,7 @@ export default function UserProvider({children} : {children:ReactNode}){
             return;
         }
         try{
-            const response=await axios.get('http://192.168.1.130:3000/profile',{
+            const response=await axios.get('http://172.16.36.174:3000/profile',{
                 headers: { Authorization: `Bearer ${token}` },
             });
             if(response.status===200){

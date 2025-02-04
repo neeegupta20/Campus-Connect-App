@@ -17,7 +17,7 @@ export default function LoginTab(){
 
     const LoginUser=async()=>{
         try{
-            const response=await axios.post('http://192.168.1.130:3000/login',{email,password});
+            const response=await axios.post('http://172.16.36.174:3000/login',{email,password});
             if(response.data.token){
                 await SecureStore.setItemAsync('authToken',response.data.token);
                 Alert.alert("LOGIN SUCCESSFUL.");

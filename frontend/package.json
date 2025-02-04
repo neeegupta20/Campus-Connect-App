@@ -67,5 +67,17 @@
     "react-test-renderer": "18.3.1",
     "typescript": "^5.3.3"
   },
-  "private": true
+  "private": true,
+  "plugins": [
+    [
+      "react-native-maps",
+      {
+        "ios":{
+          "config": {
+            "GoogleMapsApiKey": "AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
+          }
+        }
+      }
+    ]
+  ]
 }
