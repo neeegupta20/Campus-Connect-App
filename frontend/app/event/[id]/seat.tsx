@@ -7,9 +7,11 @@ import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-s
 import { useRouter } from "expo-router";
 import { events } from "../../eventsList";
 import { useGlobalSearchParams } from "expo-router/build/hooks";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-// import RazorpayCheckout from "react-native-razorpay";
+import * as SecureStore from 'expo-secure-store'
+import { UserContext } from "@/app/context/UserContext";
+//import RazorpayCheckout from "react-native-razorpay";
 
 export default function AddSeats(){
 
@@ -26,32 +28,57 @@ export default function AddSeats(){
     const numericId=validEventId?parseInt(validEventId,10):undefined;
     const event=events.find((e)=>e.id===numericId);
     const ticketPrice=event?.price ?? 0;
+    const [error,setError]=useState(false);
+    const {user,fetchUserProfile}=useContext(UserContext);
+
 
     const [numberOfPeople,setNumberOfPeople]=useState(1);
     const totalAmount=ticketPrice*numberOfPeople;
 
     const reserveEvent=async()=>{
-        try {
-            const orderResponse=await axios.post('http://192.168.1.130:3000/create-order',{amount:totalAmount})
-            const options={
-                key:"rzp_live_oIOf24vws5pHYy",
-                amount:orderResponse.data.amount,
-                currency:orderResponse.data.currency,
-                name:"CAMPUS CONNECT",
-                description:"Event Reservation Payment",
-                order_id:orderResponse.data.id,
-                theme: {
-                color: "#3399cc",
-                },
-            };
+        // try {
+        //     const orderResponse=await axios.post('http://172.16.36.174:3000/create-order',{amount:totalAmount})
+        //     const options={
+        //         key:"rzp_live_oIOf24vws5pHYy",
+        //         amount:orderResponse.data.amount,
+        //         currency:orderResponse.data.currency,
+        //         name:"CAMPUS CONNECT",
+        //         description:"Event Reservation Payment",
+        //         order_id:orderResponse.data.id,
+        //         theme: {
+        //         color: "#3399cc",
+        //         },
+        //     };
 
         //     const paymentResponse=await RazorpayCheckout.open(options);
         //     Alert.alert("Success", `Payment ID: ${paymentResponse.razorpay_payment_id}`);
+        // }catch(error){
+        //     Alert.alert("ERROR OCCURED");
+        // }
+        try{
+            const token=await SecureStore.getItemAsync('authToken');
+            if(!token){
+                setError(true);
+                return;
+            }
+            try{
+                const response=await axios.post('http://172.16.38.223:3000/reserve-event',
+                    {name:user?.name,numberOfPeople,telno:user?.telno,eventId:event?.id,eventName:event?.title,eventDate:event?.formatDate,eventTime:event?.time
+                    },{
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                if(response.status===200){
+                    console.log("success")
+                    router.replace('/(tabs)/account')
+                }
+            }catch(error){
+                
+            }
         }catch(error){
-            Alert.alert("ERROR OCCURED");
+            console.error(error);
+            setError(true);
         }
     }
-
 
     return(
         <SafeAreaView style={styles.container}>
