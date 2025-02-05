@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Entypo from '@expo/vector-icons/Entypo';
 import ConnectZone from './connectZoneType';
 
 const {height:SCREEN_HEIGHT}=Dimensions.get('window')
-const TAB_BAR_HEIGHT=100;
+const TAB_BAR_HEIGHT=950;
   
 const BottomSlider:React.FC<{isOpen:boolean,zone:ConnectZone|null,onClose:()=>void}>=({isOpen,zone,onClose})=>{
   const translateY=useSharedValue(SCREEN_HEIGHT);
@@ -21,18 +21,16 @@ const BottomSlider:React.FC<{isOpen:boolean,zone:ConnectZone|null,onClose:()=>vo
   .onUpdate((event)=>{
     translateY.value=event.translationY+context.value.y;
     translateY.value=Math.max(translateY.value,-SCREEN_HEIGHT+550);
-    translateY.value=Math.min(translateY.value, SCREEN_HEIGHT-TAB_BAR_HEIGHT);
-  
+    translateY.value=Math.min(translateY.value, SCREEN_HEIGHT-TAB_BAR_HEIGHT);  
   })
 
   // .onEnd(() => {
-  //   if(translateY.value>closeThreshold){
-  //     onClose()
-  //   } else{
-  //     translateY.value = withSpring(isOpen ? -SCREEN_HEIGHT / 3 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, { damping: 50 });
+  //   if (translateY.value > SCREEN_HEIGHT - TAB_BAR_HEIGHT ) {
+  //     translateY.value = SCREEN_HEIGHT;
+  //     runOnJS(onClose)();
   //   }
   // });
-
+  
   useEffect(()=>{
     translateY.value=withSpring(isOpen?-SCREEN_HEIGHT/3 : SCREEN_HEIGHT-TAB_BAR_HEIGHT, {damping:50});
   },[isOpen]);

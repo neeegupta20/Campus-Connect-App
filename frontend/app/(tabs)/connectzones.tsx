@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, StyleSheet, Linking, Dimensions, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -8,6 +8,7 @@ import BottomSlider from "../connectZonesTab";
 import ConnectZone from "../connectZoneType";
 import Zones from "../connectZonesList";
 import { useRouter } from "expo-router";
+import { Console } from "console";
 
 export default function MapScreen(){
 
@@ -29,13 +30,23 @@ export default function MapScreen(){
   };
 
   const handleSliderClose = () => {
-    setShowBottomSlider(false);
+    // setShowBottomSlider(false);
+    console.log("errorrr")
     setSelectedZone(null);
   };
+
+
+  useEffect(() => {
+    if (!showBottomSlider) {
+      setSelectedZone(null);
+    }
+  }, [showBottomSlider]);
+
 
   return(
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.mapContainer}>
+        
         <MapView
           style={styles.mapContainer}
           initialRegion={{
