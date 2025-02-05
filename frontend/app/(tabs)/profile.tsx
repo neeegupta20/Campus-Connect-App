@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import { ScrollView } from "react-native";
+import { Literata_500Medium_Italic } from "@expo-google-fonts/literata";
 
 
 export default function AccountsTab() {
@@ -43,12 +44,6 @@ export default function AccountsTab() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.heading}>
-                    <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
-                        <Ionicons name="arrow-back-outline" color="white" size={32} />
-                    </TouchableOpacity>
-                    <Text style={styles.headingText}>Account</Text>
-            </View>
             <ScrollView>
                 <View style={styles.profileContainer}>
                     {avatarImage && <Image source={avatarImage} style={styles.avatar}/>}
@@ -112,25 +107,9 @@ const styles=StyleSheet.create({
         alignItems:"center",
         paddingTop:20,
     },
-    heading:{
-        flexDirection:"row",
-        alignItems: "center",
-        width:"100%",
-        paddingHorizontal:15,
-        marginBottom:20,
-    },
-    headingText:{
-        color:"white",
-        fontSize:24,
-        fontWeight:"bold",
-        marginLeft:10,
-    },
-    backIcon:{
-        padding:10,
-    },
     profileContainer:{
         alignItems:"center",
-        marginTop:20,
+        marginTop:80,
     },
     avatar:{
         width:120,
