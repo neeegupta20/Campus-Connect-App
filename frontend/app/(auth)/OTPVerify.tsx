@@ -37,11 +37,11 @@ export default function otpVerify(){
                 return;
             }
             try{
-                const response1=await axios.post('http://192.168.1.130:3000/verify-otp',{email,OTP:otpString});
+                const response1=await axios.post('http://172.16.36.174:3000/verify-otp',{email,OTP:otpString});
                 if(response1.status===200){
                     try{
                         const dataUser={name,email,password,telno,avatar};
-                        const response2=await axios.post('http://192.168.1.130:3000/register',dataUser);
+                        const response2=await axios.post('http://172.16.36.174:3000/register',dataUser);
                         if(response2.status===200){
                             Alert.alert("USER REGISTERED. PLEASE LOGIN");
                             router.replace('/(auth)/login');

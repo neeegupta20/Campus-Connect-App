@@ -31,26 +31,27 @@ export default function AddSeats(){
     const totalAmount=ticketPrice*numberOfPeople;
 
     const reserveEvent=async()=>{
-        // try {
-        //     const orderResponse=await axios.post('http://192.168.1.130:3000/create-order',{amount:totalAmount})
-        //     const options={
-        //         key:"rzp_live_oIOf24vws5pHYy",
-        //         amount:orderResponse.data.amount,
-        //         currency:orderResponse.data.currency,
-        //         name:"CAMPUS CONNECT",
-        //         description:"Event Reservation Payment",
-        //         order_id:orderResponse.data.id,
-        //         theme: {
-        //         color: "#3399cc",
-        //         },
-        //     };
+        try {
+            const orderResponse=await axios.post('http://192.168.1.130:3000/create-order',{amount:totalAmount})
+            const options={
+                key:"rzp_live_oIOf24vws5pHYy",
+                amount:orderResponse.data.amount,
+                currency:orderResponse.data.currency,
+                name:"CAMPUS CONNECT",
+                description:"Event Reservation Payment",
+                order_id:orderResponse.data.id,
+                theme: {
+                color: "#3399cc",
+                },
+            };
 
         //     const paymentResponse=await RazorpayCheckout.open(options);
         //     Alert.alert("Success", `Payment ID: ${paymentResponse.razorpay_payment_id}`);
-        // }catch(error){
-        //     Alert.alert("ERROR OCCURED");
-        // }
+        }catch(error){
+            Alert.alert("ERROR OCCURED");
+        }
     }
+
 
     return(
         <SafeAreaView style={styles.container}>
@@ -85,7 +86,7 @@ export default function AddSeats(){
             <View style={styles.checkoutBar}>
                 <Text style={styles.totalPrice}>₹ {totalAmount}</Text>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={reserveEvent}>
                         <Text style={styles.buttonText}>Checkout</Text>
                     </TouchableOpacity>
                 </View>
