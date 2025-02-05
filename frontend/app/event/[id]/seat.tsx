@@ -68,15 +68,13 @@ export default function AddSeats(){
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 if(response.status===200){
-                    console.log("success")
                     router.replace('/(tabs)/account')
                 }
             }catch(error){
-                
+                console.error(error);
             }
         }catch(error){
             console.error(error);
-            setError(true);
         }
     }
 
