@@ -11,8 +11,8 @@ const reservation=require("./models/reservation");
 const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890"
-// const Expo = require('expo-server-sdk')
-// const expo = Expo()
+const Expo = require('expo-server-sdk')
+const expo = new Expo();
 
 
 const transporter=nodemailer.createTransport({
@@ -33,7 +33,7 @@ const razorpay=new Razorpay({
 app.use(express.json());
 app.use(cors({
     credentials:true,
-    origin:['https://campusconnect.me','exp://172.16.37.126:8081','exp://192.168.1.130:8081']
+    origin:['https://campusconnect.me','exp://172.16.37.126:8081','exp://192.168.1.130:8081', 'exp://172.16.35.9:8081']
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
@@ -355,36 +355,51 @@ app.post('/create-order',async(req,res)=>{
     }
 })
 
-// app.post("/send-notification", async (req, res) => {
-//     try {
-//       const { tokens, title, body, data } = req.body;
+app.post('save-token', async(req,res) => {
+    const { userId, expoPushToken } = req.body;
+
+    if(!Expo.isExpoPushToken(expoPushToken)){
+        return res.status(400).json({ error: "Invalid Expo Push Token" });
+    }
+
+    await tokenSchema.findOneAndUpdate(
+        { userId },
+        { expoPushToken },
+        { upsert: true, new: true }
+    );
+
+    res.json({ success: true, message: "Token saved successfully" });
+})
+
+app.post('send-notification', async(req,res) => {
+    const { title, body } = req.body;
+
+    const tokens = await tokenSchema.find();
+    const messages = tokens.map(({expoPushToken}) => ({
+        to: expoPushToken,
+        sound: "default",
+        title: "hello sir",
+        body: "maa chud gyi yaarrrr",
+    }));
+
+    let chunks = expo.chunkPushNotifications(messages);
+    for (let chunk of chunks) {
+      try {
+        await expo.sendPushNotificationsAsync(chunk);
+      } catch (error) {
+        console.error("Error sending notification:", error);
+      }
+    }
   
-//       if (!tokens || !tokens.length) {
-//         return res.status(400).json({ error: "No tokens provided" });
-//       }
+    const newNotification = new Notification({ title, body });
+    await newNotification.save();
   
-//       const messages = tokens.map((token) => ({
-//         to: token,
-//         sound: "default",
-//         title: title || "Campus Connect",
-//         body: body || "🚀 New Event Alert! Check it out now!",
-//         data: data || { someData: "Extra data if needed" },
-//       }));
-  
-//       const response = await axios.post("https://exp.host/--/api/v2/push/send", messages, {
-//         headers: {
-//           Accept: "application/json",
-//           "Accept-Encoding": "gzip, deflate",
-//           "Content-Type": "application/json",
-//         },
-//       });
-  
-//       res.json({ message: "Notification sent successfully", data: response.data });
-//     } catch (error) {
-//       console.error("Error sending notification:", error);
-//       res.status(500).json({ error: "Failed to send notification" });
-//     }
-//   });
-  
+    res.json({ success: true, message: "Notification sent!" });
+})
+
+app.get("/notifications", async (req, res) => {
+    const notifications = await Notification.find().sort({ timestamp: -1 });
+    res.json(notifications);
+  });
 
 app.listen(3000);
