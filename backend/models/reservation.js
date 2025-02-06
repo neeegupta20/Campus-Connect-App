@@ -2,21 +2,21 @@ const mongoose = require("mongoose")
 mongoose.connect("mongodb+srv://admin:campusconnect12%40@campusconnect.pahyh.mongodb.net/CampusConnectApp");
 
 const reservationSchema = mongoose.Schema({
-    name: {
-        type: String,
+    name:{
+        type:String,
     },
     telno: {
-        type: Number,
-        required: false
+        type:Number,
+        required:false
     },
     numberOfPeople: {
-        type: Number,
+        type:Number,
     },
-    eventId: {
+    eventId:{
         type: String,
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,ref:'user'
+        type:mongoose.Schema.Types.ObjectId,ref:'user'
     },
     restaurantId:{
         type: String,
@@ -30,8 +30,9 @@ const reservationSchema = mongoose.Schema({
     Time:{
         type:String
     },
-    timeSlot:{
-        type:String
+    isScanned:{
+        type:Boolean,
+        default:false
     }
 })
 

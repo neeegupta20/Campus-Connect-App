@@ -68,7 +68,7 @@ export default function AddSeats(){
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 if(response.status===200){
-                    router.replace('/(tabs)/profile')
+                    router.replace('/(account)/tickets')
                 }
             }catch(error){
                 console.error(error);
@@ -96,7 +96,7 @@ export default function AddSeats(){
                                 if(numberOfPeople>1){
                                     setNumberOfPeople(numberOfPeople-1)
                                 }
-                            }}>_
+                            }}>
                         </Text>
                         <Text style={{position:"absolute",right:36,top:4.5,fontSize:18,fontWeight:600}}>{numberOfPeople}</Text>
                         <Text style={{position:"absolute",right:10,fontSize:20,top:1.8,fontWeight:400,color:numberOfPeople<4?"black":"gray"}}

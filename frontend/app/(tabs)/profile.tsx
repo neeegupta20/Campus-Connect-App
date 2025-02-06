@@ -56,7 +56,7 @@ export default function AccountsTab() {
                         router.push('/(account)/tickets')
                     }}>
                     <Ionicons name="ticket-outline" color="white" size={36} style={styles.tabIcons}/>
-                    <Text style={styles.tabText}>Tickets</Text>
+                    <Text style={styles.tabText}>M-Tickets</Text>
                     <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
                 </TouchableOpacity>
                 <View style={styles.line}></View>
