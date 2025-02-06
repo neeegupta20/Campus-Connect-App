@@ -301,51 +301,6 @@ app.get("/scan-ticket",async(req,res)=>{
     );
 });
 
-app.delete('/cancel', async(req,res)=>{
-    const {token}=req.cookies;
-    const {eventId}=req.body;
-    if(!token){
-        return res.json(null);
-    }
-    if(token){
-        jwt.verify(token,"1234567890",async(err,tokenData)=>{
-            if(err){
-                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
-            }
-            function sendConfirmationEmail(deletedReservation) {
-                const mailOptions={
-                    from: 'support@campusconnect.me',
-                    to: `${tokenData.email}`,
-                    subject: 'RESERVATION CANCELLATION',
-                    html: `
-                        <div style="font-family: Arial, sans-serif; color: #333;">
-                            <h2 style="color: #FF6347;">Reservation Cancellation Notice</h2>
-                            <p>Dear ${deletedReservation.name},</p>
-                            <p>We regret to inform you that your reservation at <strong>${deletedReservation.venueName}</strong> has been cancelled.</p>
-                            <p><strong>Details of the Cancelled Reservation:</strong></p>
-                            <ul style="list-style: none; padding: 0;">
-                                <li><strong>Name:</strong> ${deletedReservation.name}</li>
-                                <li><strong>Number of People:</strong> ${deletedReservation.numberOfPeople}</li>
-                            </ul>
-                            <p>Thank you for choosing us. We hope to serve you again in the future.</p>
-                            <p>Best regards,</p>
-                            <p><strong>Campus Connect Team</strong></p>
-                        </div>
-                    `,
-                }
-                transporter.sendMail(mailOptions,(error)=>{
-                    if(error){
-                        throw error;
-                    }
-                });
-            };        
-            const deletedReservation=await reservation.findByIdAndDelete(eventId);  
-            sendConfirmationEmail(deletedReservation);
-            res.json(deletedReservation);
-        });
-    }
-})
-
 app.put('/forgetpass',async(req,res)=>{
     const {email,newpassword}=req.body;
     const hashedPassword=bcrypt.hashSync(newpassword,bcryptSalt);
