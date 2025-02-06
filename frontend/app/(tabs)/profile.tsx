@@ -5,8 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import { ScrollView } from "react-native";
-import { Literata_500Medium_Italic } from "@expo-google-fonts/literata";
-
 
 export default function AccountsTab() {
     
