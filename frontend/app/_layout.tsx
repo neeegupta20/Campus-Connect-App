@@ -7,21 +7,22 @@ import { Ionicons } from "@expo/vector-icons";
 import SplashScreen from "@/components/SplashScreen";
 
 function RootLayoutInner(){
+    
     const { user, fetchUserProfile }=useContext(UserContext);
     const router=useRouter();
     const [hasCheckedAuth, setHasCheckedAuth]=useState(false);
     const [isLoading,setIsLoading]=useState(true);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
+    useEffect(()=>{
+        const timeout=setTimeout(()=>{
             setIsLoading(false);
         },4250);
-        return () => clearTimeout(timeout);
+        return ()=>clearTimeout(timeout);
     }, []);
 
-    useEffect(() => {
-        if (!isLoading) {
-            const initializeAuth = async () => {
+    useEffect(()=>{
+        if (!isLoading){
+            const initializeAuth=async()=>{
                 await fetchUserProfile();
                 setHasCheckedAuth(true);
             };
@@ -55,10 +56,10 @@ function RootLayoutInner(){
     return <Slot/>;
 }
 
-export default function RootLayout() {
+export default function RootLayout(){
     return (
         <UserProvider>
-            <RootLayoutInner />
+            <RootLayoutInner/>
         </UserProvider>
     );
 }

@@ -167,35 +167,36 @@ app.get('/profile',async(req,res)=>{
             if(!userData){
                 return res.status(404).json({ error:"USER NOT FOUND"});
             }
-            const {name,email,_id,avatar}=userData;
-            res.json({name,email,_id,avatar,token});
+            const {name,email,_id,avatar,telno}=userData;
+            res.json({name,email,_id,avatar,token,telno});
         });
     }catch(error){
         res.status(500).json({error:"SERVER ERROR"});
     }
 });
 
-
-app.post('/logout',(req,res)=>{
-        res.cookie('token','',{
-            httpOnly:true,
-            secure: true,
-            sameSite: 'none',
-            path: '/',
-            domain:undefined,
-            expires:new Date(0),
-        }).json("LOGGED OUT")
-    });
-
-
-app.post('/reserve',(req,res)=>{
-
-    const {token}=req.cookies;
-    const {name,numberOfPeople,telno,eventId,eventName,eventDate,eventTime}=req.body;
-    if(!token){
-        return res.json(null);
+app.post('/create-order',async(req,res)=>{
+    const {amount}=req.body;
+    const options={
+            amount:amount*100,
+            currency:"INR",
     }
-    if(token){
+    try{
+        const order=await razorpay.orders.create(options);
+        res.json(order); 
+    }catch(error){
+        res.status(500).json({error:"FAILED TO CREATE RAZORPAY ORDER"});
+    }
+})
+
+app.post('/reserve-event',(req,res)=>{
+    try{
+        const authHeader=req.headers['authorization'];
+        const token=authHeader.split(' ')[1];
+        if(!token){
+            return res.json(null);
+        }
+        const {name,numberOfPeople,telno,eventId,eventName,eventDate,eventTime}=req.body;
         jwt.verify(token,"1234567890",async(err,tokenData)=>{
             if(err){
                 return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
@@ -209,8 +210,8 @@ app.post('/reserve',(req,res)=>{
                         <div style="font-family: Arial, sans-serif; color: #333;">
                             <h2 style="color: #4CAF50;">Event Reservation Confirmation</h2>
                             <p>Dear ${bookingData.name},</p>
-                            <p>Your reservation at <strong>${eventName}</strong> has been confirmed.</p>
-                            <p><strong>Details of Your Reservation:</strong></p>
+                            <p>Your tickets for the event <strong>${eventName}</strong> has been confirmed.</p>
+                            <p><strong>Details of Your Ticket:</strong></p>
                             <ul style="list-style: none; padding: 0;">
                                 <li><strong>Date:</strong> ${eventDate}</li>
                                 <li><strong>Reservation Time:</strong> ${eventTime}</li>
@@ -252,76 +253,10 @@ app.post('/reserve',(req,res)=>{
             });
             res.json(bookingData);
         })
+    }catch(error){
+        res.status(500).json({error:"SERVER ERROR"});
     }
 })
-
-app.post('/reserve-restaurant',(req,res)=>{
-
-    const {token}=req.cookies;
-    const {name,numberOfPeople,telno,restaurantId,restaurantName,bookingDate,selectedSlot}=req.body;
-    if(!token){
-        return res.json(null);
-    }
-    if(token){
-        jwt.verify(token,"1234567890",async(err,tokenData)=>{
-            if(err){
-                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
-            }
-            function sendConfirmationEmail(bookingData) {
-                const mailOptions={
-                    from: 'support@campusconnect.me',
-                    to: `${tokenData.email}`,
-                    subject: 'RESERVATION CONFIRMATION',
-                    html: `
-                        <div style="font-family: Arial, sans-serif; color: #333;">
-                            <h2 style="color: #4CAF50;">Reservation Confirmation</h2>
-                            <p>Dear ${bookingData.name},</p>
-                            <p>Your reservation at <strong>${restaurantName}</strong> has been confirmed.</p>
-                            <p><strong>Details of Your Reservation:</strong></p>
-                            <ul style="list-style: none; padding: 0;">
-                                <li><strong>Date:</strong> ${bookingDate}</li>
-                                <li><strong>Number of People:</strong> ${bookingData.numberOfPeople}</li>
-                                <li><strong>Time SLOT:</strong> ${selectedSlot}</li>
-                            </ul>
-                            <p>Thank you for choosing us!</p>
-                            <p>Best regards,</p>
-                            <p><strong>Campus Connect Team</strong></p>
-                        </div>
-                    `,
-                }
-                transporter.sendMail(mailOptions,(error)=>{
-                    if(error){
-                        throw error;
-                    }
-                });
-            };
-            
-            const existingReservation=await reservation.findOne({restaurantId,userId:tokenData.id});
-            if(existingReservation){
-                return res.status(422).json({MSG:"ALREADY RESERVED."});
-            }
-                const bookingData=await reservation.create({
-                    name,
-                    numberOfPeople,
-                    telno,
-                    restaurantId,
-                    userId:tokenData.id,
-                    venueName:restaurantName,
-                    Date:bookingDate,
-                    timeSlot:selectedSlot
-                });
-            sendConfirmationEmail({
-                name:name,
-                email:tokenData.email,
-                numberOfPeople,
-                restaurantName,
-                selectedSlot
-            });
-            res.json(bookingData);
-        })
-    }
-})
-
 
 app.get('/show-reservation', async(req,res)=>{
     const {token}=req.cookies;
@@ -390,108 +325,6 @@ app.delete('/cancel', async(req,res)=>{
             res.json(deletedReservation);
         });
     }
-})
-
-app.put('/likeevent',async(req,res)=>{
-    const {eventId}=req.body;
-    const {token}=req.cookies;
-    if(!token){
-        return res.json(null);
-    }
-    if(token){
-        jwt.verify(token,"1234567890",async(err,tokenData)=>{
-            if(err){
-                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
-            }     
-            await user.findByIdAndUpdate(tokenData.id,{$addToSet:{likedEvents:eventId}}, { new: true });
-            return res.status(200).json({MSG:"OK"});
-            
-        });
-    }
-})
-
-app.put('/dislikeevent',async(req,res)=>{
-    const {eventId}=req.body;
-    const {token}=req.cookies;
-    if(!token){
-        return res.json(null);
-    }
-    if(token){
-        jwt.verify(token,"1234567890",async(err,tokenData)=>{
-            if(err){
-                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
-            }         
-            await user.findByIdAndUpdate(tokenData.id,{$pull:{likedEvents: eventId}}, { new: true });
-            return res.status(200).json({MSG:"OK"});    
-        });
-    }
-})
-
-app.put('/likeres',async(req,res)=>{
-    const {restaurantId}=req.body;
-    const {token}=req.cookies;
-    if(!token){
-        return res.json(null);
-    }
-    if(token){
-        jwt.verify(token,"1234567890",async(err,tokenData)=>{
-            if(err){
-                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
-            }        
-            await user.findByIdAndUpdate(tokenData.id,{$addToSet:{likedRestaurants:restaurantId}},{ new: true });
-            return res.status(200).json({MSG:"OK"});
-        });
-    }
-})
-
-app.put('/dislikeres',async(req,res)=>{
-    const {restaurantId}=req.body;
-    const {token}=req.cookies;
-    if(!token){
-        return res.json(null);
-    }
-    if(token){
-        jwt.verify(token,"1234567890",async(err,tokenData)=>{
-            if(err){
-                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
-            }         
-            await user.findByIdAndUpdate(tokenData.id,{$pull:{likedRestaurants: restaurantId}}, { new: true });
-            return res.status(200).json({MSG:"OK"});   
-        });
-    }
-})
-
-app.get("/getlikecount",async(req, res)=>{
-    const {eventId}=req.query;
-    const data=await user.find({});
-    let totalCount=0;
-
-    data.forEach(user=>{
-        const likedEventArray=user.likedEvents;
-        likedEventArray.forEach(likedEvent=>{
-            if(likedEvent==eventId){
-                totalCount++;
-            }
-        });
-    });
-    res.json(totalCount); 
-});
-
-app.get("/getlikecountres", async(req,res)=>{
-
-    const {restaurantId}=req.query;
-    const data = await user.find({});
-    let totalCount=0;
-
-    data.forEach(user=>{
-        const likedRestaurantArray = user.likedRestaurants;
-        likedRestaurantArray.forEach(likedRestaurants=>{
-            if(likedRestaurants==restaurantId){
-                totalCount++;
-            }
-        });
-    });
-    res.json(totalCount);
 })
 
 app.put('/forgetpass',async(req,res)=>{

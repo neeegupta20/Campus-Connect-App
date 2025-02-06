@@ -7,6 +7,7 @@ interface User{
     email:string;
     _id:string;
     avatar:string;
+    telno:number
 }
 
 interface UserContextType{
@@ -33,7 +34,7 @@ export default function UserProvider({children} : {children:ReactNode}){
             return;
         }
         try{
-            const response=await axios.get('http://172.16.36.174:3000/profile',{
+            const response=await axios.get('http://172.16.38.223:3000/profile',{
                 headers: { Authorization: `Bearer ${token}` },
             });
             if(response.status===200){

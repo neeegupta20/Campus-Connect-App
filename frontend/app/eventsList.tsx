@@ -20,21 +20,6 @@ RESERVE YOUR SPOT NOW FOR A NIGHT OF MERRIMENT AND MEMORIES! 🎄✨`,
       formatDate:"Wed, 18 Dec",
       price:200
     },
-    // {
-    //   id: 6,
-    //   title: "LAS VEGAS GRAND PRIX",
-    //   shortDescription:"CAMPUS CONNECT x SOL HOUSE",
-    //   date: "24-11-2024",
-    //   time:"11 AM",
-    //   description: "🏎️ WATCH THE F1 GRAND PRIX LAS VEGAS LIVE STREAMING ON CAMPUS CONNECT - 24TH NOVEMBER! 🏁<br/><br/>🔥 EXPERIENCE THE THRILL AS MAX VERSTAPPEN AND LANDO NORRIS BATTLE FOR THE 2024 CHAMPIONSHIP TITLE. 🏆<br/><br/> 🚥 DON'T MISS THE HIGH-SPEED ACTION, EXCLUSIVE OFFERS, AND UNFORGETTABLE RACING MOMENTS! JOIN US FOR THE ULTIMATE VIEWING EXPERIENCE. 🎉",
-    //   venue: "SOL HOUSE PATIALA",
-    //   place: "https://www.google.com/maps/place/Sol+House/@30.3462194,76.3786728,15z/data=!4m2!3m1!1s0x0:0x14ccb133a32eac4d?sa=X&ved=1t:2428&ictx=111",
-    //   photo1:require("../assets/EVENT IMAGES/F1StreamParty.jpg") as ImageSourcePropType,
-    //   photo2:require("../assets/EVENT IMAGES/solhouse2.jpeg") as ImageSourcePropType,
-    //   photo3:require("../assets/EVENT IMAGES/solhouse3.jpeg") as ImageSourcePropType,
-    //   tags:["LIVE STREAMING","EXCITING"],
-    //   formatDate:"Sun, 24 Nov"
-    // },
     {
       id: 5,
       title: "HALLOWEEN NIGHT PHASE 3",
