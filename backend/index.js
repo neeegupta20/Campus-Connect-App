@@ -259,26 +259,26 @@ app.post('/reserve-event',(req,res)=>{
 })
 
 app.get('/show-reservation', async(req,res)=>{
-    const {token}=req.cookies;
-    if(!token){
-        return res.json(null);
-    }
-    if(token){
-        jwt.verify(token,"1234567890",async(err,tokenData)=>{
-            if(err){
-                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
-            }         
+    try{
+        const authHeader=req.headers['authorization'];
+        const token=authHeader.split(' ')[1];
+        if(!token){
+            return res.json(null);
+        }
+        jwt.verify(token,"1234567890",async(err,tokenData)=>{       
             const reservationData=await reservation.find({userId:tokenData.id});
             if(reservationData.length>0){
                 res.json(reservationData)
             }
             else{
-                res.json(null);
+                res.json([]);
             }
+            if(err){
+                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
+            }  
         });
-    }
-    else{
-        res.json(null);
+    }catch(error){
+        res.status(500).json("SERVOR ERROR");
     }
 })
 
