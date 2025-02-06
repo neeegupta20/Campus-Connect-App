@@ -1,11 +1,14 @@
 import { useContext, useEffect } from "react";
-import {  Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {  Button, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { UserContext } from "../context/UserContext";
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import {Literata_400Regular,Literata_500Medium,Literata_700Bold} from '@expo-google-fonts/literata';
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+// import NotificationScreen from "../notificationScreen";
+// import { usePushNotification } from "../useNotification";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home(){
 
@@ -14,15 +17,47 @@ export default function Home(){
     const [fontsLoaded]=useFonts({
         Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold
     })
+    // const { expoPushToken } = usePushNotification();
 
+
+
+//     const sendNotificationToAllUsers = async() => {
+//     const storedTokens = await AsyncStorage.getItem("expoPushTokens");
+//     if (!storedTokens) {
+//       console.log("No stored tokens found");
+//       return;
+//     }
+  
+//     const tokens = JSON.parse(storedTokens);
+    
+//     await fetch("http://172.16.36.174:3000/send-notification", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         tokens,
+//         title: "Campus Connect",
+//         body: "🚀 New Event Alert! Check it out now!",
+//         data: { someData: "Extra data if needed" },
+//       }),
+//     });
+  
+//     console.log("✅ Notification sent to all users!");
+//   }
+  
     useEffect(()=>{
         fetchUserProfile();
     },[])
 
     if(!user){
         return(
+            // <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            //     <Button title="View Notifications" onPress={() => sendNotificationToAllUsers()} />
+            // <Text>{expoPushToken}</Text>
+            // </View>
             <SafeAreaView style={styles.errorContainer}>
-                <Ionicons name="bug-outline" size={30} color="red"></Ionicons>
+                <Ionicons name="bug-outline" size={30} color="red" />
                 <Text style={{fontSize:20, marginTop:10}}>NETWORK ERROR</Text>
             </SafeAreaView>
         )

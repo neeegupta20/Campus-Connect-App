@@ -16,8 +16,8 @@ const Zones: {
       },
       {
         id:2,
-        name:'Beer @99',
-        description:'THE BREW ESTATE PATIALA',
+        name:'Hacka-Zone',
+        description:'Intense coding, innovation, tech competition.',
         latitude:30.346372,
         longitude:76.378603,
         imageUrl:'https://cdn.pixabay.com/photo/2015/04/23/22/00/new-year-background-736885_1280.jpg'

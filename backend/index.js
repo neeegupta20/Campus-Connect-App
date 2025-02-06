@@ -11,6 +11,8 @@ const reservation=require("./models/reservation");
 const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890"
+// const Expo = require('expo-server-sdk')
+// const expo = Expo()
 
 
 const transporter=nodemailer.createTransport({
@@ -519,5 +521,37 @@ app.post('/create-order',async(req,res)=>{
         res.status(500).json({error:"FAILED TO CREATE RAZORPAY ORDER"});
     }
 })
+
+// app.post("/send-notification", async (req, res) => {
+//     try {
+//       const { tokens, title, body, data } = req.body;
+  
+//       if (!tokens || !tokens.length) {
+//         return res.status(400).json({ error: "No tokens provided" });
+//       }
+  
+//       const messages = tokens.map((token) => ({
+//         to: token,
+//         sound: "default",
+//         title: title || "Campus Connect",
+//         body: body || "🚀 New Event Alert! Check it out now!",
+//         data: data || { someData: "Extra data if needed" },
+//       }));
+  
+//       const response = await axios.post("https://exp.host/--/api/v2/push/send", messages, {
+//         headers: {
+//           Accept: "application/json",
+//           "Accept-Encoding": "gzip, deflate",
+//           "Content-Type": "application/json",
+//         },
+//       });
+  
+//       res.json({ message: "Notification sent successfully", data: response.data });
+//     } catch (error) {
+//       console.error("Error sending notification:", error);
+//       res.status(500).json({ error: "Failed to send notification" });
+//     }
+//   });
+  
 
 app.listen(3000);
