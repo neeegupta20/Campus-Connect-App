@@ -301,7 +301,7 @@ app.get("/scan-ticket",async(req,res)=>{
     );
 });
 
-app.put('/forgetpass',async(req,res)=>{
+app.put('/change-password',async(req,res)=>{
     const {email,newpassword}=req.body;
     const hashedPassword=bcrypt.hashSync(newpassword,bcryptSalt);
     const Founduser=await user.findOneAndUpdate(
