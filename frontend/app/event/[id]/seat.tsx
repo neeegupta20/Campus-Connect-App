@@ -71,7 +71,11 @@ export default function AddSeats(){
                     router.replace('/(account)/tickets')
                 }
             }catch(error){
-                console.error(error);
+                if(axios.isAxiosError(error)){
+                    if(error.response?.status===422){
+                      Alert.alert("ALREADY RESERVED.");
+                    }
+                }
             }
         }catch(error){
             console.error(error);

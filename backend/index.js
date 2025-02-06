@@ -283,20 +283,22 @@ app.get('/show-reservation', async(req,res)=>{
 })
 
 app.get("/scan-ticket",async(req,res)=>{
-    
     const { id }=req.query;
-
     const ticket=await reservation.findById(id);
     if(!ticket){
-        return res.status(404).send("TICKET NOT FOUND");
+        return res.status(404).send("🚫 TICKET NOT FOUND");
     }
     if(ticket.isScanned){
-        return res.send("TICKET USED");
+        return res.send("🚫 TICKET USED");
     }
     ticket.isScanned=true;
     await ticket.save();
 
-    res.send(`✅ Ticket Verified !\nEvent: ${ticket.venueName}\nSeats: ${ticket.numberOfPeople}`);
+    res.send(
+        `<h2 style="color: green;">✅ TICKET VERIFIED !</h2>
+        <p><strong>EVENT:</strong> ${ticket.venueName}</p>
+        <p><strong>NUMBER OF PEOPLE:</strong> ${ticket.numberOfPeople}</p>`
+    );
 });
 
 app.delete('/cancel', async(req,res)=>{
@@ -404,4 +406,4 @@ app.post('/create-order',async(req,res)=>{
 //   });
   
 
-app.listen(3000);
+app.listen(3000,"0.0.0.0");

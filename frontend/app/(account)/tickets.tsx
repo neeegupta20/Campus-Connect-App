@@ -56,7 +56,7 @@ export default function TicketsTab(){
             {bookings===null ? (
                 <Text style={styles.message}>Loading...</Text>
             ) : bookings.length === 0 ? (
-                <Text style={styles.message}>No tickets found.</Text>
+                <Text style={styles.message}>NO TICKETS BOOKED YET</Text>
             ) : (
                 <FlatList
                     data={bookings}
@@ -82,7 +82,7 @@ export default function TicketsTab(){
                                         id:item._id,
                                         event:item.venueName,
                                         numberOfTickets:item.numberOfPeople,
-                                        verifyUrl: `http://172.16.37.126:3000/scan-ticket?id=${item._id}`
+                                        verifyUrl:`http://172.16.37.126:3000/scan-ticket?id=${item._id}`
                                     })}
                                     size={100}
                                 />
@@ -121,8 +121,8 @@ const styles=StyleSheet.create({
     message:{
         color:"white",
         textAlign:"center",
-        marginTop:300,
-        fontSize:18,
+        marginTop:100,
+        fontSize:20,
     },
     ticketCard:{
         backgroundColor: "#1e1e1e",
