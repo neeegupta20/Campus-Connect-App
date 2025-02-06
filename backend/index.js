@@ -33,7 +33,7 @@ const razorpay=new Razorpay({
 app.use(express.json());
 app.use(cors({
     credentials:true,
-    origin:['https://campusconnect.me','exp://172.16.36.174:8081','exp://192.168.1.130:8081']
+    origin:['https://campusconnect.me','exp://172.16.37.126:8081','exp://192.168.1.130:8081']
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));

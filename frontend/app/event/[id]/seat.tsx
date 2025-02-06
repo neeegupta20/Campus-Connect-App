@@ -62,13 +62,13 @@ export default function AddSeats(){
                 return;
             }
             try{
-                const response=await axios.post('http://172.16.38.223:3000/reserve-event',
+                const response=await axios.post('http://172.16.37.126:3000/reserve-event',
                     {name:user?.name,numberOfPeople,telno:user?.telno,eventId:event?.id,eventName:event?.title,eventDate:event?.formatDate,eventTime:event?.time
                     },{
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 if(response.status===200){
-                    router.replace('/(tabs)/account')
+                    router.replace('/(tabs)/profile')
                 }
             }catch(error){
                 console.error(error);
