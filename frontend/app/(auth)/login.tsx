@@ -17,7 +17,7 @@ export default function LoginTab(){
 
     const LoginUser=async()=>{
         try{
-            const response=await axios.post('https://backend-app.campusconnect.me/login',{email,password});
+            const response=await axios.post('https://campus-connect-app-backend.onrender.com/login',{email,password});
             if(response.data.token){
                 await SecureStore.setItemAsync('authToken',response.data.token);
                 Alert.alert("LOGIN SUCCESSFUL.");

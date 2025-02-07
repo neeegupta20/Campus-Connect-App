@@ -62,7 +62,7 @@ export default function AddSeats(){
                 return;
             }
             try{
-                const response=await axios.post('https://backend-app.campusconnect.me/reserve-event',
+                const response=await axios.post('https://campus-connect-app-backend.onrender.com/reserve-event',
                     {name:user?.name,numberOfPeople,telno:user?.telno,eventId:event?.id,eventName:event?.title,eventDate:event?.formatDate,eventTime:event?.time
                     },{
                     headers: { Authorization: `Bearer ${token}` },

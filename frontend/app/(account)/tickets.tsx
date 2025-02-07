@@ -28,7 +28,7 @@ export default function TicketsTab(){
             if(!token){   
                 return;
             }
-            const bookingResponse=await axios.get('https://backend-app.campusconnect.me/show-reservation',{
+            const bookingResponse=await axios.get('https://campus-connect-app-backend.onrender.com/show-reservation',{
                 headers:{ Authorization: `Bearer ${token}` },
             });
             setBookings(bookingResponse.data);

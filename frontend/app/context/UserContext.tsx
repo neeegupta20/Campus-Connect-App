@@ -34,7 +34,7 @@ export default function UserProvider({children} : {children:ReactNode}){
             return;
         }
         try{
-            const response=await axios.get('https://backend-app.campusconnect.me/profile',{
+            const response=await axios.get('https://campus-connect-app-backend.onrender.com/profile',{
                 headers: { Authorization: `Bearer ${token}` },
             });
             if(response.status===200){

@@ -41,7 +41,7 @@ export default function EnterEmail(){
 
     const SendOTP=async(name:string|string[],telno:string|string[],email:string,avatar:string,password:string)=>{
         try{
-          const response=await axios.post('https://backend-app.campusconnect.me/send-otp',{email});
+          const response=await axios.post('https://campus-connect-app-backend.onrender.com/send-otp',{email});
           if(response.status===200){
             router.replace({
               pathname:'/(auth)/OTPVerify',
