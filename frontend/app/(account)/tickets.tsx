@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, ScrollView, StyleSheet } from "react-native";
+import { FlatList, ImageBackground, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 import * as SecureStore from 'expo-secure-store';
 import QRCode from 'react-native-qrcode-svg';
@@ -46,59 +46,60 @@ export default function TicketsTab(){
     
         
     return(
-        <SafeAreaView style={styles.container}>
-            <View style={styles.heading}>
-                <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
-                    <Ionicons name="arrow-back-outline" color="white" size={32} />
-                </TouchableOpacity>
-                <Text style={styles.headingText}>M-Tickets</Text>
-            </View>       
-            {bookings===null ? (
-                <Text style={styles.message}>Loading...</Text>
-            ) : bookings.length === 0 ? (
-                <Text style={styles.message}>NO TICKETS BOOKED YET</Text>
-            ) : (
-                <FlatList
-                    data={bookings}
-                    keyExtractor={(item)=>item._id}
-                    renderItem={({item})=>(
-                        <View style={styles.ticketCard}>
-                            <Text style={styles.eventName}>{item.venueName}</Text>
-                            <View style={styles.ticketNumber}>
-                                <Ionicons name="people-outline" color="white" size={26}/>
-                                <Text style={styles.ticketDetails1}>{item.numberOfPeople}</Text>
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.heading}>
+                    <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
+                        <Ionicons name="arrow-back-outline" color="white" size={32} />
+                    </TouchableOpacity>
+                    <Text style={styles.headingText}>M-Tickets</Text>
+                </View>       
+                {bookings===null ? (
+                    <Text style={styles.message}>Loading...</Text>
+                ) : bookings.length === 0 ? (
+                    <Text style={styles.message}>NO TICKETS BOOKED YET</Text>
+                ) : (
+                    <FlatList
+                        data={bookings}
+                        keyExtractor={(item)=>item._id}
+                        renderItem={({item})=>(
+                            <View style={styles.ticketCard}>
+                                <Text style={styles.eventName}>{item.venueName}</Text>
+                                <View style={styles.ticketNumber}>
+                                    <Ionicons name="people-outline" color="white" size={26}/>
+                                    <Text style={styles.ticketDetails1}>{item.numberOfPeople}</Text>
+                                </View>
+                                <View style={styles.ticketNumber}>
+                                    <Ionicons name="calendar-outline" color="white" size={26}/>
+                                    <Text style={styles.ticketDetails2}>{item.Date}</Text>
+                                </View>
+                                <View style={styles.ticketNumber}>
+                                    <Ionicons name="time-outline" color="white" size={26}/>
+                                    <Text style={styles.ticketDetails3}>{item.Time}</Text>
+                                </View>
+                                <View style={styles.qrContainer}>
+                                    <QRCode
+                                        value={JSON.stringify({
+                                            id:item._id,
+                                            event:item.venueName,
+                                            numberOfTickets:item.numberOfPeople,
+                                            verifyUrl:`https://campus-connect-app-backend.onrender.com/scan-ticket?id=${item._id}`
+                                        })}
+                                        size={100}
+                                    />
+                                </View>
                             </View>
-                            <View style={styles.ticketNumber}>
-                                <Ionicons name="calendar-outline" color="white" size={26}/>
-                                <Text style={styles.ticketDetails2}>{item.Date}</Text>
-                            </View>
-                            <View style={styles.ticketNumber}>
-                                <Ionicons name="time-outline" color="white" size={26}/>
-                                <Text style={styles.ticketDetails3}>{item.Time}</Text>
-                            </View>
-                            <View style={styles.qrContainer}>
-                                <QRCode
-                                    value={JSON.stringify({
-                                        id:item._id,
-                                        event:item.venueName,
-                                        numberOfTickets:item.numberOfPeople,
-                                        verifyUrl:`https://campus-connect-app-backend.onrender.com/scan-ticket?id=${item._id}`
-                                    })}
-                                    size={100}
-                                />
-                            </View>
-                        </View>
-                    )}
-                />
-            )}
-        </SafeAreaView>
+                        )}
+                    />
+                )}
+            </SafeAreaView>
+        </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"black",
         alignItems:"center",
         paddingTop:20,
     },

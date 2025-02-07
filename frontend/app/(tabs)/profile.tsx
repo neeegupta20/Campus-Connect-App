@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import { ScrollView } from "react-native";
+import { ImageBackground } from "react-native";
 
 export default function AccountsTab() {
     
@@ -34,14 +35,14 @@ export default function AccountsTab() {
      if(!user){
             return(
                 <SafeAreaView style={styles.errorContainer}>
-                    <Ionicons name="bug-outline" size={30} color="red"></Ionicons>
-                    <Text style={{fontSize:20, marginTop:10}}>NETWORK ERROR</Text>
+                    <Text style={{fontSize:20, marginTop:10}}>LOADING...</Text>
                 </SafeAreaView>
             )
         }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{height:900,flex:1}}>
+            <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.profileContainer}>
                     {avatarImage && <Image source={avatarImage} style={styles.avatar}/>}
@@ -95,13 +96,13 @@ export default function AccountsTab() {
                 <View style={[styles.line,{marginBottom:100}]}></View>
             </ScrollView>
         </SafeAreaView>
+        </ImageBackground>
     );
 }
 
 const styles=StyleSheet.create({
     container:{
-        flex:1,
-        backgroundColor:"black",
+        flexGrow:1,
         alignItems:"center",
         paddingTop:20,
     },

@@ -1,5 +1,5 @@
 import { events } from "../eventsList";
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
@@ -29,7 +29,8 @@ export default function SingleEventScreen(){
     const event=events.find((e)=>e.id===numericId);
     
     return(
-        <SafeAreaView style={styles.container}>
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+                <SafeAreaView style={styles.container}>
             <View style={styles.heading}>
                 <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                     <Ionicons name="arrow-back-outline" color="white" size={32}/>
@@ -81,12 +82,12 @@ export default function SingleEventScreen(){
                 </View>
             </View>
         </SafeAreaView>
+        </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
     container:{
-        backgroundColor:"black",
         flex:1,
     },
     eventHeading:{
@@ -108,7 +109,6 @@ const styles=StyleSheet.create({
         borderWidth:2,
     },
     backIcon:{
-        paddingVertical:8,
         paddingLeft:15,
         width:50
     },
@@ -201,7 +201,7 @@ const styles=StyleSheet.create({
     },
     bottomBar:{
         height:100,
-        borderTopWidth:2,
+        borderTopWidth:0,
         borderTopColor:"#222222"
     },
     eventPriceText:{

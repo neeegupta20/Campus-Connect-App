@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
@@ -7,6 +7,7 @@ import { useRouter } from "expo-router";
 import { UserContext } from "../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
 import { registerForPushNotificationsAsync } from "../useNotification";
+import { Montserrat_600SemiBold } from "@expo-google-fonts/montserrat";
 
 export default function LoginTab(){
 
@@ -47,77 +48,80 @@ export default function LoginTab(){
     };
 
     return(
-        <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress={()=>router.push('/(auth)')} style={styles.backIcon}>
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+            <SafeAreaView style={styles.container}>
+                <TouchableOpacity onPress={()=>{
+                    router.back()}} 
+                    style={styles.backIcon}>
                     <Ionicons name="arrow-back-outline" color="white" size={32}/>
-            </TouchableOpacity>
-            <ScrollView contentContainerStyle={{flexGrow:1}}>
-                <Image style={styles.logo} source={require('../../assets/images/logo.jpg')}></Image>
-                <Text style={styles.title}>LOGIN</Text> 
-                <View style={styles.grid}>
-                    <View style={styles.inputContainer}>
-                        <TextInput 
-                            placeholder="EMAIL ID" 
-                            value={email} 
-                            style={styles.input}
-                            onChangeText={(text)=>SetEmail(text)}
-                            placeholderTextColor="gray">
-                        </TextInput>
-                    </View>
-                    <View style={[styles.inputContainer]}>
-                        <TextInput
-                            placeholder="PASSWORD"
-                            value={password}
-                            secureTextEntry={!isPasswordVisible}
-                            style={styles.input}
-                            onChangeText={(text)=>SetPassword(text)}
-                            placeholderTextColor="gray"
-                        />
-                        <TouchableOpacity 
-                            onPress={togglePasswordVisibility}>
-                            <Text style={styles.icon}>
-                                {isPasswordVisible ? <FontAwesome size={28} name="eye"></FontAwesome> : <FontAwesome size={28} name="eye-slash"></FontAwesome>}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <TouchableOpacity style={styles.button} onPress={LoginUser}>
-                    <Text style={styles.buttonText}>
-                        Login
-                    </Text>
                 </TouchableOpacity>
-            </ScrollView>
-        </SafeAreaView>
+                <ScrollView contentContainerStyle={{flexGrow:1}}>
+                    <Image style={styles.logo} source={require('../../assets/images/logowhite.png')}></Image>
+                    <Text style={styles.title}>LOGIN</Text> 
+                    <View style={styles.grid}>
+                        <View style={styles.inputContainer}>
+                            <TextInput 
+                                placeholder="EMAIL ID" 
+                                value={email} 
+                                style={styles.input}
+                                onChangeText={(text)=>SetEmail(text)}
+                                placeholderTextColor="gray">
+                            </TextInput>
+                        </View>
+                        <View style={[styles.inputContainer]}>
+                            <TextInput
+                                placeholder="PASSWORD"
+                                value={password}
+                                secureTextEntry={!isPasswordVisible}
+                                style={styles.input}
+                                onChangeText={(text)=>SetPassword(text)}
+                                placeholderTextColor="gray"
+                            />
+                            <TouchableOpacity 
+                                onPress={togglePasswordVisibility}>
+                                <Text style={styles.icon}>
+                                    {isPasswordVisible ? <FontAwesome size={28} name="eye"></FontAwesome> : <FontAwesome size={28} name="eye-slash"></FontAwesome>}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={LoginUser}>
+                        <Text style={styles.buttonText}>
+                            Login
+                        </Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </SafeAreaView>
+        </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create(
     {
-        container:{
-            flex:1,
+        container:{    
             alignItems:"center",
             padding:20,
-            backgroundColor:"black",
         },
         backIcon:{
             position:"absolute",
             left:20,
-            top:70
+            top:70,
+            zIndex:10
         },
         logo:{
             marginTop:100,
-            height:'8%',
-            width:300,
+            width:360,
+            height:110,
             paddingHorizontal:30
         },
         title:{
             marginTop:80,
-            justifyContent:"center",
+            alignSelf:'center',
             marginHorizontal:60,
             color:"white",
             fontSize:40,
+            fontFamily:"Montserrat_700Bold",
             fontWeight:"bold",
-            paddingHorizontal:30
         },
         input:{
             flex:1,
@@ -140,6 +144,7 @@ const styles=StyleSheet.create(
             position:"relative",
         },
         buttonContainer:{
+            alignSelf:'center',
             width:"100%",
             marginHorizontal:2
         },

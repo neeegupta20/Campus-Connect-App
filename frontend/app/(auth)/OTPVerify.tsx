@@ -1,4 +1,4 @@
-import { SafeAreaView,ScrollView,Image, Text, TextInput, StyleSheet, View, Alert, TouchableOpacity } from "react-native";
+import { SafeAreaView,ScrollView,Image, Text, TextInput, StyleSheet, View, Alert, TouchableOpacity, ImageBackground } from "react-native";
 import { useState } from "react";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import axios from "axios";
@@ -67,36 +67,38 @@ export default function otpVerify(){
   
 
     return(
-        <SafeAreaView style={[styles.container,{flex:1}]}>
-            <ScrollView contentContainerStyle={{flexGrow:1}}>
-                <Image style={styles.logo} source={require('../../assets/images/logo.jpg')}></Image>
-                <Text style={styles.title}>
-                    ENTER OTP
-                </Text>  
-                <Text style={{color:"white",fontSize:10,marginHorizontal:65,marginTop:5}}>
-                    SENT TO THE ENTERED EMAIL ID
-                </Text>
-                <View style={styles.otpContainer}>
-                    {otp.map((digit,index)=>(
-                        <TextInput
-                            key={index}
-                            ref={(ref)=>(refs[index]=ref)}
-                            style={styles.otpBox}
-                            value={digit}
-                            onChangeText={(value)=>handleChange(value,index)}
-                            keyboardType="number-pad"
-                            maxLength={1}
-                            textAlign="center"
-                        />
-                    ))}
-                </View>
-                <TouchableOpacity style={styles.button} onPress={VerifyOTP}>
-                    <Text style={styles.buttonText}>
-                        Verify
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+            <SafeAreaView style={[styles.container,{flex:1}]}>
+                <ScrollView contentContainerStyle={{flexGrow:1}}>
+                    <Image style={styles.logo} source={require('../../assets/images/logowhite.png')}></Image>
+                    <Text style={styles.title}>
+                        ENTER OTP
+                    </Text>  
+                    <Text style={{color:"white",fontSize:10,marginHorizontal:65,marginTop:5}}>
+                        SENT TO THE ENTERED EMAIL ID
                     </Text>
-                </TouchableOpacity>
-            </ScrollView>
-        </SafeAreaView>
+                    <View style={styles.otpContainer}>
+                        {otp.map((digit,index)=>(
+                            <TextInput
+                                key={index}
+                                ref={(ref)=>(refs[index]=ref)}
+                                style={styles.otpBox}
+                                value={digit}
+                                onChangeText={(value)=>handleChange(value,index)}
+                                keyboardType="number-pad"
+                                maxLength={1}
+                                textAlign="center"
+                            />
+                        ))}
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={VerifyOTP}>
+                        <Text style={styles.buttonText}>
+                            Verify
+                        </Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </SafeAreaView>
+        </ImageBackground>
     )
 }
 
@@ -106,8 +108,7 @@ const styles=StyleSheet.create(
             flex:1,
             justifyContent:"center",
             alignItems:"center",
-            padding:20,
-            backgroundColor:"black",
+            padding:20
         },
         logo:{
             marginTop:100,

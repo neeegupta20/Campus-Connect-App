@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, StyleSheet, TextInput } from "react-native";
+import { Alert, ImageBackground, StyleSheet, TextInput } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 import { UserContext } from "../context/UserContext";
 
@@ -23,36 +23,37 @@ export default function ChangePasswordTab(){
     }
     
     return(
-        <SafeAreaView style={styles.container}>
-            <View style={styles.heading}>
-                <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
-                    <Ionicons name="arrow-back-outline" color="white" size={32} />
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.heading}>
+                    <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
+                        <Ionicons name="arrow-back-outline" color="white" size={32} />
+                    </TouchableOpacity>
+                    <Text style={styles.headingText}>Change Password</Text>
+                </View>
+                <Text style={styles.text}> New Password</Text>
+                <View style={[styles.inputContainer]}>
+                    <TextInput
+                        placeholder="Enter New Password"
+                        value={password}
+                        style={styles.input}
+                        onChangeText={(text)=>SetPassword(text)}
+                        placeholderTextColor="gray"
+                    />
+                </View>
+                <TouchableOpacity style={styles.button} onPress={changePassword}>
+                    <Text style={styles.buttonText}>
+                        Reset Password
+                    </Text>
                 </TouchableOpacity>
-                <Text style={styles.headingText}>Change Password</Text>
-            </View>
-            <Text style={styles.text}> New Password</Text>
-            <View style={[styles.inputContainer]}>
-                <TextInput
-                    placeholder="Enter New Password"
-                    value={password}
-                    style={styles.input}
-                    onChangeText={(text)=>SetPassword(text)}
-                    placeholderTextColor="gray"
-                />
-            </View>
-            <TouchableOpacity style={styles.button} onPress={changePassword}>
-                <Text style={styles.buttonText}>
-                    Reset Password
-                </Text>
-            </TouchableOpacity>
-        </SafeAreaView>
+            </SafeAreaView>
+        </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"black",
     },
     heading:{
         flexDirection:"row",

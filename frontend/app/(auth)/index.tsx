@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image, Dimensions, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 import React from 'react';
 
@@ -14,9 +14,10 @@ export default function HomePage(){
     };
 
     return(
-        <SafeAreaView style={styles.container}>
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+            <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Image style={styles.logo} source={require('../../assets/images/logo.jpg')} />
+                <Image style={styles.logo} source={require('../../assets/images/logowhite.png')} />
                 <Text style={styles.subtitle}>YOUR GO-TO CONNECTING PLATFORM</Text>
             </View>
             <View style={styles.buttonContainer}>
@@ -33,6 +34,7 @@ export default function HomePage(){
                 <Text style={styles.footerText}>© 2025 Campus Connect</Text>
             </View>
         </SafeAreaView>
+        </ImageBackground>
     );
 };
 
@@ -40,18 +42,16 @@ export default function HomePage(){
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'black',
-        justifyContent: 'center',
-        alignItems: 'center',
         padding:20,
     },
     header:{
         alignItems:'center',
         marginBottom: 60,
     },
-    logo: {
-        width:300,
-        height:80,
+    logo:{
+        marginTop:120,
+        width:350,
+        height:100,
         marginBottom:20,
     },
     subtitle: {

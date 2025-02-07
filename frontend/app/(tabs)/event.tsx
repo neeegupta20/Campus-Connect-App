@@ -5,6 +5,7 @@ import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@exp
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import {Literata_400Regular,Literata_500Medium,Literata_700Bold} from '@expo-google-fonts/literata';
 import { router } from "expo-router";
+import { ImageBackground } from "react-native";
 
 export default function Events(){
 
@@ -12,41 +13,44 @@ export default function Events(){
         Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold
     })
 
-    return<SafeAreaView style={styles.container}>
-        <View style={styles.heading}>
-            <FontAwesome name="gamepad" size={40} color="white"/>
-            <Text style={styles.tabHeading}>Events</Text>
-        </View>
-        <FlatList
-            data={events}
-            keyExtractor={(item)=>item.id.toString()}
-            renderItem={({item})=>(
-                <View style={styles.eventBox}>
-                    <Image style={styles.eventPhoto} source={item.photo1}></Image>
-                    <Text style={styles.eventTitle}>{item.title}</Text>
-                    <Text style={styles.eventShortDesc}>{item.shortDescription}</Text>
-                    <View style={styles.tagsContainer}>
-                        {item.tags.map((tags,index)=>(
-                            <View key={index} style={styles.tag}>
-                                <Text style={styles.tagText}>{tags}</Text>
-                            </View>
-                        ))}
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={()=>{router.push(`/event/${item.id}`)}} >
-                            <Text style={styles.buttonText}>Reserve</Text>
-                        </TouchableOpacity>
-                    </View>
+    return(
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.heading}>
+                    <FontAwesome name="gamepad" size={40} color="white"/>
+                    <Text style={styles.tabHeading}>Events</Text>
                 </View>
-            )}>
-        </FlatList>
-    </SafeAreaView>
+                <FlatList
+                    data={events}
+                    keyExtractor={(item)=>item.id.toString()}
+                    renderItem={({item})=>(
+                        <View style={styles.eventBox}>
+                            <Image style={styles.eventPhoto} source={item.photo1}></Image>
+                            <Text style={styles.eventTitle}>{item.title}</Text>
+                            <Text style={styles.eventShortDesc}>{item.shortDescription}</Text>
+                            <View style={styles.tagsContainer}>
+                                {item.tags.map((tags,index)=>(
+                                    <View key={index} style={styles.tag}>
+                                        <Text style={styles.tagText}>{tags}</Text>
+                                    </View>
+                                ))}
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity style={styles.button} onPress={()=>{router.push(`/event/${item.id}`)}} >
+                                    <Text style={styles.buttonText}>Reserve</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )}>
+                </FlatList>
+            </SafeAreaView>
+        </ImageBackground>
+    )
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"black"
     },
     heading:{
         paddingHorizontal:15,
@@ -58,7 +62,7 @@ const styles=StyleSheet.create({
     tabHeading:{
         color:"white",
         fontSize:35,
-        fontFamily:"Literata_500Medium",
+        fontFamily:"Montserrat_700Bold",
         marginTop:-6
     },
     eventBox:{

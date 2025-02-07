@@ -1,5 +1,5 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
-import { Text, TouchableOpacity, View, TextInput } from "react-native";
+import { Text, TouchableOpacity, View, TextInput, ImageBackground } from "react-native";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
@@ -32,52 +32,53 @@ export default function EnterName(){
     const avatarImage=avatarMap[avatar] ?? null;
 
     return(
-        <ScrollView style={styles.container}>
-            <SafeAreaView>
-                <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
-                    <Ionicons name="arrow-back-outline" color="white" size={32}/>
-                </TouchableOpacity>
-                <View style={styles.imageContainer}>
-                    {avatarImage && <Image source={avatarImage} style={styles.avatarImage}/>}
-                    <Text style={styles.headText}>
-                        ENTER NAME
-                    </Text>
-                    <View style={styles.inputContainer}>
-                        <TextInput 
-                            placeholder="NAME" 
-                            value={name} 
-                            style={styles.input}
-                            onChange={handleName}
-                            onChangeText={(text)=>SetName(text)}
-                            placeholderTextColor='gray'>
-                        </TextInput>
-                        <Text style={styles.icon}>
-                            {name.length<1?null:nameVerify?<FontAwesome name="check-circle-o" size={24} color="green"/>:<FontAwesome name="exclamation-circle" size={24} color="red"/>}
-                        </Text>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}
-                        onPress={()=>{
-                            if(!nameVerify){
-                                return;
-                            }
-                            router.push({pathname:'/(auth)/enterPhoneNo',params:{avatar,name}})
-                        }}>
-                        <Text style={styles.buttonText}>
-                            Next
-                        </Text>
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+            <ScrollView style={styles.container}>
+                <SafeAreaView>
+                    <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
+                        <Ionicons name="arrow-back-outline" color="white" size={32}/>
                     </TouchableOpacity>
-                </View>
-                </View>
-            </SafeAreaView>
-        </ScrollView>
+                    <View style={styles.imageContainer}>
+                        {avatarImage && <Image source={avatarImage} style={styles.avatarImage}/>}
+                        <Text style={styles.headText}>
+                            ENTER NAME
+                        </Text>
+                        <View style={styles.inputContainer}>
+                            <TextInput 
+                                placeholder="NAME" 
+                                value={name} 
+                                style={styles.input}
+                                onChange={handleName}
+                                onChangeText={(text)=>SetName(text)}
+                                placeholderTextColor='gray'>
+                            </TextInput>
+                            <Text style={styles.icon}>
+                                {name.length<1?null:nameVerify?<FontAwesome name="check-circle-o" size={24} color="green"/>:<FontAwesome name="exclamation-circle" size={24} color="red"/>}
+                            </Text>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.button}
+                            onPress={()=>{
+                                if(!nameVerify){
+                                    return;
+                                }
+                                router.push({pathname:'/(auth)/enterPhoneNo',params:{avatar,name}})
+                            }}>
+                            <Text style={styles.buttonText}>
+                                Next
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    </View>
+                </SafeAreaView>
+            </ScrollView>
+        </ImageBackground>
     );
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'black',
     },
     imageContainer:{
         marginTop:30,

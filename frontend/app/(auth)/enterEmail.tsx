@@ -1,5 +1,5 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
-import { Text, TouchableOpacity, View, TextInput, Alert } from "react-native";
+import { Text, TouchableOpacity, View, TextInput, Alert, ImageBackground } from "react-native";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
@@ -59,65 +59,66 @@ export default function EnterEmail(){
     }
 
     return(
-        <ScrollView style={styles.container}>
-            <SafeAreaView>
-                <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
-                    <Ionicons name="arrow-back-outline" color="white" size={32}/>
-                </TouchableOpacity>
-                <View style={styles.imageContainer}>
-                    {avatarImage && <Image source={avatarImage} style={styles.avatarImage}/>}
-                    <Text style={styles.headText}>
-                        ENTER EMAIL ID & PASSWORD
-                    </Text>
-                    <View style={styles.inputContainer}>
-                        <TextInput 
-                            placeholder="EMAIL ID" 
-                            value={email} 
-                            style={styles.input}
-                            onChange={handleEmail}
-                            onChangeText={(text)=>SetEmail(text)}
-                            placeholderTextColor='gray'>
-                        </TextInput>
-                        <Text style={styles.icon}>
-                            {email.length<1?null:emailVerify?<FontAwesome name="check-circle-o" size={24} color="green"/>:<FontAwesome name="exclamation-circle" size={24} color="red"/>}
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+            <ScrollView style={styles.container}>
+                <SafeAreaView>
+                    <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
+                        <Ionicons name="arrow-back-outline" color="white" size={32}/>
+                    </TouchableOpacity>
+                    <View style={styles.imageContainer}>
+                        {avatarImage && <Image source={avatarImage} style={styles.avatarImage}/>}
+                        <Text style={styles.headText}>
+                            ENTER EMAIL ID & PASSWORD
                         </Text>
-                    </View>
-                    <View style={[styles.inputContainer,{marginTop:15}]}>
-                        <TextInput
-                            placeholder="SET PASSWORD"
-                            value={password}
-                            secureTextEntry={!isPasswordVisible}
-                            style={styles.input}
-                            onChangeText={(text)=>SetPassword(text)}
-                            placeholderTextColor='gray'
-                        />
-                        <TouchableOpacity 
-                            onPress={togglePasswordVisibility}>
-                            <Text style={styles.icon2}>
-                                {isPasswordVisible ? <FontAwesome size={28} name="eye" color="gray"></FontAwesome> : <FontAwesome size={28} name="eye-slash" color="gray"></FontAwesome>}
+                        <View style={styles.inputContainer}>
+                            <TextInput 
+                                placeholder="EMAIL ID" 
+                                value={email} 
+                                style={styles.input}
+                                onChange={handleEmail}
+                                onChangeText={(text)=>SetEmail(text)}
+                                placeholderTextColor='gray'>
+                            </TextInput>
+                            <Text style={styles.icon}>
+                                {email.length<1?null:emailVerify?<FontAwesome name="check-circle-o" size={24} color="green"/>:<FontAwesome name="exclamation-circle" size={24} color="red"/>}
+                            </Text>
+                        </View>
+                        <View style={[styles.inputContainer,{marginTop:15}]}>
+                            <TextInput
+                                placeholder="SET PASSWORD"
+                                value={password}
+                                secureTextEntry={!isPasswordVisible}
+                                style={styles.input}
+                                onChangeText={(text)=>SetPassword(text)}
+                                placeholderTextColor='gray'
+                            />
+                            <TouchableOpacity 
+                                onPress={togglePasswordVisibility}>
+                                <Text style={styles.icon2}>
+                                    {isPasswordVisible ? <FontAwesome size={28} name="eye" color="gray"></FontAwesome> : <FontAwesome size={28} name="eye-slash" color="gray"></FontAwesome>}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.button} 
+                            onPress={()=>{
+                                SendOTP(name,telno,email,avatar,password);
+                            }}>
+                            <Text style={styles.buttonText}>
+                                Next
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} 
-                        onPress={()=>{
-                            SendOTP(name,telno,email,avatar,password);
-                        }}>
-                        <Text style={styles.buttonText}>
-                            Next
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                </View>
-            </SafeAreaView>
-        </ScrollView>
+                    </View>
+                </SafeAreaView>
+            </ScrollView>
+        </ImageBackground>
     );
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'black',
     },
     imageContainer:{
         marginTop:20,
