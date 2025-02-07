@@ -11,8 +11,8 @@ const reservation=require("./models/reservation");
 const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890";
-const Expo = require("expo-server-sdk");
-const expo = Expo();
+
+
 
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
@@ -349,31 +349,31 @@ app.post('/save-token',async(req,res)=>{
 });
 
 
-app.post('/send-notification', async(req,res) => {
-    const { title, body } = req.body;
+// app.post('/send-notification', async(req,res) => {
+//     const { title, body } = req.body;
 
-    const tokens = await tokenSchema.find();
-    const messages = tokens.map(({expoPushToken}) => ({
-        to: expoPushToken,
-        sound: "default",
-        title: "hello sir",
-        body: "maa chud gyi yaarrrr",
-    }));
+//     const tokens = await tokenSchema.find();
+//     const messages = tokens.map(({expoPushToken}) => ({
+//         to: expoPushToken,
+//         sound: "default",
+//         title: "hello sir",
+//         body: "maa chud gyi yaarrrr",
+//     }));
 
-    let chunks = expo.chunkPushNotifications(messages);
-    for (let chunk of chunks) {
-      try {
-        await expo.sendPushNotificationsAsync(chunk);
-      } catch (error) {
-        console.error("Error sending notification:", error);
-      }
-    }
+//     let chunks = expo.chunkPushNotifications(messages);
+//     for (let chunk of chunks) {
+//       try {
+//         await expo.sendPushNotificationsAsync(chunk);
+//       } catch (error) {
+//         console.error("Error sending notification:", error);
+//       }
+//     }
   
-    const newNotification = new Notification({ title, body });
-    await newNotification.save();
+//     const newNotification = new Notification({ title, body });
+//     await newNotification.save();
   
-    res.json({ success: true, message: "Notification sent!" });
-})
+//     res.json({ success: true, message: "Notification sent!" });
+// })
 
 app.get("/notifications", async (req, res) => {
     const notifications = await Notification.find().sort({ timestamp: -1 });

@@ -27,10 +27,8 @@ export default function LoginTab(){
                 console.log(expoPushToken)
                 if (expoPushToken) {
                     console.log("is it wokring??")
-                    const tokenResponse = await axios.post('https://campus-connect-app-backend.onrender.com/save-token',{email,expoPushToken});
-                    console.log("Save-token response:", tokenResponse.data)
+                    await axios.post('https://campus-connect-app-backend.onrender.com/save-token',{email,expoPushToken});
                 }
-    
                 fetchUserProfile();
                 router.replace('/(tabs)');
             }
