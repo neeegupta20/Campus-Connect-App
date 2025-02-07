@@ -62,7 +62,7 @@ export default function AddSeats(){
                 return;
             }
             try{
-                const response=await axios.post('http://172.16.37.126:3000/reserve-event',
+                const response=await axios.post('https://backend-app.campusconnect.me/reserve-event',
                     {name:user?.name,numberOfPeople,telno:user?.telno,eventId:event?.id,eventName:event?.title,eventDate:event?.formatDate,eventTime:event?.time
                     },{
                     headers: { Authorization: `Bearer ${token}` },

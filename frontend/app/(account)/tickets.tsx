@@ -28,7 +28,7 @@ export default function TicketsTab(){
             if(!token){   
                 return;
             }
-            const bookingResponse=await axios.get('http://172.16.37.126:3000/show-reservation',{
+            const bookingResponse=await axios.get('https://backend-app.campusconnect.me/show-reservation',{
                 headers:{ Authorization: `Bearer ${token}` },
             });
             setBookings(bookingResponse.data);

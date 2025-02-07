@@ -14,7 +14,7 @@ export default function ChangePasswordTab(){
 
     const changePassword=async()=>{
        try {
-            await axios.put('http://172.16.37.126:3000/change-password',{email:user?.email,newpassword:password})
+            await axios.put('https://backend-app.campusconnect.me/change-password',{email:user?.email,newpassword:password})
             Alert.alert("PASSWORD CHANGED.")
             router.replace('/(tabs)/profile')
        }catch(error){
