@@ -122,8 +122,8 @@ app.post("/register", async(req,res)=>{
         else if(!avatar){
             return res.status(400).json("AVATAR KEY IS REQUIRED.");
         } 
-    
-        const exists=await user.find({email});
+        const emailLower=email.toLowerCase();
+        const exists=await user.find({emailLower});
         if(exists.length===0){
             const userData=await user.create({name,email,password:hashedPassword,telno,avatar})
             res.status(200).json(userData);
