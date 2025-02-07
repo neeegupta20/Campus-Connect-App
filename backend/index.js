@@ -12,7 +12,7 @@ const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890";
 const Expo = require("expo-server-sdk");
-
+const expo = Expo();
 
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
@@ -360,10 +360,10 @@ app.post('/send-notification', async(req,res) => {
         body: "maa chud gyi yaarrrr",
     }));
 
-    let chunks = Expo.chunkPushNotifications(messages);
+    let chunks = expo.chunkPushNotifications(messages);
     for (let chunk of chunks) {
       try {
-        await Expo.sendPushNotificationsAsync(chunk);
+        await expo.sendPushNotificationsAsync(chunk);
       } catch (error) {
         console.error("Error sending notification:", error);
       }
