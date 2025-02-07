@@ -368,7 +368,7 @@ app.post("/send-notification", async (req, res) => {
                 console.log("Invalid Expo push token:", user.expoPushToken);
             }
         }
-        const response = await axios.post("https://exp.host/--/api/v2/push/send", messages, {
+        const response = await axios.post("https://exp.host/--/api/v2/push/send", {messages}, {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -381,9 +381,9 @@ app.post("/send-notification", async (req, res) => {
 
         res.json({ success: true, message: "Notification sent!", response: response.data });
     } catch (error) {
-        console.error("Error in /send-notification:", error);
-        res.status(500).json({ error: "Server error" });
-    }
+        console.error("Error in /send-notification:", error.response ? error.response.data : error.message);
+        res.status(500).json({ error: "Server error", details: error.message });
+    }    
 });
 
 app.get("/notifications", async (req, res) => {
