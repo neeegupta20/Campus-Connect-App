@@ -12,8 +12,6 @@ const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890";
 const Expo = require("expo-server-sdk");
-const user = require("./models/user");
-const expo = Expo();
 
 
 const transporter=nodemailer.createTransport({
@@ -329,29 +327,24 @@ app.post('/create-order',async(req,res)=>{
     }
 })
 
-app.post('/save-token', async (req, res) => {
+app.post('/save-token',async(req,res)=>{
     try {
         console.log("Incoming request to /save-token:", req.body);
-
         const { email, expoPushToken } = req.body;
-
         if (!email ) {
             console.log("Missing parameters:", { email });
             return res.status(400).json({ error: "Missing email or Expo Push Token" });
         }
-
         await user.findOneAndUpdate(
             { email },
             { expoPushToken },
             { new: true }
         );
-
         console.log("Token saved successfully for user:", email);
         res.json({ success: true, message: "Token saved successfully!" });
-
     } catch (error) {
-        console.error("Error in /save-token:", error);
-        res.status(500).json({ error: "Server error" });
+        console.error("Error in /save-token:");
+        // res.status(500).json({ error: "Server error" });
     }
 });
 
@@ -367,10 +360,10 @@ app.post('/send-notification', async(req,res) => {
         body: "maa chud gyi yaarrrr",
     }));
 
-    let chunks = expo.chunkPushNotifications(messages);
+    let chunks = Expo.chunkPushNotifications(messages);
     for (let chunk of chunks) {
       try {
-        await expo.sendPushNotificationsAsync(chunk);
+        await Expo.sendPushNotificationsAsync(chunk);
       } catch (error) {
         console.error("Error sending notification:", error);
       }
@@ -386,7 +379,5 @@ app.get("/notifications", async (req, res) => {
     const notifications = await Notification.find().sort({ timestamp: -1 });
     res.json(notifications);
   });
-
-
 
 app.listen(3000);

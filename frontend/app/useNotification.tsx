@@ -135,7 +135,7 @@ export async function registerForPushNotificationsAsync() {
     }
 
     const token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log("Expo Push Token:", token);
+    // console.log("Expo Push Token:", token);
     
     await SecureStore.setItemAsync('expoPushToken', token);
     return token;
