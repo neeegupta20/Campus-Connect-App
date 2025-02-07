@@ -82,7 +82,7 @@ export default function TicketsTab(){
                                         id:item._id,
                                         event:item.venueName,
                                         numberOfTickets:item.numberOfPeople,
-                                        verifyUrl:`http://172.16.37.126:3000/scan-ticket?id=${item._id}`
+                                        verifyUrl:`https://campus-connect-app-backend.onrender.com/scan-ticket?id=${item._id}`
                                     })}
                                     size={100}
                                 />
