@@ -350,11 +350,14 @@ app.post('/save-token',async(req,res)=>{
     }
 });
 
-
 app.post("/send-notification", async (req, res) => {
     try {
         const { title, body } = req.body;
+        console.log("Received request with title:", title, "and body:", body);
+
         const users = await user.find({ expoPushToken: { $exists: true, $ne: null } });
+        console.log("Users found with push tokens:", users.length);
+
         let messages = [];
 
         for (let user of users) {
@@ -369,22 +372,31 @@ app.post("/send-notification", async (req, res) => {
                 console.log("Invalid Expo push token:", user.expoPushToken);
             }
         }
-        const response = await axios.post("https://exp.host/--/api/v2/push/send", {messages}, {
+
+        if (messages.length === 0) {
+            return res.status(400).json({ error: "No valid Expo push tokens found" });
+        }
+
+        console.log("Sending request to Expo:", messages);
+        const response = await axios.post("https://exp.host/--/api/v2/push/send", messages, {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             },
         });
+
         console.log("Expo push response:", response.data);
 
-        const newNotification = new Notification({ title, body, timestamp: new Date()});
+        // Save notification in MongoDB
+        const newNotification = new notificationSchema({ title, body, timestamp: new Date() });
         await newNotification.save();
+        console.log("Notification saved to database");
 
         res.json({ success: true, message: "Notification sent!", response: response.data });
     } catch (error) {
         console.error("Error in /send-notification:", error.response ? error.response.data : error.message);
         res.status(500).json({ error: "Server error", details: error.message });
-    }    
+    }
 });
 
 app.get("/notifications", async (req, res) => {
