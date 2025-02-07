@@ -353,7 +353,7 @@ app.post('/save-token',async(req,res)=>{
 app.post("/send-notification", async (req, res) => {
     try {
         const { title, body } = req.body;
-        const users = await User.find({ expoPushToken: { $exists: true, $ne: null } });
+        const users = await user.find({ expoPushToken: { $exists: true, $ne: null } });
         let messages = [];
 
         for (let user of users) {
@@ -379,7 +379,7 @@ app.post("/send-notification", async (req, res) => {
         const newNotification = new Notification({ title, body, timestamp: new Date()});
         await newNotification.save();
 
-        // res.json({ success: true, message: "Notification sent!", response: response.data });
+        res.json({ success: true, message: "Notification sent!", response: response.data });
     } catch (error) {
         console.error("Error in /send-notification:", error);
         res.status(500).json({ error: "Server error" });
