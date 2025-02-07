@@ -11,6 +11,7 @@ const reservation=require("./models/reservation");
 const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890";
+const notificationSchema = require("../backend/models/notifications")
 
 
 
@@ -352,19 +353,19 @@ app.post('/save-token',async(req,res)=>{
 app.post("/send-notification", async (req, res) => {
     try {
         const { title, body } = req.body;
-        const tokens = await tokenSchema.find();
+        const users = await User.find({ expoPushToken: { $exists: true, $ne: null } });
         let messages = [];
 
-        for (let { expoPushToken } of tokens) {
-            if (expoPushToken.startsWith("ExponentPushToken[")) {
+        for (let user of users) {
+            if (user.expoPushToken.startsWith("ExponentPushToken[")) {
                 messages.push({
-                    to: expoPushToken,
+                    to: user.expoPushToken,
                     sound: "default",
                     title,
                     body,
                 });
             } else {
-                console.log("Invalid Expo push token:", expoPushToken);
+                console.log("Invalid Expo push token:", user.expoPushToken);
             }
         }
         const response = await axios.post("https://exp.host/--/api/v2/push/send", messages, {
