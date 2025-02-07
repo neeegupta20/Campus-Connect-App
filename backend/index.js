@@ -349,31 +349,41 @@ app.post('/save-token',async(req,res)=>{
 });
 
 
-// app.post('/send-notification', async(req,res) => {
-//     const { title, body } = req.body;
+app.post("/send-notification", async (req, res) => {
+    try {
+        const { title, body } = req.body;
+        const tokens = await tokenSchema.find();
+        let messages = [];
 
-//     const tokens = await tokenSchema.find();
-//     const messages = tokens.map(({expoPushToken}) => ({
-//         to: expoPushToken,
-//         sound: "default",
-//         title: "hello sir",
-//         body: "maa chud gyi yaarrrr",
-//     }));
+        for (let { expoPushToken } of tokens) {
+            if (expoPushToken.startsWith("ExponentPushToken[")) {
+                messages.push({
+                    to: expoPushToken,
+                    sound: "default",
+                    title,
+                    body,
+                });
+            } else {
+                console.log("Invalid Expo push token:", expoPushToken);
+            }
+        }
+        const response = await axios.post("https://exp.host/--/api/v2/push/send", messages, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+        });
+        console.log("Expo push response:", response.data);
 
-//     let chunks = expo.chunkPushNotifications(messages);
-//     for (let chunk of chunks) {
-//       try {
-//         await expo.sendPushNotificationsAsync(chunk);
-//       } catch (error) {
-//         console.error("Error sending notification:", error);
-//       }
-//     }
-  
-//     const newNotification = new Notification({ title, body });
-//     await newNotification.save();
-  
-//     res.json({ success: true, message: "Notification sent!" });
-// })
+        const newNotification = new Notification({ title, body, timestamp: new Date()});
+        await newNotification.save();
+
+        // res.json({ success: true, message: "Notification sent!", response: response.data });
+    } catch (error) {
+        console.error("Error in /send-notification:", error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
 
 app.get("/notifications", async (req, res) => {
     const notifications = await Notification.find().sort({ timestamp: -1 });

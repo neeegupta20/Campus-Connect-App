@@ -26,7 +26,6 @@ export default function LoginTab(){
                 const expoPushToken = await registerForPushNotificationsAsync();
                 console.log(expoPushToken)
                 if (expoPushToken) {
-                    console.log("is it wokring??")
                     await axios.post('https://campus-connect-app-backend.onrender.com/save-token',{email,expoPushToken});
                 }
                 fetchUserProfile();
