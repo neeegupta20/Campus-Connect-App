@@ -2,9 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
-import * as SecureStore from 'expo-secure-store'
+import * as SecureStore from 'expo-secure-store';
+import QRCode from 'react-native-qrcode-svg';
 
 export default function TicketsTab(){
     
@@ -15,6 +16,7 @@ export default function TicketsTab(){
         venueName:string;
         numberOfPeople:number;
         Date:string;
+        Time:string
     }
     
     const [bookings,setBookings]=useState<Booking[]|null>(null);
@@ -26,7 +28,7 @@ export default function TicketsTab(){
             if(!token){   
                 return;
             }
-            const bookingResponse=await axios.get('http://172.16.37.126:3000/show-reservation',{
+            const bookingResponse=await axios.get('https://backend-app.campusconnect.me/show-reservation',{
                 headers:{ Authorization: `Bearer ${token}` },
             });
             setBookings(bookingResponse.data);
@@ -49,13 +51,12 @@ export default function TicketsTab(){
                 <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                     <Ionicons name="arrow-back-outline" color="white" size={32} />
                 </TouchableOpacity>
-                <Text style={styles.headingText}>Tickets</Text>
-            </View>
-            
+                <Text style={styles.headingText}>M-Tickets</Text>
+            </View>       
             {bookings===null ? (
                 <Text style={styles.message}>Loading...</Text>
             ) : bookings.length === 0 ? (
-                <Text style={styles.message}>No tickets found.</Text>
+                <Text style={styles.message}>NO TICKETS BOOKED YET</Text>
             ) : (
                 <FlatList
                     data={bookings}
@@ -63,9 +64,29 @@ export default function TicketsTab(){
                     renderItem={({item})=>(
                         <View style={styles.ticketCard}>
                             <Text style={styles.eventName}>{item.venueName}</Text>
-                            <Text style={styles.ticketDetails}>Seats: {item.numberOfPeople}</Text>
-                            <Text style={styles.ticketDetails}>{item._id}</Text>
-                            <Text style={styles.ticketDate}>Booked on: {item.Date}</Text>
+                            <View style={styles.ticketNumber}>
+                                <Ionicons name="people-outline" color="white" size={26}/>
+                                <Text style={styles.ticketDetails1}>{item.numberOfPeople}</Text>
+                            </View>
+                            <View style={styles.ticketNumber}>
+                                <Ionicons name="calendar-outline" color="white" size={26}/>
+                                <Text style={styles.ticketDetails2}>{item.Date}</Text>
+                            </View>
+                            <View style={styles.ticketNumber}>
+                                <Ionicons name="time-outline" color="white" size={26}/>
+                                <Text style={styles.ticketDetails3}>{item.Time}</Text>
+                            </View>
+                            <View style={styles.qrContainer}>
+                                <QRCode
+                                    value={JSON.stringify({
+                                        id:item._id,
+                                        event:item.venueName,
+                                        numberOfTickets:item.numberOfPeople,
+                                        verifyUrl:`http://172.16.37.126:3000/scan-ticket?id=${item._id}`
+                                    })}
+                                    size={100}
+                                />
+                            </View>
                         </View>
                     )}
                 />
@@ -100,31 +121,53 @@ const styles=StyleSheet.create({
     message:{
         color:"white",
         textAlign:"center",
-        marginTop:300,
-        fontSize:18,
+        marginTop:100,
+        fontSize:20,
     },
     ticketCard:{
         backgroundColor: "#1e1e1e",
         width:350,
-        height:250,
+        height:200,
         paddingVertical:20,
         paddingHorizontal:30,
-        marginBottom: 10,
-        borderRadius: 10,
+        marginBottom:30,
+        borderRadius:20,
     },
     eventName:{
         color: "white",
-        fontSize: 20,
+        fontSize:20,
         fontWeight: "bold",
     },
-    ticketDetails:{
-        color: "#bbb",
-        fontSize: 16,
-        marginTop: 5,
+    ticketDetails1:{
+        color:"white",
+        fontSize:20,
+        paddingLeft:10,
+        marginTop:2
+    },
+    ticketDetails2:{
+        color:"white",
+        fontSize:18,
+        paddingLeft:10,
+        marginTop:3
+    },
+    ticketDetails3:{
+        color:"white",
+        fontSize:18,
+        paddingLeft:10,
+        marginTop:3
     },
     ticketDate:{
         color:"#888",
         fontSize:14,
         marginTop:5,
     },
+    qrContainer:{
+        position:"absolute",
+        top:75,
+        right:40
+    },
+    ticketNumber:{
+        flexDirection:'row',
+        marginTop:15
+    }
 })
