@@ -6,6 +6,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useRouter } from "expo-router";
 import { UserContext } from "../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
+import { registerForPushNotificationsAsync } from "../useNotification";
 
 export default function LoginTab(){
 
@@ -18,9 +19,18 @@ export default function LoginTab(){
     const LoginUser=async()=>{
         try{
             const response=await axios.post('https://campus-connect-app-backend.onrender.com/login',{email,password});
-            if(response.data.token){
-                await SecureStore.setItemAsync('authToken',response.data.token);
+            if(response.data.token) {
+                await SecureStore.setItemAsync('authToken', response.data.token);
                 Alert.alert("LOGIN SUCCESSFUL.");
+                
+                const expoPushToken = await registerForPushNotificationsAsync();
+                if (expoPushToken) {
+                    await axios.post('https://campus-connect-app-backend.onrender.com/save-token', 
+                        { email, expoPushToken },
+                        { headers: { Authorization: `Bearer ${response.data.token}` } }
+                    );
+                }
+    
                 fetchUserProfile();
                 router.replace('/(tabs)');
             }
@@ -33,6 +43,8 @@ export default function LoginTab(){
             }
         }
     }
+
+    
 
     const togglePasswordVisibility=()=>{
         setIsPasswordVisible(!isPasswordVisible);

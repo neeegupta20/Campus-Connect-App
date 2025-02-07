@@ -10,7 +10,10 @@ const path=require('path')
 const reservation=require("./models/reservation");
 const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
-const jwtSecret="1234567890"
+const jwtSecret="1234567890";
+const Expo = require("expo-server-sdk");
+const user = require("./models/user");
+const expo = Expo();
 
 
 const transporter=nodemailer.createTransport({
@@ -326,51 +329,64 @@ app.post('/create-order',async(req,res)=>{
     }
 })
 
-// app.post('save-token', async(req,res) => {
-//     const { userId, expoPushToken } = req.body;
+app.post('/save-token', async (req, res) => {
+    try {
+        console.log("Incoming request to /save-token:", req.body);
 
-//     if(!Expo.isExpoPushToken(expoPushToken)){
-//         return res.status(400).json({ error: "Invalid Expo Push Token" });
-//     }
+        const { email, expoPushToken } = req.body;
 
-//     await tokenSchema.findOneAndUpdate(
-//         { userId },
-//         { expoPushToken },
-//         { upsert: true, new: true }
-//     );
+        if (!email ) {
+            console.log("Missing parameters:", { email });
+            return res.status(400).json({ error: "Missing email or Expo Push Token" });
+        }
 
-//     res.json({ success: true, message: "Token saved successfully" });
-// })
+        await user.findOneAndUpdate(
+            { email },
+            { expoPushToken },
+            { new: true }
+        );
 
-// app.post('send-notification', async(req,res) => {
-//     const { title, body } = req.body;
+        console.log("Token saved successfully for user:", email);
+        res.json({ success: true, message: "Token saved successfully!" });
 
-//     const tokens = await tokenSchema.find();
-//     const messages = tokens.map(({expoPushToken}) => ({
-//         to: expoPushToken,
-//         sound: "default",
-//         title: "hello sir",
-//         body: "maa chud gyi yaarrrr",
-//     }));
+    } catch (error) {
+        console.error("Error in /save-token:", error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
 
-//     let chunks = expo.chunkPushNotifications(messages);
-//     for (let chunk of chunks) {
-//       try {
-//         await expo.sendPushNotificationsAsync(chunk);
-//       } catch (error) {
-//         console.error("Error sending notification:", error);
-//       }
-//     }
+
+app.post('/send-notification', async(req,res) => {
+    const { title, body } = req.body;
+
+    const tokens = await tokenSchema.find();
+    const messages = tokens.map(({expoPushToken}) => ({
+        to: expoPushToken,
+        sound: "default",
+        title: "hello sir",
+        body: "maa chud gyi yaarrrr",
+    }));
+
+    let chunks = expo.chunkPushNotifications(messages);
+    for (let chunk of chunks) {
+      try {
+        await expo.sendPushNotificationsAsync(chunk);
+      } catch (error) {
+        console.error("Error sending notification:", error);
+      }
+    }
   
-//     const newNotification = new Notification({ title, body });
-//     await newNotification.save();
+    const newNotification = new Notification({ title, body });
+    await newNotification.save();
   
-//     res.json({ success: true, message: "Notification sent!" });
-// })
+    res.json({ success: true, message: "Notification sent!" });
+})
 
-// app.get("/notifications", async (req, res) => {
-//     const notifications = await Notification.find().sort({ timestamp: -1 });
-//     res.json(notifications);
-//   });
+app.get("/notifications", async (req, res) => {
+    const notifications = await Notification.find().sort({ timestamp: -1 });
+    res.json(notifications);
+  });
+
+
 
 app.listen(3000);

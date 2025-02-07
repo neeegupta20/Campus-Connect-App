@@ -67,7 +67,7 @@ const NotificationsScreen = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await fetch("http://172.16.35.9:8081/notifications");
+        const response = await fetch("https://campus-connect-app-backend.onrender.com/notifications");
         const data = await response.json();
         setNotifications(data);
       } catch (error) {
