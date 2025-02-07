@@ -11,8 +11,6 @@ const reservation=require("./models/reservation");
 const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890"
-const Expo = require('expo-server-sdk')
-const expo = new Expo();
 
 
 const transporter=nodemailer.createTransport({
