@@ -22,7 +22,7 @@ export default function LoginTab(){
             if(response.data.token) {
                 await SecureStore.setItemAsync('authToken', response.data.token);
                 Alert.alert("LOGIN SUCCESSFUL.");
-                
+                router.replace('/(tabs)');
                 const expoPushToken = await registerForPushNotificationsAsync();
                 console.log(expoPushToken)
                 if (expoPushToken) {
@@ -30,7 +30,6 @@ export default function LoginTab(){
                     await axios.post('https://campus-connect-app-backend.onrender.com/save-token',{email,expoPushToken});
                 }
                 fetchUserProfile();
-                router.replace('/(tabs)');
             }
         }catch(error){
             console.log(error);
