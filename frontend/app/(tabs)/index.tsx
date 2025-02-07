@@ -57,8 +57,7 @@ export default function Home(){
             // <Text>{expoPushToken}</Text>
             // </View>
             <SafeAreaView style={styles.errorContainer}>
-                <Ionicons name="bug-outline" size={30} color="red" />
-                <Text style={{fontSize:20, marginTop:10}}>NETWORK ERROR</Text>
+                <Text style={{fontSize:20, marginTop:10}}>LOADING...</Text>
             </SafeAreaView>
         )
     }
