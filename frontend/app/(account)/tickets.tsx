@@ -55,7 +55,7 @@ export default function TicketsTab(){
                     <Text style={styles.headingText}>M-Tickets</Text>
                 </View>       
                 {bookings===null ? (
-                    <Text style={styles.message}>Loading...</Text>
+                    <Text style={styles.message}>LOADING...</Text>
                 ) : bookings.length === 0 ? (
                     <Text style={styles.message}>NO TICKETS BOOKED YET</Text>
                 ) : (

@@ -63,7 +63,6 @@ const styles=StyleSheet.create({
         color:"white",
         fontSize:35,
         fontFamily:"Montserrat_700Bold",
-        marginTop:-6
     },
     eventBox:{
         paddingHorizontal:20,
