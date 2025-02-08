@@ -6,6 +6,7 @@ import { useRouter } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import { ScrollView } from "react-native";
 import { ImageBackground } from "react-native";
+import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 
 export default function AccountsTab() {
     
@@ -56,44 +57,40 @@ export default function AccountsTab() {
                     onPress={()=>{
                         router.push('/(account)/tickets')
                     }}>
-                    <Ionicons name="ticket-outline" color="white" size={36} style={styles.tabIcons}/>
+                    <Ionicons name="ticket-outline" color="white" size={30} style={styles.tabIcons}/>
                     <Text style={styles.tabText}>M-Tickets</Text>
                     <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
                 </TouchableOpacity>
-                <View style={styles.line}></View>
                 <TouchableOpacity style={styles.tabButtons} 
                     onPress={()=>{
                         router.push('/(account)/changePassword')
                     }}>
-                <Ionicons name="key-outline" color="white" size={36} style={styles.tabIcons}/>
+                <Ionicons name="key-outline" color="white" size={30} style={styles.tabIcons}/>
                     <Text style={styles.tabText}>Change Password</Text>
                     <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
                 </TouchableOpacity>
-                <View style={styles.line}></View>
                 <TouchableOpacity style={styles.tabButtons} 
                     onPress={()=>{
                         router.push('/(account)/contactUs')
                     }}>
-                    <Ionicons name="mail-open-outline" color="white" size={36} style={styles.tabIcons}/>
+                    <Ionicons name="mail-open-outline" color="white" size={30} style={styles.tabIcons}/>
                     <Text style={styles.tabText}>Contact Us</Text>
                     <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
-                </TouchableOpacity>
-                <View style={styles.line}></View>
+                </TouchableOpacity> 
                 <TouchableOpacity style={styles.tabButtons} 
                     onPress={()=>{
                         router.push('/(account)/privacyPolicy')
                     }}>
-                    <Ionicons name="clipboard-outline" color="white" size={36} style={styles.tabIcons}/>
+                    <Ionicons name="clipboard-outline" color="white" size={30} style={styles.tabIcons}/>
                     <Text style={styles.tabText}>Privacy & Terms</Text>
                     <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
                 </TouchableOpacity>
-                <View style={styles.line}></View>
                 <TouchableOpacity style={styles.tabButtons} onPress={handleLogout}>
-                    <Ionicons name="log-out-outline" color="white" size={36} style={styles.tabIcons}/>
+                    <Ionicons name="log-out-outline" color="white" size={30} style={styles.tabIcons}/>
                     <Text style={styles.tabText}>Sign Out</Text>
                     <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
                 </TouchableOpacity>
-                <View style={[styles.line,{marginBottom:100}]}></View>
+                <View style={{marginBottom:100}}></View>
             </ScrollView>
         </SafeAreaView>
         </ImageBackground>
@@ -120,32 +117,32 @@ const styles=StyleSheet.create({
         fontSize:22,
         fontWeight:"bold",
         marginTop:10,
-        textTransform:'uppercase'
+        textTransform:'uppercase',
+        fontFamily:"Montserrat_700Bold"
     },
     tabButtons:{
         marginVertical:20,
         flexDirection:'row'
     },
     tabText:{
-        marginTop:10,
+        marginTop:15,
         paddingLeft:15,
         color:"white",
-        fontSize:22,
-        fontFamily:"Roboto_500Medium"
+        fontSize:18,
+        fontFamily:"Montserrat_500Medium"
     },
     errorContainer:{
         alignItems:'center',
         marginTop:350
     },
     line:{
-        height:0.3,
-        backgroundColor:'white',
+        height:0.1,
         marginTop:15,
         width:350,
     },
     tabIcons:{
         paddingLeft:10,
-        paddingTop:4
+        paddingTop:8
     },
     editAvatarButton:{
         position:"absolute",

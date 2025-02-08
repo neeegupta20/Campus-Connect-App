@@ -31,7 +31,7 @@ export default function AvatarSelectionTab(){
               <ScrollView contentContainerStyle={styles.scrollContainer}>
                   <Text style={styles.headText}>Choose Avatar</Text>
                   <View style={styles.avatarGrid}>
-                      <TouchableOpacity onPress={()=>router.push('/(tabs)')}>
+                      <TouchableOpacity onPress={()=>handleAvatarSelect('avatar1')}>
                           <Image source={avatar1} style={styles.avatarImage} />
                       </TouchableOpacity>
                       <TouchableOpacity onPress={()=>handleAvatarSelect('avatar2')}>

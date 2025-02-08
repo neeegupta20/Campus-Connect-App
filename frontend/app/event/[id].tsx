@@ -50,7 +50,6 @@ export default function SingleEventScreen(){
                         <Ionicons style={styles.clockIcon} name="time-outline" color="white" size={32}/>
                         <Text style={styles.eventTimeText}>{event?.time}</Text>
                     </View>
-                    <View style={styles.line}></View>
                     <Ionicons style={styles.locationIcon} name="location-outline" color="white" size={35}/>
                     <Text style={styles.eventVenueText}>{event?.venue}</Text>
                 </View>
@@ -118,15 +117,12 @@ const styles=StyleSheet.create({
         fontSize:25,
         marginTop:15
     },
-    eventInfoCard:{
-        backgroundColor:"#191818",
+    eventInfoCard:{    
         height:130,
         marginHorizontal:20,
-        marginTop:15,
+        marginTop:18,
         marginBottom:30,
         borderRadius:20,
-        borderColor:"#63D0D8",
-        borderWidth:1
     },
     calendarIcon:{
         position:"absolute",
