@@ -1,107 +1,102 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Entypo from '@expo/vector-icons/Entypo';
-import ConnectZone from './connectZoneType';
+import { SelectedZoneContext } from './selectedZoneContext';
 
-const {height:SCREEN_HEIGHT}=Dimensions.get('window')
-const TAB_BAR_HEIGHT=100;
-  
-const BottomSlider:React.FC<{isOpen:boolean,zone:ConnectZone|null,onClose:()=>void}>=({isOpen,zone,onClose})=>{
-  const translateY=useSharedValue(SCREEN_HEIGHT);
-  const context=useSharedValue({y:0});
-  const gesture=Gesture.Pan()
-    
-  .onStart(()=>{
-    context.value={y:translateY.value};
-  })
-    
-  .onUpdate((event)=>{
-    translateY.value=event.translationY+context.value.y;
-    translateY.value=Math.max(translateY.value,-SCREEN_HEIGHT+550);
-    translateY.value=Math.min(translateY.value, SCREEN_HEIGHT-TAB_BAR_HEIGHT);  
-  })
 
-  .onEnd(() => {
-    if (translateY.value > SCREEN_HEIGHT - TAB_BAR_HEIGHT ) {
-      translateY.value = SCREEN_HEIGHT;
-      runOnJS(onClose)();
-    }
-  });
-  
-  useEffect(()=>{
-    translateY.value=withSpring(isOpen?-SCREEN_HEIGHT/3 : SCREEN_HEIGHT-TAB_BAR_HEIGHT, {damping:50});
-  },[isOpen]);
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const TAB_BAR_HEIGHT = 100;
 
-  const handleSlider=()=>{
-    translateY.value=withSpring(SCREEN_HEIGHT-TAB_BAR_HEIGHT)
-    onClose()
-  }
+const BottomSlider: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+  const { selectedZone, setSelectedZone } = useContext(SelectedZoneContext);
+  const translateY = useSharedValue(SCREEN_HEIGHT);
+  const context = useSharedValue({ y: 0 });
 
-  const rBottomSlider=useAnimatedStyle(()=>{
+  const gesture = Gesture.Pan()
+    .onStart(() => {
+      context.value = { y: translateY.value };
+    })
+    .onUpdate((event) => {
+      translateY.value = event.translationY + context.value.y;
+      translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 500);
+      translateY.value = Math.min(translateY.value, SCREEN_HEIGHT - TAB_BAR_HEIGHT);
+    })
+
+    useEffect(() => {
+      translateY.value = withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 50: SCREEN_HEIGHT - TAB_BAR_HEIGHT, { damping: 50 });
+    }, [isOpen]);
+
+  const handleSlider = () => {
+    translateY.value = withSpring(SCREEN_HEIGHT - TAB_BAR_HEIGHT); 
+    setSelectedZone(null); 
+    onClose(); 
+    console.log('Cross button pressed, deselecting zone and closing slider');
+  };
+
+  const rBottomSlider = useAnimatedStyle(() => {
     return {
-      transform:[{ translateY: translateY.value }],
+      transform: [{ translateY: translateY.value }],
     };
   });
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View style={[styles.bottomSliderContainer,rBottomSlider]}>
-          <View style={styles.line}/>
-          <View>
-            <TouchableOpacity style={styles.sliderCross} onPress={handleSlider}>
-              <Entypo name="cross" size={24} color="grey" />
-            </TouchableOpacity>
-            {zone &&
-              <>
-                <Text style={styles.zoneName}>{zone.name}</Text>
-                <Text style={styles.zoneDescription}>{zone.description}</Text>
-              </>
-            }
-          </View>
+      <Animated.View style={[styles.bottomSliderContainer, rBottomSlider]}>
+        <View style={styles.line} />
+        <View style={styles.contentContainer}>
+          <TouchableOpacity style={styles.sliderCross} onPress={handleSlider}>
+            <Entypo name="cross" size={24} color="grey" />
+          </TouchableOpacity>
+          {selectedZone && (
+            <>
+              <Text style={styles.zoneName}>{selectedZone.name}</Text>
+              <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
+            </>
+          )}
+        </View>
       </Animated.View>
     </GestureDetector>
   );
 };
 
-
-const styles=StyleSheet.create({
-    bottomSliderContainer: {
-    height:SCREEN_HEIGHT,
-    width:'100%',
+const styles = StyleSheet.create({
+  bottomSliderContainer: {
+    height: SCREEN_HEIGHT,
+    width: '100%',
     backgroundColor: 'white',
-    position:'absolute',
+    position: 'absolute',
     top: SCREEN_HEIGHT,
     borderRadius: 30,
-    bottom:70
-  }, 
+  },
   line: {
     width: 75,
     height: 4,
-    backgroundColor: "grey",
+    backgroundColor: 'grey',
     alignSelf: 'center',
     marginVertical: 10,
-    borderRadius: 5
+    borderRadius: 5,
   },
-  text: {
-    backgroundColor: 'black',
-    alignSelf: 'center',
-    marginVertical: 60,
-  }, 
+  contentContainer: {
+    padding: 20,
+  },
   sliderCross: {
     position: 'absolute',
     right: 20,
+    top: 10,
   },
   zoneName: {
-    position:'absolute',
-    top: 50,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20,
   },
   zoneDescription: {
-    position: 'absolute',
-    top: 70
-  }
-})
+    fontSize: 14,
+    marginTop: 10,
+    color: '#555',
+  },
+});
 
-export default BottomSlider
+export default BottomSlider;
