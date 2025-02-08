@@ -47,8 +47,7 @@ function RootLayoutInner(){
     if (!hasCheckedAuth){
         return(
             <SafeAreaView style={styles.errorContainer}>
-                <Ionicons name="bug-outline" size={30} color="red"></Ionicons>
-                <Text style={{fontSize:20, marginTop:10}}>NETWORK ERROR</Text>
+                <Text style={{fontSize:20, marginTop:10}}>LOADING...</Text>
             </SafeAreaView>
         )
     }
