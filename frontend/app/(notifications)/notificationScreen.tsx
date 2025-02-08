@@ -25,6 +25,12 @@ export default function NotificationsScreen(){
     fetchNotifications();
   },[]);
 
+  if(notifications===null){
+    return(
+      <Text>LOADING...</Text>
+    )
+  }
+
   return(
     <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
       <SafeAreaView>
