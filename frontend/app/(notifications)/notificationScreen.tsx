@@ -33,7 +33,6 @@ export default function NotificationsScreen(){
             <Ionicons name="arrow-back-outline" color="white" size={32}/>
           </TouchableOpacity>
         </View>
-        <ScrollView>
           <View>
             <FlatList
               data={notifications}
@@ -42,14 +41,13 @@ export default function NotificationsScreen(){
                 <View style={styles.notificationBox}>
                   <Text style={styles.notificationTitle}>{item.title}</Text>
                   <Text style={styles.notificationDesc}>{item.body}</Text>
-                  <Text style={{fontSize:12,color:"gray"}}>
+                  <Text style={{fontSize:12,color:"gray",paddingBottom:5}}>
                     {new Date(item.timestamp).toLocaleString()}
                   </Text>
                 </View>
               )}
             />
           </View>
-        </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -70,7 +68,7 @@ const styles=StyleSheet.create({
     notificationBox:{
       backgroundColor: "#1e1e1e",
       width:350,
-      height:120,
+      height:"auto",
       marginTop:30,
       marginLeft:20,
       marginRight:20,
@@ -87,7 +85,7 @@ const styles=StyleSheet.create({
     notificationDesc:{
       color:"white",
       fontSize:13,
-      paddingBottom:5,
+      paddingBottom:10,
       fontFamily:"Montserrat_500Medium",
       fontWeight:200
     }

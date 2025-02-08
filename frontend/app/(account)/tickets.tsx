@@ -128,7 +128,7 @@ const styles=StyleSheet.create({
     ticketCard:{
         backgroundColor: "#1e1e1e",
         width:350,
-        height:200,
+        height:"auto",
         paddingVertical:20,
         paddingHorizontal:30,
         marginBottom:30,
