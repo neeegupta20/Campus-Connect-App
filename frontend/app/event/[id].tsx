@@ -1,4 +1,4 @@
-import { events } from "../eventsList";
+import { events } from "./eventsList";
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View,Platform } from "react-native";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import { Ionicons } from '@expo/vector-icons';

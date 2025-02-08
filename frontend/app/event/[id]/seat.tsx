@@ -5,7 +5,7 @@ import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@
 import { Literata_400Regular,Literata_500Medium,Literata_700Bold } from '@expo-google-fonts/literata';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans'
 import { useRouter } from "expo-router";
-import { events } from "../../eventsList";
+import { events } from "../eventsList";
 import { useGlobalSearchParams } from "expo-router/build/hooks";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";

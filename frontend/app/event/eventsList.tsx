@@ -12,9 +12,7 @@ LET’S MAKE THIS CHRISTMAS UNFORGETTABLE TOGETHER. 🎉❄️\n
 RESERVE YOUR SPOT NOW FOR A NIGHT OF MERRIMENT AND MEMORIES! 🎄✨`,
       venue: "SOL HOUSE PATIALA",
       place: "https:r//www.google.com/maps/place/Sol+House/@30.3462194,76.3786728,15z/data=!4m2!3m1!1s0x0:0x14ccb133a32eac4d?sa=X&ved=1t:2428&ictx=111",
-      photo1:require("../assets/EVENT IMAGES/SnowySpirits.png") as ImageSourcePropType,
-      photo2:require("../assets/EVENT IMAGES/solhouse2.jpeg") as ImageSourcePropType,
-      photo3:require("../assets/EVENT IMAGES/solhouse3.jpeg") as ImageSourcePropType,
+      photo1:require("../../assets/EVENT IMAGES/SnowySpirits.png") as ImageSourcePropType,
       tags:["PARTY","XMAS 2024"],
       formatDate:"Wed, 18 Dec",
       price:200
@@ -32,9 +30,7 @@ DON’T MISS OUT ON THIS FANG-TASTIC NIGHT OF THRILLS AND CHILLS!\n
 MARK YOUR CALENDARS AND BRING YOUR FRIENDS FOR AN UNFORGETTABLE EVENING! 👻`,
       venue: "S LOUNGE PATIALA",
       place: "https://www.google.com/maps/place/SWAGATH+RESTRO+BAR/@30.345593,76.3767147,471m/data=!3m1!1e3!4m6!3m5!1s0x391029f04e122447:0xf85d6b481f5a4562!8m2!3d30.3463626!4d76.3774221!16s%2Fg%2F11t2dzf9b3?entry=ttu",
-      photo1:require("../assets/EVENT IMAGES/HalloweenNightp3.png") as ImageSourcePropType,
-      photo2:require("../assets/EVENT IMAGES/SLounge4.jpg") as ImageSourcePropType,
-      photo3:require("../assets/EVENT IMAGES/SLounge5.jpg") as ImageSourcePropType,
+      photo1:require("../../assets/EVENT IMAGES/HalloweenNightp3.png") as ImageSourcePropType,
       tags:["EERIE","PARTY"],
       formatDate:"Wed, 6 Nov",
       price:200
@@ -52,9 +48,7 @@ DON’T MISS OUT ON THIS FANG-TASTIC NIGHT OF THRILLS AND CHILLS!\n
 MARK YOUR CALENDARS AND BRING YOUR FRIENDS FOR AN UNFORGETTABLE EVENING! 👻`,
       venue: "S LOUNGE PATIALA",
       place: "https://www.google.com/maps/place/SWAGATH+RESTRO+BAR/@30.345593,76.3767147,471m/data=!3m1!1e3!4m6!3m5!1s0x391029f04e122447:0xf85d6b481f5a4562!8m2!3d30.3463626!4d76.3774221!16s%2Fg%2F11t2dzf9b3?entry=ttu",
-      photo1:require("../assets/EVENT IMAGES/HalloweenNightp2.jpeg") as ImageSourcePropType,
-      photo2:require("../assets/EVENT IMAGES/SLounge4.jpg") as ImageSourcePropType,
-      photo3:require("../assets/EVENT IMAGES/SLounge5.jpg") as ImageSourcePropType,
+      photo1:require("../../assets/EVENT IMAGES/HalloweenNightp2.jpeg") as ImageSourcePropType,
       tags:["EERIE","PARTY"],
       formatDate:"Wed, 6 Nov",
       price:150
@@ -72,9 +66,7 @@ DRESS IN YOUR BEST COSTUME AND EMBRACE THE SPIRIT OF HALLOWEEN AS WE CELEBRATE W
 DON’T MISS OUT ON THIS FANG-TASTIC NIGHT OF THRILLS AND CHILLS!\n
 MARK YOUR CALENDARS AND BRING YOUR FRIENDS FOR AN UNFORGETTABLE EVENING! 👻`,
       place: "https://www.google.com/maps/place/SWAGATH+RESTRO+BAR/@30.345593,76.3767147,471m/data=!3m1!1e3!4m6!3m5!1s0x391029f04e122447:0xf85d6b481f5a4562!8m2!3d30.3463626!4d76.3774221!16s%2Fg%2F11t2dzf9b3?entry=ttu",
-      photo1:require("../assets/EVENT IMAGES/HalloweenNightp1.jpeg") as ImageSourcePropType,
-      photo2:require("../assets/EVENT IMAGES/SLounge4.jpg") as ImageSourcePropType,
-      photo3:require("../assets/EVENT IMAGES/SLounge5.jpg") as ImageSourcePropType,
+      photo1:require("../../assets/EVENT IMAGES/HalloweenNightp1.jpeg") as ImageSourcePropType,
       tags:["EERIE","PARTY"],
       formatDate:"Wed, 6 Nov",
       price:100
@@ -91,9 +83,7 @@ GROOVE TO YOUR FAVOURITE MUSIC AND SIP ON REFRESHING DRINKS.\n
 GET READY FOR A NIGHT FULL OF FUN, LAUGHTER, AND UNFORGETTABLE MEMORIES.`,
         venue: "S LOUNGE PATIALA",
         place: "https://www.google.com/maps/place/SWAGATH+RESTRO+BAR/@30.345593,76.3767147,471m/data=!3m1!1e3!4m6!3m5!1s0x391029f04e122447:0xf85d6b481f5a4562!8m2!3d30.3463626!4d76.3774221!16s%2Fg%2F11t2dzf9b3?entry=ttu",
-        photo1:require("../assets/EVENT IMAGES/GarbaNight2.png") as ImageSourcePropType,
-        photo2:require("../assets/EVENT IMAGES/SLounge4.jpg") as ImageSourcePropType,
-        photo3:require("../assets/EVENT IMAGES/SLounge5.jpg") as ImageSourcePropType,
+        photo1:require("../../assets/EVENT IMAGES/GarbaNight2.png") as ImageSourcePropType,
         tags:["GARBA FEST","PARTY"],
         formatDate:"Thurs, 10 Oct",
         price:0
@@ -108,9 +98,7 @@ GROOVE TO YOUR FAVOURITE MUSIC AND SIP ON REFRESHING DRINKS.\n
 GET READY FOR A NIGHT FULL OF FUN, LAUGHTER, AND UNFORGETTABLE MEMORIES.`,
         venue: "S LOUNGE PATIALA",
         place: "https://www.google.com/maps/place/SWAGATH+RESTRO+BAR/@30.345593,76.3767147,471m/data=!3m1!1e3!4m6!3m5!1s0x391029f04e122447:0xf85d6b481f5a4562!8m2!3d30.3463626!4d76.3774221!16s%2Fg%2F11t2dzf9b3?entry=ttu",
-        photo1:require("../assets/EVENT IMAGES/GarbaNight1.jpg") as ImageSourcePropType,
-        photo2:require("../assets/EVENT IMAGES/SLounge4.jpg") as ImageSourcePropType,
-        photo3:require("../assets/EVENT IMAGES/SLounge5.jpg") as ImageSourcePropType,
+        photo1:require("../../assets/EVENT IMAGES/GarbaNight1.jpg") as ImageSourcePropType,
         tags:["GARBA FEST","PARTY"],
         formatDate:"Wed, 9 Oct",
         price:0
