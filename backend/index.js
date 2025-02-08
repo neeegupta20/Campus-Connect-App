@@ -394,7 +394,7 @@ app.put("/edit-avatar",async(req,res)=>{
             return res.json(null);
         }
         const {avatarPath}=req.body;
-        jwt.verify(token,"123456789",async(err,tokenData)=>{
+        jwt.verify(token,"1234567890",async(err,tokenData)=>{
             if(err){
                 return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
             }
