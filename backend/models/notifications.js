@@ -1,17 +1,16 @@
 const mongoose = require("mongoose")
 mongoose.connect("mongodb+srv://admin:campusconnect12%40@campusconnect.pahyh.mongodb.net/CampusConnectApp");
 
-const notificationSchema = new mongoose.Schema({
-    title: {
+const notifications=new mongoose.Schema({
+    title:{
         type: String,
         required: true
     },
-    body: {
+    body:{
         type: String,
         required: true
     },
-    timestamp: { type: Date, default: Date.now },
-
+    timestamp:{type:Date,default:Date.now},
 })
 
-module.exports = mongoose.model("notificationSchema", notificationSchema)
+module.exports=mongoose.model("notificationSchema",notifications)

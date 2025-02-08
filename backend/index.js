@@ -330,67 +330,60 @@ app.post('/create-order',async(req,res)=>{
 })
 
 app.post('/save-token',async(req,res)=>{
-    try {
-        console.log("Incoming request to /save-token:", req.body);
-        const { email, expoPushToken } = req.body;
-        if (!email ) {
-            console.log("Missing parameters:", { email });
-            return res.status(400).json({ error: "Missing email or Expo Push Token" });
+    try{
+        const { email,expoPushToken}=req.body;
+        if (!email){
+            return res.status(400).json({error: "Missing email or Expo Push Token"});
         }
         await user.findOneAndUpdate(
-            { email },
-            { expoPushToken },
-            { new: true }
+            {email},
+            {expoPushToken},
+            {new:true}
         );
-        console.log("Token saved successfully for user:", email);
         res.json({ success: true, message: "Token saved successfully!" });
     } catch (error) {
         console.error("Error in /save-token:");
-        // res.status(500).json({ error: "Server error" });
     }
 });
 
-app.post("/send-notification", async (req, res) => {
+app.post("/send-notification",async (req,res)=>{
     try {
-        const { title, body } = req.body;
-        const users = await user.find({ expoPushToken: { $exists: true, $ne: null } });
-        let messages = [];
+        const { title, body }=req.body;
+        const users=await user.find({ expoPushToken: { $exists: true, $ne: null } });
+        let messages=[];
 
-        for (let user of users) {
-            if (user.expoPushToken.startsWith("ExponentPushToken[")) {
+        for (let user of users){
+            if (user.expoPushToken.startsWith("ExponentPushToken[")){
                 messages.push({
-                    to: user.expoPushToken,
-                    sound: "default",
+                    to:user.expoPushToken,
+                    sound:"default",
                     title,
                     body,
                 });
-            } else {
-                console.log("Invalid Expo push token:", user.expoPushToken);
+            }else{
+                console.log("INVALID EXPO PUSH TOKEN:", user.expoPushToken);
             }
         }
 
-        if (messages.length === 0) {
-            return res.status(400).json({ error: "No valid Expo push tokens found" });
+        if(messages.length===0){
+            return res.status(400).json({error:"NO VALID EXPO TOKENS"});
         }
-        const response = await axios.post("https://exp.host/--/api/v2/push/send", messages, {
-            headers: {
+        const response=await axios.post("https://exp.host/--/api/v2/push/send", messages,{
+            headers:{
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             },
         });
-
-        console.log("Expo push response:", response.data);
-
-        const newNotification = new notificationSchema({ title, body, timestamp: new Date() });
+        const newNotification=new notificationSchema({ title, body, timestamp: new Date()});
         await newNotification.save();
-        res.json({ success: true, message: "Notification sent!", response: response.data });
-    } catch (error) {
-        res.status(500).json({ error: "Server error", details: error.message });
+        res.json({success:true, message:"NOTIFICATION SAVED",response:response.data});
+    }catch(error){
+        res.status(500).json({error:"SERVER ERROR",ERR: error.message});
     }
 });
 
-app.get("/notifications", async (req, res) => {
-    const notifications = await notificationSchema.find().sort({ timestamp: -1 });
+app.get("/notifications",async(req,res)=>{
+    const notifications=await notificationSchema.find().sort({timestamp:-1});
     res.json(notifications);
   });
 
