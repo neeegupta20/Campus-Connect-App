@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout(){ 
     return(
@@ -23,22 +24,22 @@ export default function TabLayout(){
             >
                 <Tabs.Screen name="index" 
                     options={{title:"Home",headerShown:false, 
-                    tabBarIcon:({color}:{color:string})=><FontAwesome size={34} name="home" color={color}/>
+                    tabBarIcon:({color}:{color:string})=><Ionicons name="home-outline" size={30} color={color}/>
                     }}>
                 </Tabs.Screen>
                 <Tabs.Screen name="connectzones" 
                     options={{title:"Connect Zones",
-                    tabBarIcon:({color}:{color:string})=><FontAwesome size={28} name="users" color={color}/>
+                    tabBarIcon:({color}:{color:string})=><Ionicons name="people-outline" size={32} color={color}/>
                     }}>
                 </Tabs.Screen>
                 <Tabs.Screen name="event"
                     options={{title:"Events",
-                    tabBarIcon:({color}:{color:string})=><FontAwesome size={24} name="calendar" color={color}/>
+                    tabBarIcon:({color}:{color:string})=><Ionicons name="beer-outline" size={30} color={color}/>
                     }}>
                 </Tabs.Screen>
                 <Tabs.Screen name="profile" 
                     options={{title:"Account",
-                    tabBarIcon:({color}:{color:string})=><FontAwesome size={28} name="user-circle-o" color={color}/>
+                    tabBarIcon:({color}:{color:string})=><Ionicons name="person-outline" size={30} color={color}/>
                     }}>
                 </Tabs.Screen>
             </Tabs>

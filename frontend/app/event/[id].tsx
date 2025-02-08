@@ -113,7 +113,7 @@ const styles=StyleSheet.create({
     },
     eventTitle:{
         color:"white",
-        fontFamily:"OpenSans_700Bold",
+        fontFamily:"Montserrat_700Bold",
         fontSize:25,
         marginTop:15
     },

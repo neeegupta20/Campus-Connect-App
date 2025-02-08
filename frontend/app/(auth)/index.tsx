@@ -18,7 +18,6 @@ export default function HomePage(){
             <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Image style={styles.logo} source={require('../../assets/images/logowhite.png')} />
-                <Text style={styles.subtitle}>YOUR GO-TO CONNECTING PLATFORM</Text>
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={navigateToLogin}>
@@ -52,7 +51,6 @@ const styles=StyleSheet.create({
         marginTop:120,
         width:350,
         height:100,
-        marginBottom:20,
     },
     subtitle: {
         color:'white',

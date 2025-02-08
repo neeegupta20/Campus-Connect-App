@@ -96,12 +96,12 @@ export default function AddSeats(){
                     <Text style={styles.text1}>GENERAL (GA)</Text>
                     <Text style={styles.text2}>₹ {event?.price}</Text>
                     <View style={styles.addTicketsBox}>
-                        <Text style={{position:"absolute",left:10,fontSize:20,top:-6,fontWeight:400,color:numberOfPeople>1?"black":"gray"}}
+                        <Text style={{position:"absolute",left:10,fontSize:20,top:2.3,fontWeight:600,color:numberOfPeople>1?"black":"gray"}}
                             onPress={()=>{
                                 if(numberOfPeople>1){
                                     setNumberOfPeople(numberOfPeople-1)
                                 }
-                            }}>
+                            }}>-
                         </Text>
                         <Text style={{position:"absolute",right:36,top:4.5,fontSize:18,fontWeight:600}}>{numberOfPeople}</Text>
                         <Text style={{position:"absolute",right:10,fontSize:20,top:1.8,fontWeight:400,color:numberOfPeople<4?"black":"gray"}}

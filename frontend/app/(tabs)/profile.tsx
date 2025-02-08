@@ -125,7 +125,7 @@ const styles=StyleSheet.create({
         flexDirection:'row'
     },
     tabText:{
-        marginTop:15,
+        marginTop:12.5,
         paddingLeft:15,
         color:"white",
         fontSize:18,
