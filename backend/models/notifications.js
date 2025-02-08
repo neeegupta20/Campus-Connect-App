@@ -13,4 +13,4 @@ const notifications=new mongoose.Schema({
     timestamp:{type:Date,default:Date.now},
 })
 
-module.exports=mongoose.model("notifications",notifications)
+module.exports=mongoose.model("Notifications",notifications)
