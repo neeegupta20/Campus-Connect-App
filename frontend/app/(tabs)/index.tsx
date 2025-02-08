@@ -69,7 +69,7 @@ export default function Home(){
                     <View style={styles.textcontainer}>
                         <View style={{flexDirection:"column"}}>
                             <Text style={styles.greeting}>
-                                Hey, there ! <Text style={{textTransform:'uppercase',fontSize:20}}>{user.name}</Text>
+                                Hey there, <Text style={{textTransform:'uppercase',fontSize:20}}>{user.name} !</Text>
                             </Text>
                         </View>
                         <TouchableOpacity style={styles.notificationIcon}>
@@ -82,24 +82,32 @@ export default function Home(){
                         </Text>
                     </View>
                     <View>
-                        <ImageBackground style={styles.balancebox} source={require('../../assets/images/wallet.png')}>
-                            <Text style={styles.text1}>CAMPUS COINS BALANCE</Text>
+                        <Image style={styles.balancebox} source={require('../../assets/images/CCCARD.png')}>
+                            {/* <Text style={styles.text1}>CAMPUS COINS BALANCE</Text>
                             <Text style={styles.text2}>0</Text>
                             <Text style={styles.text3}>COMING SOON !</Text>
                             <View style={styles.redeemButton}>
                             <Text style={{marginTop:4}}>Redeem</Text>
-                            </View>
-                        </ImageBackground>   
+                            </View> */}
+                        </Image>   
                     </View>
                     <View style={{flexDirection:'column',marginHorizontal:-2}}>
-                        <TouchableOpacity onPress={()=>router.push('/(tabs)/connectzones')}>
+                        <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>
                             <ImageBackground style={styles.infoBox} source={require('../../assets/images/eventBox.png')}>
                                 <Text style={styles.text4}>Events</Text>
+                                <Text style={styles.text7}>{"DISCOVER EXCITING EVENTS \n RIGHT AT YOUR CORNER !"}</Text>
+                                <View style={styles.icon1}>
+                                    <Ionicons name="chevron-forward-outline" size={24} color="white"/>
+                                </View>
                             </ImageBackground>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>
+                        <TouchableOpacity onPress={()=>router.push('/(tabs)/connectzones')}>
                             <ImageBackground style={styles.infoBox2} source={require('../../assets/images/zoneBox.png')}>
                                 <Text style={styles.text5}>Connect Zones</Text>
+                                <Text style={styles.text8}>{"YOUR HUB FOR CONNECTIONS !"}</Text>
+                                <View>
+                                    <Ionicons style={styles.icon2} name="chevron-forward-outline" size={24} color="white"/>
+                                </View>
                             </ImageBackground>
                         </TouchableOpacity>
                     </View>
@@ -149,9 +157,11 @@ const styles=StyleSheet.create(
             marginVertical:30
         },
         balancebox:{
-            height:180,
-            width:390,
-            marginVertical:40
+            height:195,
+            width:350,
+            marginVertical:40,
+            alignSelf:"center",
+            borderRadius:10
         },
         text1:{
             color:'white',
@@ -230,6 +240,36 @@ const styles=StyleSheet.create(
             borderWidth:1,
             padding:10,
             borderRadius:25,
+        },
+        text7:{
+            fontFamily:"Montserrat_500Medium",
+            fontSize:10,
+            position:"absolute",
+            bottom:40,
+            left:25
+        },
+        text8:{
+            fontFamily:"Montserrat_500Medium",
+            fontSize:10,
+            position:"absolute",
+            bottom:55,
+            left:20
+        },
+        icon1:{
+            backgroundColor:"black",
+            position:"absolute",
+            bottom:20,
+            right:20,
+            padding:10,
+            borderRadius:20
+        },
+        icon2:{
+            backgroundColor:"black",
+            position:"absolute",
+            top:65,
+            right:15,
+            padding:10,
+            borderRadius:20
         }
     }
 ) 
