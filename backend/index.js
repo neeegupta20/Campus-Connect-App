@@ -12,7 +12,7 @@ const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890";
 const axios = require("axios");
-const notificationSchema = require("../backend/models/notifications")
+const notifications=require("../backend/models/notifications")
 
 
 
@@ -373,7 +373,7 @@ app.post("/send-notification",async (req,res)=>{
                 "Accept": "application/json",
             },
         });
-        const newNotification=new notificationSchema({ title, body, timestamp: new Date()});
+        const newNotification=new notifications({ title, body, timestamp: new Date()});
         await newNotification.save();
         res.json({success:true, message:"NOTIFICATION SAVED",response:response.data});
     }catch(error){
@@ -382,7 +382,7 @@ app.post("/send-notification",async (req,res)=>{
 });
 
 app.get("/notifications",async(req,res)=>{
-    const notifications=await notificationSchema.find().sort({timestamp:-1});
+    const notifications=await notifications.find().sort({timestamp:-1});
     res.json(notifications);
   });
 

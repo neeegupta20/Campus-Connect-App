@@ -1,5 +1,5 @@
 import { events } from "../eventsList";
-import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View,Platform } from "react-native";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
@@ -103,11 +103,11 @@ const styles=StyleSheet.create({
         borderRadius:30
     },
     heading:{
-        zIndex:10,
-        height:50,
+        zIndex:10,   
         borderWidth:2,
     },
     backIcon:{
+        marginTop:Platform.OS==='ios'?10:30,
         paddingLeft:15,
         width:50
     },

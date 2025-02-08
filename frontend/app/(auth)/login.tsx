@@ -6,7 +6,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useRouter } from "expo-router";
 import { UserContext } from "../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
-import { registerForPushNotificationsAsync } from "../useNotification";
+import { registerForPushNotificationsAsync } from "../(notifications)/useNotification";
 import { Montserrat_600SemiBold } from "@expo-google-fonts/montserrat";
 
 export default function LoginTab(){

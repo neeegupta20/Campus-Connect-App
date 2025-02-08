@@ -54,7 +54,7 @@ const styles=StyleSheet.create({
     },
     heading:{
         paddingHorizontal:15,
-        marginTop:10,
+        marginTop:20,
         flexDirection:"row",
         gap:10,
         marginBottom:30

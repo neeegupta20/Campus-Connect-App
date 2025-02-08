@@ -26,7 +26,7 @@ export default function AvatarSelectionTab(){
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
           <SafeAreaView style={styles.container}>
               <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
-                      <Ionicons name="arrow-back-outline" color="white" size={32}/>
+                  <Ionicons name="arrow-back-outline" color="white" size={32}/>
               </TouchableOpacity>
               <ScrollView contentContainerStyle={styles.scrollContainer}>
                   <Text style={styles.headText}>Choose Avatar</Text>
@@ -55,7 +55,7 @@ const styles=StyleSheet.create({
     flex:1,
   },
   backIcon:{
-    zIndex:10,
+    zIndex:20,
     padding:20
   },
   headText:{

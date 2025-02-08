@@ -37,7 +37,7 @@ export default function Home(){
                                 Hey there, <Text style={{textTransform:'uppercase',fontSize:20}}>{user.name} !</Text>
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.notificationIcon}>
+                        <TouchableOpacity style={styles.notificationIcon} onPress={()=>router.replace('/(notifications)/notificationScreen')}>
                             <Ionicons name="notifications-outline" color="white" size={27}/>
                         </TouchableOpacity>
                     </View>
@@ -47,14 +47,7 @@ export default function Home(){
                         </Text>
                     </View>
                     <View>
-                        <Image style={styles.balancebox} source={require('../../assets/images/CCCARD.png')}>
-                            {/* <Text style={styles.text1}>CAMPUS COINS BALANCE</Text>
-                            <Text style={styles.text2}>0</Text>
-                            <Text style={styles.text3}>COMING SOON !</Text>
-                            <View style={styles.redeemButton}>
-                            <Text style={{marginTop:4}}>Redeem</Text>
-                            </View> */}
-                        </Image>   
+                        <Image style={styles.balancebox} source={require('../../assets/images/CCCARD.png')}></Image>   
                     </View>
                     <View style={{flexDirection:'column',marginHorizontal:-2}}>
                         <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>

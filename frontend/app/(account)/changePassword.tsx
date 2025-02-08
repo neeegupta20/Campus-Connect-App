@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, ImageBackground, StyleSheet, TextInput } from "react-native";
+import { Alert, ImageBackground, StyleSheet, TextInput,Platform } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 import { UserContext } from "../context/UserContext";
 
@@ -56,6 +56,7 @@ const styles=StyleSheet.create({
         flex:1,
     },
     heading:{
+        marginTop:Platform.OS==='ios'?10:30,
         flexDirection:"row",
         alignItems: "center",
         width:"100%",

@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, ScrollView, Alert, ImageBackground } from "react-native";
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, ScrollView, Alert, ImageBackground, Platform } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
@@ -84,7 +84,7 @@ export default function AddSeats(){
 
     return(
         <ImageBackground source={require('../../../assets/images/bg.jpeg')} style={{flex:1}}>
-                <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.heading}>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
@@ -131,13 +131,15 @@ const styles=StyleSheet.create({
         flex:1,
     },
     heading:{
+        marginTop: Platform.OS==='ios'?10:40,
         zIndex:10,
         height:50,
     },
     backIcon:{
-        paddingVertical:8,
+        paddingVertical:10,
         paddingLeft:15,
-        width:50
+        width:50,
+        zIndex:10
     },
     headText:{
         color:"white",
