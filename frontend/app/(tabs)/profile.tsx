@@ -48,7 +48,7 @@ export default function AccountsTab() {
                 <View style={styles.profileContainer}>
                     {avatarImage && <Image source={avatarImage} style={styles.avatar}/>}
                     <Text style={styles.userName}>{user?.name ?? "User"}</Text>
-                    <TouchableOpacity style={styles.editAvatarButton}>
+                    <TouchableOpacity style={styles.editAvatarButton} onPress={()=>router.push('/(account)/editAvatar')}>
                         <Ionicons name="pencil-outline" color="white" size={24}/>
                     </TouchableOpacity>
                 </View>

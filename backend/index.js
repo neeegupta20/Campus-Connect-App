@@ -386,4 +386,28 @@ app.get("/notifications",async(req,res)=>{
     res.json(notifications);
 });
 
+app.put("/edit-avatar",async(req,res)=>{
+    try {
+        const authHeader=req.headers['authorization'];
+        const token=authHeader.split(' ')[1];
+        if(!token){
+            return res.json(null);
+        }
+        const {avatarPath}=req.body;
+        jwt.verify(token,"123456789",async(err,tokenData)=>{
+            if(err){
+                return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});
+            }
+            await user.findByIdAndUpdate(
+                tokenData.id,
+                {avatar:avatarPath},
+                {new:true}
+            );
+            res.status(200).json({MSG:"USER AVATAR CHANGED"})
+        })
+    }catch(error){
+        res.status(500).json({ERR:"SERVOR ERROR"})
+    }
+})
+
 app.listen(3000);

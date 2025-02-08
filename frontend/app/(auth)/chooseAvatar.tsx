@@ -1,3 +1,4 @@
+import { Montserrat_600SemiBold } from "@expo-google-fonts/montserrat";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -61,7 +62,7 @@ const styles=StyleSheet.create({
   headText:{
     color:"white",
     marginVertical:50,
-    fontFamily:"OpenSans_700Bold",
+    fontFamily:"Montserrat_700Bold",
     fontSize:30,
   },
   scrollContainer:{
