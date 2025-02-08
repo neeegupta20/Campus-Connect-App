@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ImageBackground } from "react-native";
+import { Alert, ImageBackground } from "react-native";
 import { SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import { Image } from "react-native";
@@ -28,6 +28,7 @@ export default function AvatarSelectionTab(){
                 Authorization:`Bearer ${token}`
             }
         })
+        Alert.alert("AVATAR CHANGED.")
     }
     
     return(
