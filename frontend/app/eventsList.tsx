@@ -7,12 +7,11 @@ export const events=[
       shortDescription:"ROOFTOP @ THE BREW ESTATE",
       date: "18-12-2024",
       time: "6 PM",
-      description: `🎄 CELEBRATE THE JOY OF THE SEASON WITH A MAGICAL CHRISTMAS PARTY AT THE BREW ESTATE, PATIALA! 🎅✨\n
-INDULGE IN AN EVENING FILLED WITH FESTIVE CHEER, DELICIOUS HOLIDAY TREATS, LIVE MUSIC, AND DAZZLING DECORATIONS. 🎁🎶\n
+      description: `🎄 CELEBRATE THE JOY OF THE SEASON WITH A MAGICAL CHRISTMAS PARTY AT THE BREW ESTATE, PATIALA! 🎅✨\nINDULGE IN AN EVENING FILLED WITH FESTIVE CHEER, DELICIOUS HOLIDAY TREATS, LIVE MUSIC, AND DAZZLING DECORATIONS. 🎁🎶\n
 LET’S MAKE THIS CHRISTMAS UNFORGETTABLE TOGETHER. 🎉❄️\n
 RESERVE YOUR SPOT NOW FOR A NIGHT OF MERRIMENT AND MEMORIES! 🎄✨`,
       venue: "SOL HOUSE PATIALA",
-      place: "https://www.google.com/maps/place/Sol+House/@30.3462194,76.3786728,15z/data=!4m2!3m1!1s0x0:0x14ccb133a32eac4d?sa=X&ved=1t:2428&ictx=111",
+      place: "https:r//www.google.com/maps/place/Sol+House/@30.3462194,76.3786728,15z/data=!4m2!3m1!1s0x0:0x14ccb133a32eac4d?sa=X&ved=1t:2428&ictx=111",
       photo1:require("../assets/EVENT IMAGES/SnowySpirits.png") as ImageSourcePropType,
       photo2:require("../assets/EVENT IMAGES/solhouse2.jpeg") as ImageSourcePropType,
       photo3:require("../assets/EVENT IMAGES/solhouse3.jpeg") as ImageSourcePropType,

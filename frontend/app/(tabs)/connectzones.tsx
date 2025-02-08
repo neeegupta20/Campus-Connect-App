@@ -8,7 +8,6 @@ import BottomSlider from "../connectZonesTab";
 import ConnectZone from "../connectZoneType";
 import Zones from "../connectZonesList";
 import { useRouter } from "expo-router";
-import { Console } from "console";
 
 export default function MapScreen(){
 
@@ -30,8 +29,7 @@ export default function MapScreen(){
   };
 
   const handleSliderClose = () => {
-    // setShowBottomSlider(false);
-    console.log("errorrr")
+    setShowBottomSlider(false);
     setSelectedZone(null);
   };
 

@@ -7,7 +7,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import ConnectZone from './connectZoneType';
 
 const {height:SCREEN_HEIGHT}=Dimensions.get('window')
-const TAB_BAR_HEIGHT=950;
+const TAB_BAR_HEIGHT=100;
   
 const BottomSlider:React.FC<{isOpen:boolean,zone:ConnectZone|null,onClose:()=>void}>=({isOpen,zone,onClose})=>{
   const translateY=useSharedValue(SCREEN_HEIGHT);
@@ -24,12 +24,12 @@ const BottomSlider:React.FC<{isOpen:boolean,zone:ConnectZone|null,onClose:()=>vo
     translateY.value=Math.min(translateY.value, SCREEN_HEIGHT-TAB_BAR_HEIGHT);  
   })
 
-  // .onEnd(() => {
-  //   if (translateY.value > SCREEN_HEIGHT - TAB_BAR_HEIGHT ) {
-  //     translateY.value = SCREEN_HEIGHT;
-  //     runOnJS(onClose)();
-  //   }
-  // });
+  .onEnd(() => {
+    if (translateY.value > SCREEN_HEIGHT - TAB_BAR_HEIGHT ) {
+      translateY.value = SCREEN_HEIGHT;
+      runOnJS(onClose)();
+    }
+  });
   
   useEffect(()=>{
     translateY.value=withSpring(isOpen?-SCREEN_HEIGHT/3 : SCREEN_HEIGHT-TAB_BAR_HEIGHT, {damping:50});

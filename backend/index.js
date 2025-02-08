@@ -390,7 +390,7 @@ app.post("/send-notification", async (req, res) => {
 });
 
 app.get("/notifications", async (req, res) => {
-    const notifications = await Notification.find().sort({ timestamp: -1 });
+    const notifications = await notificationSchema.find().sort({ timestamp: -1 });
     res.json(notifications);
   });
 
