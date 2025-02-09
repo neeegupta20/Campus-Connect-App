@@ -6,7 +6,7 @@ type SelectedZoneContextType = {
   setSelectedZone: (zone: ConnectZone | null) => void;
 };
 
-export const SelectedZoneContext = createContext<SelectedZoneContextType | undefined>(undefined);
+const SelectedZoneContext = createContext<SelectedZoneContextType | undefined>(undefined);
 
 export const SelectedZoneProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [selectedZone, setSelectedZone] = useState<ConnectZone | null>(null);
@@ -25,3 +25,5 @@ export const useSelectedZone = () => {
   }
   return context;
 };
+
+export default SelectedZoneContext;

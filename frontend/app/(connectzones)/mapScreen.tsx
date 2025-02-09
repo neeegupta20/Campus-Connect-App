@@ -9,40 +9,39 @@ import Zones from "./connectZonesList";
 import { useRouter } from "expo-router";
 import { useSelectedZone } from './selectedZoneContext';
 
-export default function MapScreen() {
-  const { selectedZone, setSelectedZone } = useSelectedZone(); 
-  const [showBottomSlider, setShowBottomSlider] = useState(false);
-  const router = useRouter();
-  const markerClicked = useRef(false); 
+export default function MapScreen(){
+  const { selectedZone, setSelectedZone }=useSelectedZone(); 
+  const [showBottomSlider, setShowBottomSlider]=useState(false);
+  const router=useRouter();
+  const markerClicked=useRef(false); 
 
-  const handleGetDirections = useCallback(() => {
-    if (selectedZone) {
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${selectedZone.latitude},${selectedZone.longitude}`;
-      Linking.openURL(url).catch((err) => console.error("Error opening URL: ", err));
+  const handleGetDirections=useCallback(()=>{
+    if (selectedZone){
+      const url=`https://www.google.com/maps/dir/?api=1&destination=${selectedZone.latitude},${selectedZone.longitude}`;
+      Linking.openURL(url).catch((err)=>console.error("Error opening URL: ",err));
     }
-  }, [selectedZone]);
+  },[selectedZone]);
 
-  const handleMapPress = useCallback(() => {
+  const handleMapPress=useCallback(()=>{
     if (!markerClicked.current && showBottomSlider) {
       setSelectedZone(null); 
       setShowBottomSlider(false); 
     }
-    markerClicked.current = false; 
-  }, [showBottomSlider, setSelectedZone]);
+    markerClicked.current=false; 
+  },[showBottomSlider,setSelectedZone]);
 
-  const deselectZone = useCallback(() => {
-    console.log('Deselecting zone, setting selectedZone to null');
+  const deselectZone=useCallback(()=>{
     setSelectedZone(null); 
     setShowBottomSlider(false); 
-  }, [setSelectedZone]);
+  },[setSelectedZone]);
 
-  useEffect(() => {
-    if (!showBottomSlider) {
+  useEffect(()=>{
+    if(!showBottomSlider){
       setSelectedZone(null);
     }
   }, [showBottomSlider, setSelectedZone]);
 
-  return (
+  return(
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.mapContainer}>
         <MapView
@@ -58,14 +57,14 @@ export default function MapScreen() {
           showsUserLocation={true}
           onPress={handleMapPress} 
         >
-          {Zones.map((zone) => (
+          {Zones.map((zone)=>(
             <Marker
               key={zone.id}
               coordinate={{
                 latitude: zone.latitude,
                 longitude: zone.longitude,
               }}
-              onPress={() => {
+              onPress={()=>{
                 markerClicked.current = true; 
                 setSelectedZone(zone);
                 setShowBottomSlider(true); 
@@ -75,20 +74,20 @@ export default function MapScreen() {
         </MapView>
         <TouchableOpacity
           style={styles.goBackIcon}
-          onPress={() => {
+          onPress={()=>{
             deselectZone();
             router.back();
           }}
           accessibilityLabel="Go back"
         >
-          <AntDesign name="arrowleft" size={24} color="white" />
+        <AntDesign name="arrowleft" size={24} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleGetDirections}
           style={styles.directionsIcon}
           accessibilityLabel="Get directions"
         >
-          <FontAwesome name="map-marker" size={24} color="white" />
+        <FontAwesome name="map-marker" size={24} color="white" />
         </TouchableOpacity>
         <BottomSlider
           isOpen={showBottomSlider}
@@ -99,30 +98,30 @@ export default function MapScreen() {
   );
 }
 
-const { height } = Dimensions.get("window");
+const { height }=Dimensions.get("window");
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+const styles=StyleSheet.create({
+  container:{
+    flex:1,
   },
-  mapContainer: {
-    flex: 1,
-    position: "relative",
+  mapContainer:{
+    flex:1,
+    position:"relative",
   },
-  goBackIcon: {
-    position: "absolute",
-    top: 50,
-    left: 20,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: 10,
-    borderRadius: 20,
+  goBackIcon:{
+    position:"absolute",
+    top:50,
+    left:20,
+    backgroundColor:"rgba(0, 0, 0, 0.5)",
+    padding:10,
+    borderRadius:20,
   },
-  directionsIcon: {
-    position: "absolute",
-    top: 50,
-    right: 20,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: 12.5,
-    borderRadius: 20,
+  directionsIcon:{
+    position:"absolute",
+    top:50,
+    right:20,
+    backgroundColor:"rgba(0, 0, 0, 0.5)",
+    padding:12.5,
+    borderRadius:20,
   },
 });
