@@ -1,6 +1,7 @@
+import { Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 
 export default function ContactUsTab(){
@@ -8,22 +9,30 @@ export default function ContactUsTab(){
     const router=useRouter();
     
     return(
-        <SafeAreaView style={styles.container}>
+        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+            <SafeAreaView style={styles.container}>
             <View style={styles.heading}>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                         <Ionicons name="arrow-back-outline" color="white" size={32} />
                     </TouchableOpacity>
                     <Text style={styles.headingText}>Contact Us</Text>
             </View>
-        </SafeAreaView>
+            <View style={{marginTop:20, flexDirection:"row",marginHorizontal:20}}>
+                <Ionicons name="mail-outline" size={30} color="white"></Ionicons>
+                <Text style={styles.email}>support@campusconnect.me</Text>
+            </View>
+            <View style={{marginTop:20, flexDirection:"row",marginHorizontal:20}}>
+                <Ionicons name="logo-instagram" size={30} color="white"></Ionicons>
+                <Text style={styles.email}>campussconnect</Text>
+            </View>
+            </SafeAreaView>
+        </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"black",
-        alignItems:"center",
         paddingTop:20,
     },
     heading:{
@@ -41,5 +50,12 @@ const styles=StyleSheet.create({
     },
     backIcon:{
         padding:10,
+    },
+    email:{
+        marginTop:3,
+        fontSize:18,
+        marginHorizontal:10,
+        color:'white',
+        fontFamily:"Montserrat_700Bold"
     },
 })
