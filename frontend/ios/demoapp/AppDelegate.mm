@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
-
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
 
