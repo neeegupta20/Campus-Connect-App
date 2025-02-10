@@ -117,16 +117,16 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                     </TouchableOpacity>
                   </View>
                   <View style={styles.buttonContainer}>
-                  {checkIn?(
-                    <TouchableOpacity style={styles.button2}>
-                      <Text style={styles.buttonText}>Checked-In</Text>
-                    </TouchableOpacity>
-                  ):(
-                    <TouchableOpacity style={styles.button}  onPress={handleCheckIn}>
-                      <Text style={styles.buttonText}>Check-In</Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
+                    {checkIn?(
+                      <TouchableOpacity style={styles.button2}>
+                        <Text style={styles.buttonText}>Checked-In</Text>
+                      </TouchableOpacity>
+                    ):(
+                      <TouchableOpacity style={styles.button}  onPress={handleCheckIn}>
+                        <Text style={styles.buttonText}>Check-In</Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
                 </View>
               </>
             )}
