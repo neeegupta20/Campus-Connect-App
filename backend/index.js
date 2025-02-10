@@ -410,4 +410,16 @@ app.put("/edit-avatar",async(req,res)=>{
     }
 })
 
+app.post('check-in', async(req,res)=>{
+    try {
+        const authHeader = require.headers['authorisation'];
+        const token = authHeader?authHeader.split(' ')[1] : null
+        if(!token){
+            res.status(401).json({message: "Wrong token"})
+        }
+    } catch (error) {
+        res.status()
+    }
+})
+
 app.listen(3000);
