@@ -101,7 +101,7 @@ app.post("/verify-otp",async(req,res)=>{
   
 app.post("/register", async(req,res)=>{
 
-    const {name, email,password,telno,avatar}=req.body;
+    let {name, email,password,telno,avatar}=req.body;
     const hashedPassword=bcrypt.hashSync(password,bcryptSalt);
 
         if(!name){
@@ -131,7 +131,7 @@ app.post("/register", async(req,res)=>{
 })
 
 app.post("/login",async(req,res) => {
-        const { password, email }=req.body;
+        let { password, email }=req.body;
         email=email.toLowerCase();
         const userData=await user.findOne({ email });
         if(!userData){
