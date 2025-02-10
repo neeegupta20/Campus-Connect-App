@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useContext, useState } from 'react';
 import { TouchableOpacity, View, StyleSheet, Dimensions, Text, Image, Linking } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
@@ -6,6 +6,9 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { useSelectedZone } from './selectedZoneContext';
 import { ImageBackground } from 'react-native';
 import { Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
+import { UserContext } from '../context/UserContext';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const TAB_BAR_HEIGHT=100;
@@ -14,6 +17,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
   const { selectedZone, setSelectedZone }=useSelectedZone();
   const translateY=useSharedValue(SCREEN_HEIGHT);
   const context=useSharedValue({ y: 0 });
+  const [checkIn,setCheckIn]=useState(false);
 
   const gesture=Gesture.Pan()
     .onStart(()=>{
@@ -60,6 +64,32 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
       }
     },[selectedZone]);
 
+    const {user}=useContext(UserContext);
+
+    const handleCheckIn=async()=>{
+      try{
+        const token=await SecureStore.getItemAsync("authToken");
+        if(!token){
+          return;
+        }
+        try{
+          const response=await axios.post('https://campus-connect-app-backend.onrender.com/check-in',{
+              zoneId:selectedZone?.id,name:user?.name,email:user?.email,telno:user?.telno
+          },{
+            headers:{ Authorization: `Bearer ${token}` }
+          })
+          setCheckIn(true);
+        }catch(error){
+          if(axios.isAxiosError(error)){
+            throw error;
+          }
+        }
+      }
+      catch(error){
+          console.error("ERR:",error)
+      }
+    }
+
   return(
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSliderContainer, rBottomSlider]}>
@@ -87,10 +117,16 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                     </TouchableOpacity>
                   </View>
                   <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={handleGetDirections}>
-                        <Text style={styles.buttonText}>Check-In</Text>
+                  {checkIn?(
+                    <TouchableOpacity style={styles.button2}>
+                      <Text style={styles.buttonText}>Checked-In</Text>
                     </TouchableOpacity>
-                  </View>
+                  ):(
+                    <TouchableOpacity style={styles.button}  onPress={handleCheckIn}>
+                      <Text style={styles.buttonText}>Check-In</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
                 </View>
               </>
             )}
@@ -155,9 +191,10 @@ const styles=StyleSheet.create({
     borderRadius:10
   },
   buttonContainer:{
-    marginTop:30,
+    alignSelf:'center',
+    marginTop:20,
     width:"50%",
-    marginHorizontal:3
+    marginHorizontal:4
 },
 button:{
     backgroundColor: "#63D0D8",
@@ -165,6 +202,13 @@ button:{
     paddingVertical:12,
     borderRadius:10,
     alignItems:"center",
+},
+button2:{
+  backgroundColor:"grey",
+  paddingHorizontal:5,
+  paddingVertical:12,
+  borderRadius:10,
+  alignItems:"center",
 },
 buttonText:{
     color:"#fff",

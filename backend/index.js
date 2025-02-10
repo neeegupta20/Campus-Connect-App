@@ -12,10 +12,8 @@ const Razorpay=require("razorpay");
 const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890";
 const axios = require("axios");
-const Notifications=require("../backend/models/notifications")
-
-
-
+const Notifications=require("../backend/models/notifications");
+const CheckIns=require("../backend/models/zonecheckins");
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
     port:465,
@@ -25,12 +23,10 @@ const transporter=nodemailer.createTransport({
         pass: 'Campusconnect12@',
     },
 });
-
 const razorpay=new Razorpay({
     key_id: "rzp_live_oIOf24vws5pHYy",
     key_secret: "4AECc9CQZME3KUvFASv5pmT6"
 })
-
 app.use(express.json());
 app.use(cors({
     credentials:true,
@@ -411,21 +407,24 @@ app.put("/edit-avatar",async(req,res)=>{
 })
 
 app.post('check-in', async(req,res)=>{
-    try {
-        const authHeader = require.headers['authorisation'];
-        const token = authHeader?authHeader.split(' ')[1] : null
+    try{
+        const authHeader=require.headers['authorisation'];
+        const token=authHeader.split(' ')[1];
+        const {zoneId,name,email,telno}=req.body;
         if(!token){
             res.json(null)
         }
-
-        jwt.verify(token, '1234567890', async(err, tokenData)=>{
+        jwt.verify(token, '1234567890',async(err,tokenData)=>{
             if(err){
                 return res.status(401).json({ error: "INVALID OR EXPIRED TOKEN." });
             }
-            const checkInData = new checkIn()
+            const checkInData=await CheckIns.create({
+                userId:tokenData.id,zoneId,name,email,telno
+            })
+            res.status(200).json("CHECKED-IN",checkInData);
         })
-    } catch (error) {
-        res.status()
+    }catch(error){
+        res.status(500).json("ERR:SERVOR ERROR")
     }
 })
 
