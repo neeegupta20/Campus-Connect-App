@@ -74,11 +74,16 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         }
         try{
           const response=await axios.post('https://campus-connect-app-backend.onrender.com/check-in',{
-              zoneId:selectedZone?.id,name:user?.name,email:user?.email,telno:user?.telno
+              zoneId:selectedZone?.id,
+              name:user?.name,
+              email:user?.email,
+              telno:user?.telno
           },{
             headers:{ Authorization: `Bearer ${token}` }
           })
-          setCheckIn(true);
+          if(response?.status===200){
+            setCheckIn(true);
+          }
         }catch(error){
           if(axios.isAxiosError(error)){
             throw error;
@@ -86,7 +91,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         }
       }
       catch(error){
-          console.error("ERR:",error)
+        console.error("ERR:",error)
       }
     }
 

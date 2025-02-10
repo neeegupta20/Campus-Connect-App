@@ -411,7 +411,7 @@ app.post('/check-in', async(req,res)=>{
         const authHeader=req.headers['authorisation'];
         const token=authHeader.split(' ')[1];
         if(!token){
-            res.json(null)
+            return res.json(null)
         }
         jwt.verify(token,'1234567890',async(err,tokenData)=>{
             if(err){
