@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import { TouchableOpacity, View, StyleSheet, Dimensions, Text } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, Dimensions, Text, Image } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useSelectedZone } from './selectedZoneContext';
 import { ImageBackground } from 'react-native';
+import { Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const TAB_BAR_HEIGHT=100;
 
-const BottomSlider:React.FC<{ isOpen: boolean; onClose: () => void }>=({ isOpen, onClose })=>{
+const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClose })=>{
   const { selectedZone, setSelectedZone }=useSelectedZone();
   const translateY=useSharedValue(SCREEN_HEIGHT);
   const context=useSharedValue({ y: 0 });
@@ -30,12 +31,12 @@ const BottomSlider:React.FC<{ isOpen: boolean; onClose: () => void }>=({ isOpen,
         runOnJS(setSelectedZone)(null);
         translateY.value=withSpring(SCREEN_HEIGHT-TAB_BAR_HEIGHT);
       }else{
-        translateY.value=withSpring(-SCREEN_HEIGHT / 3 - 50);
+        translateY.value=withSpring(-SCREEN_HEIGHT / 3 - 100);
       }
     });
 
   useEffect(()=>{
-    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 50 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
+    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 100 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
       damping:50,
     });
   },[isOpen,translateY]);
@@ -64,7 +65,14 @@ const BottomSlider:React.FC<{ isOpen: boolean; onClose: () => void }>=({ isOpen,
             {selectedZone && (
               <>
                 <Text style={styles.zoneName}>{selectedZone.name}</Text>
-                <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
+                <View style={{width:220,flexDirection:'row'}}>
+                  <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
+                  <Image 
+                    source={typeof selectedZone.imageUrl==="string"?{uri:selectedZone.imageUrl}
+                    :selectedZone.imageUrl
+                    } style={styles.image}>
+                  </Image>
+                </View>
               </>
             )}
           </View>
@@ -92,29 +100,40 @@ const styles=StyleSheet.create({
     borderRadius:5,
   },
   contentContainer: {
-    padding:20,
+    paddingVertical:10
   },
   sliderCross:{
+    zIndex:10,
     position:'absolute',
     right:20,
     top:10,
   },
-  imageBackground: {
+  imageBackground:{
     flex:1,
     padding:20,
     borderRadius:30,
     overflow:'hidden',
   },
   zoneName:{
-    fontSize:18,
+    marginTop:10,
+    fontSize:20,
     fontWeight:'bold',
-    marginTop:20,
+    color:"white",
+    fontFamily:"Montserrat_700Bold"
   },
-  zoneDescription: {
+  zoneDescription:{
     fontSize:14,
     marginTop:10,
-    color:'#555',
+    color:'white',
+    fontFamily:"Montserrat_500Medium"
   },
+  image:{
+    marginTop:10,
+    marginLeft:15,
+    width:130,
+    height:100,
+    borderRadius:10
+  }
 });
 
 export default BottomSlider;
