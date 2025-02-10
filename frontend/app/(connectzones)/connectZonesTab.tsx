@@ -31,12 +31,12 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         runOnJS(setSelectedZone)(null);
         translateY.value=withSpring(SCREEN_HEIGHT-TAB_BAR_HEIGHT);
       }else{
-        translateY.value=withSpring(-SCREEN_HEIGHT / 3 - 130);
+        translateY.value=withSpring(-SCREEN_HEIGHT/3 - 350);
       }
     });
 
   useEffect(()=>{
-    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 130 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
+    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 350 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
       damping:50,
     });
   },[isOpen,translateY]);
@@ -72,13 +72,13 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
             {selectedZone && (
               <>
                 <Text style={styles.zoneName}>{selectedZone.name}</Text>
-                <View style={{width:220,flexDirection:'row'}}>
-                  <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
+                <View style={{width:370}}>
                   <Image 
                     source={typeof selectedZone.imageUrl==="string"?{uri:selectedZone.imageUrl}
                     :selectedZone.imageUrl
                     } style={styles.image}>
                   </Image>
+                  <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
                 </View>
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity style={styles.button} onPress={handleGetDirections}>
@@ -135,15 +135,16 @@ const styles=StyleSheet.create({
   },
   zoneDescription:{
     fontSize:14,
-    marginTop:10,
+    marginTop:20,
     color:'white',
     fontFamily:"Montserrat_500Medium"
   },
   image:{
+    marginRight:20,
+    alignSelf:"center",
     marginTop:10,
-    marginLeft:15,
-    width:130,
-    height:100,
+    width:350,
+    height:250,
     borderRadius:10
   },
   buttonContainer:{
