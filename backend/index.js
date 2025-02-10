@@ -186,14 +186,20 @@ app.post('/create-order',async(req,res)=>{
     }
 })
 
-app.post('/reserve-event',(req,res)=>{
+app.post('/reserve-event',async(req,res)=>{
     try{
         const authHeader=req.headers['authorization'];
         const token=authHeader.split(' ')[1];
         if(!token){
             return res.json(null);
         }
-        const {name,numberOfPeople,telno,eventId,eventName,eventDate,eventTime}=req.body;
+        const {name,numberOfPeople,telno,eventId,eventName,eventDate,eventTime,paymentId}=req.body;
+        const payment=await razorpay.payments.fetch(paymentId);
+        if(payment.status!=="captured"){
+            return res.status(400).json({
+                message:"PAYMENT VERIFICATION FAILED."
+            })
+        }
         jwt.verify(token,"1234567890",async(err,tokenData)=>{
             if(err){
                 return res.status(401).json({error:"INVALID OR EXPIRED TOKEN."});

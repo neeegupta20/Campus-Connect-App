@@ -11,7 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store'
 import { UserContext } from "@/app/context/UserContext";
-//import RazorpayCheckout from "react-native-razorpay";
+import RazorpayCheckout from "react-native-razorpay";
 
 export default function AddSeats(){
 
@@ -36,49 +36,60 @@ export default function AddSeats(){
     const totalAmount=ticketPrice*numberOfPeople;
 
     const reserveEvent=async()=>{
-        // try {
-        //     const orderResponse=await axios.post('http://172.16.36.174:3000/create-order',{amount:totalAmount})
-        //     const options={
-        //         key:"rzp_live_oIOf24vws5pHYy",
-        //         amount:orderResponse.data.amount,
-        //         currency:orderResponse.data.currency,
-        //         name:"CAMPUS CONNECT",
-        //         description:"Event Reservation Payment",
-        //         order_id:orderResponse.data.id,
-        //         theme: {
-        //         color: "#3399cc",
-        //         },
-        //     };
-
-        //     const paymentResponse=await RazorpayCheckout.open(options);
-        //     Alert.alert("Success", `Payment ID: ${paymentResponse.razorpay_payment_id}`);
-        // }catch(error){
-        //     Alert.alert("ERROR OCCURED");
-        // }
-        try{
-            const token=await SecureStore.getItemAsync('authToken');
-            if(!token){
-                setError(true);
-                return;
-            }
-            try{
-                const response=await axios.post('https://campus-connect-app-backend.onrender.com/reserve-event',
-                    {name:user?.name,numberOfPeople,telno:user?.telno,eventId:event?.id,eventName:event?.title,eventDate:event?.formatDate,eventTime:event?.time
-                    },{
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                if(response.status===200){
-                    router.replace('/(account)/tickets')
-                }
-            }catch(error){
-                if(axios.isAxiosError(error)){
-                    if(error.response?.status===422){
-                      Alert.alert("ALREADY RESERVED.");
+        try {
+            const orderResponse=await axios.post('https://campus-connect-app-backend.onrender.com/create-order',{amount:totalAmount})
+            const options={
+                key:"rzp_live_oIOf24vws5pHYy",
+                amount:orderResponse.data.amount,
+                currency:orderResponse.data.currency,
+                name:"CAMPUS CONNECT",
+                description:"Event Reservation Payment",
+                order_id:orderResponse.data.id,
+                theme: {
+                    color: "#3399cc",
+                },
+            };
+            const paymentResponse=await RazorpayCheckout.open(options);
+            if(paymentResponse.razorpay_payment_id){
+                try{
+                    const token=await SecureStore.getItemAsync('authToken');
+                    if(!token){
+                        setError(true);
+                        return;
                     }
+                    try{
+                        const response=await axios.post('https://campus-connect-app-backend.onrender.com/reserve-event',
+                            {
+                                name:user?.name,
+                                numberOfPeople,
+                                telno:user?.telno,
+                                eventId:event?.id,
+                                eventName:event?.title,
+                                eventDate:event?.formatDate,
+                                eventTime:event?.time,
+                                paymentId:paymentResponse.razorpay_payment_id
+                            },{
+                            headers: { Authorization: `Bearer ${token}` },
+                        })
+                        if(response.status===200){
+                            router.replace('/(account)/tickets')
+                        }
+                    }catch(error){
+                        if(axios.isAxiosError(error)){
+                            if(error.response?.status===422){
+                              Alert.alert("RESERVATION EXISTS.");
+                            }
+                            if(error.response?.status===400){
+                                Alert.alert("PAYMENT FAILED.");
+                              }
+                        }
+                    }
+                }catch(error){
+                    console.error(error);
                 }
             }
         }catch(error){
-            console.error(error);
+            Alert.alert("PAYMENT ERROR OCCURED");
         }
     }
 
