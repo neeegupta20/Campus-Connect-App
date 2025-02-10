@@ -199,7 +199,7 @@ const styles=StyleSheet.create({
     alignSelf:'center',
     marginTop:20,
     width:"50%",
-    marginHorizontal:4
+    marginRight:10
 },
 button:{
     backgroundColor: "#63D0D8",

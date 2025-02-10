@@ -421,8 +421,22 @@ app.post('/check-in', async(req,res)=>{
             }
             try{
                 const {zoneId,name,email,telno}=req.body;
+                const existingCheckIn=await checkins.findOne({
+                    userId:tokenData.id,
+                    zoneId
+                })
+                if(existingCheckIn){
+                    if(existingCheckIn.isCheckedIn){
+                        return res.status(200).json({message:"ALREADY CHECKED-IN",data:existingCheckIn});
+                    }
+                    else{
+                        existingCheckIn.isCheckedIn=true;
+                        await existingCheckIn.save();
+                        return res.status(200).json({message:"CHECK-IN UPDATED",data:existingCheckIn})
+                    }
+                }
                 const checkInData=await checkins.create({
-                    userId:tokenData.id,zoneId,name,email,telno
+                    userId:tokenData.id,zoneId,name,email,telno,isCheckedIn:true
                 })
                 res.status(200).json({message:"CHECKED-IN",data:checkInData});
             }catch(error){

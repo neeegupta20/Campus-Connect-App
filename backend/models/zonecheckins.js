@@ -20,6 +20,10 @@ const checkInSchema=new mongoose.Schema({
     telno:{
         type:String,
         required:true
+    },
+    isCheckedIn:{
+        type:Boolean,
+        default:false
     }
 })
 
