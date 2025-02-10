@@ -6,6 +6,8 @@ import { useRouter } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import { ScrollView } from "react-native";
 import { ImageBackground } from "react-native";
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
 import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 
 export default function AccountsTab() {
@@ -36,7 +38,7 @@ export default function AccountsTab() {
      if(!user){
             return(
                 <SafeAreaView style={styles.errorContainer}>
-                    <Text style={{fontSize:20, marginTop:10}}>LOADING...</Text>
+                    <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
                 </SafeAreaView>
             )
         }
@@ -156,5 +158,11 @@ const styles=StyleSheet.create({
         position:'absolute',
         top:10,
         right:20
-    }
+    },
+    loaderIcon:{
+        width: 40,
+        height: 40,
+        alignSelf:"center",
+        top: 30
+    },
 });
