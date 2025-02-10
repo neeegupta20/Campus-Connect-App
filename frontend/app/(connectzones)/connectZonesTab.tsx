@@ -62,9 +62,9 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         const url=`https://www.google.com/maps/dir/?api=1&destination=${selectedZone.latitude},${selectedZone.longitude}`;
         Linking.openURL(url).catch((err)=>console.error("Error opening URL: ",err));
       }
-    },[selectedZone]);
+  },[selectedZone]);
 
-    const {user}=useContext(UserContext);
+  const {user}=useContext(UserContext);
 
     const handleCheckIn=async()=>{
       try{
@@ -101,30 +101,30 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
     }
     const checkCheckInStatus=async()=>{
       try{
-          const token=await SecureStore.getItemAsync("authToken");
-          if (!token || !selectedZone){
-            return;
-          }
-          const response=await axios.get('https://campus-connect-app-backend.onrender.com/check-in-status', {
-              params:{zoneId:selectedZone?.id},
-              headers:{Authorization:`Bearer ${token}`}
-          });
-          if(response?.data?.checkedIn){
-            setCheckIn(true);
-          } 
-          else{
-            setCheckIn(false);
-          }
+        const token=await SecureStore.getItemAsync("authToken");
+        if(!token || !selectedZone){
+          return;
+        }
+        const response=await axios.get('https://campus-connect-app-backend.onrender.com/check-in-status', {
+          params:{zoneId:selectedZone?.id},
+          headers:{Authorization:`Bearer ${token}`}
+        });
+        if(response?.data?.checkedIn){
+          setCheckIn(true);
+        } 
+        else{
+          setCheckIn(false);
+        }
       }catch(error){
-          console.error("ERR:",error);
+        console.error("ERR:",error);
       }
-  };
+    };
 
-  useEffect(()=>{
-    if(selectedZone){
-        checkCheckInStatus();
-    }
-  },[selectedZone]);
+    useEffect(()=>{
+      if(selectedZone){
+          checkCheckInStatus();
+      }
+    },[selectedZone]);
   
 
   return(
