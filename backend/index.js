@@ -408,20 +408,24 @@ app.put("/edit-avatar",async(req,res)=>{
 
 app.post('/check-in', async(req,res)=>{
     try{
-        const authHeader=require.headers['authorisation'];
+        const authHeader=req.headers['authorisation'];
         const token=authHeader.split(' ')[1];
-        const {zoneId,name,email,telno}=req.body;
         if(!token){
             res.json(null)
         }
-        jwt.verify(token, '1234567890',async(err,tokenData)=>{
+        jwt.verify(token,'1234567890',async(err,tokenData)=>{
             if(err){
                 return res.status(401).json({ error: "INVALID OR EXPIRED TOKEN." });
             }
-            const checkInData=await CheckIns.create({
-                userId:tokenData.id,zoneId,name,email,telno
-            })
-            res.status(200).json("CHECKED-IN",checkInData);
+            try{
+                const {zoneId,name,email,telno}=req.body;
+                const checkInData=await CheckIns.create({
+                    userId:tokenData.id,zoneId,name,email,telno
+                })
+                res.status(200).json("CHECKED-IN",checkInData);
+            }catch(error){
+                res.status(500).json("DATABASE ERROR");
+            }
         })
     }catch(error){
         res.status(500).json("ERR:SERVOR ERROR")
