@@ -85,9 +85,6 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
           if(response?.status===200 && response?.data?.data?.checkedIn){
             checkCheckInStatus();
           }
-          else{
-            setCheckIn(false);
-          }
         }catch(error){
           if(axios.isAxiosError(error)){
             throw error;
