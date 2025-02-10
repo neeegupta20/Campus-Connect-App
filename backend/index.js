@@ -13,7 +13,7 @@ const bcryptSalt=bcrypt.genSaltSync(10);
 const jwtSecret="1234567890";
 const axios = require("axios");
 const Notifications=require("../backend/models/notifications");
-const CheckIns=require("../backend/models/zonecheckins");
+const checkins=require("../backend/models/zonecheckins");
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
     port:465,
@@ -419,7 +419,7 @@ app.post('/check-in', async(req,res)=>{
             }
             try{
                 const {zoneId,name,email,telno}=req.body;
-                const checkInData=await CheckIns.create({
+                const checkInData=await checkins.create({
                     userId:tokenData.id,zoneId,name,email,telno
                 })
                 res.status(200).json("CHECKED-IN",checkInData);
