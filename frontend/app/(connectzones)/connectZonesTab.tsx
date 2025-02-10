@@ -73,7 +73,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
           return;
         }
         try{
-          const response=await axios.post('http://localhost:3000/check-in',{
+          const response=await axios.post('https://campus-connect-app-backend.onrender.com/check-in',{
               zoneId:selectedZone?.id,
               name:user?.name,
               email:user?.email,
@@ -81,7 +81,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
           },{
             headers:{ Authorization: `Bearer ${token}` }
           })
-          if(response?.status===200){
+          if(response?.status===200 && response?.data?.data?.checkedIn){
             setCheckIn(true);
           }
         }catch(error){
