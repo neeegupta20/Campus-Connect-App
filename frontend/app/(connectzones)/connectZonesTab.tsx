@@ -73,7 +73,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
           return;
         }
         try{
-          const response=await axios.post('https://campus-connect-app-backend.onrender.com/check-in',{
+          const response=await axios.post('http://localhost:3000/check-in',{
               zoneId:selectedZone?.id,
               name:user?.name,
               email:user?.email,

@@ -119,6 +119,7 @@ app.post("/register", async(req,res)=>{
         else if(!avatar){
             return res.status(400).json("AVATAR KEY IS REQUIRED.");
         } 
+        email=email.toLowerCase();
         const exists=await user.find({email});
         if(exists.length===0){
             const userData=await user.create({name,email,password:hashedPassword,telno,avatar})
@@ -131,6 +132,7 @@ app.post("/register", async(req,res)=>{
 
 app.post("/login",async(req,res) => {
         const { password, email }=req.body;
+        email=email.toLowerCase();
         const userData=await user.findOne({ email });
         if(!userData){
             return res.status(422).json("USER NOT FOUND");
@@ -422,13 +424,13 @@ app.post('/check-in', async(req,res)=>{
                 const checkInData=await checkins.create({
                     userId:tokenData.id,zoneId,name,email,telno
                 })
-                res.status(200).json("CHECKED-IN",checkInData);
+                res.status(200).json({message:"CHECKED-IN",data:checkInData});
             }catch(error){
-                res.status(500).json("DATABASE ERROR");
+                res.status(500).json({error:"DATABASE ERROR"});
             }
         })
     }catch(error){
-        res.status(500).json("ERR:SERVOR ERROR")
+        res.status(500).json({error:"SERVOR ERROR"})
     }
 })
 
