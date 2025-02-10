@@ -94,6 +94,33 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         console.error("ERR:",error)
       }
     }
+    const checkCheckInStatus=async()=>{
+      try{
+          const token=await SecureStore.getItemAsync("authToken");
+          if (!token || !selectedZone){
+            return;
+          }
+          const response=await axios.get('http://campus-connect-app-backend.onrender.com/check-in-status', {
+              params:{zoneId:selectedZone?.id},
+              headers:{Authorization:`Bearer ${token}`}
+          });
+          if(response?.data?.checkedIn){
+            setCheckIn(true);
+          } 
+          else{
+            setCheckIn(false);
+          }
+      } catch(error){
+          console.error("ERR:",error);
+      }
+  };
+
+  useEffect(()=>{
+    if(selectedZone){
+        checkCheckInStatus();
+    }
+  },[selectedZone]);
+  
 
   return(
     <GestureDetector gesture={gesture}>
