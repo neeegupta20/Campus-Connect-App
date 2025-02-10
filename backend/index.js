@@ -415,8 +415,15 @@ app.post('check-in', async(req,res)=>{
         const authHeader = require.headers['authorisation'];
         const token = authHeader?authHeader.split(' ')[1] : null
         if(!token){
-            res.status(401).json({message: "Wrong token"})
+            res.json(null)
         }
+
+        jwt.verify(token, '1234567890', async(err, tokenData)=>{
+            if(err){
+                return res.status(401).json({ error: "INVALID OR EXPIRED TOKEN." });
+            }
+            const checkInData = new checkIn()
+        })
     } catch (error) {
         res.status()
     }
