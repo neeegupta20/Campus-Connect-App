@@ -80,10 +80,17 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                   </Image>
                   <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
                 </View>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.button} onPress={handleGetDirections}>
-                      <Text style={styles.buttonText}>Get Directions</Text>
-                  </TouchableOpacity>
+                <View style={{flexDirection:'row'}}>
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={handleGetDirections}>
+                        <Text style={styles.buttonText}>Get Directions</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={handleGetDirections}>
+                        <Text style={styles.buttonText}>Check-In</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </>
             )}
@@ -127,7 +134,7 @@ const styles=StyleSheet.create({
     overflow:'hidden',
   },
   zoneName:{
-    marginTop:10,
+    marginVertical:10,
     fontSize:20,
     fontWeight:'bold',
     color:"white",
@@ -150,6 +157,7 @@ const styles=StyleSheet.create({
   buttonContainer:{
     marginTop:30,
     width:"50%",
+    marginHorizontal:3
 },
 button:{
     backgroundColor: "#63D0D8",
