@@ -15,12 +15,6 @@ export default function MapScreen(){
   const router=useRouter();
   const markerClicked=useRef(false); 
 
-  const handleGetDirections=useCallback(()=>{
-    if (selectedZone){
-      const url=`https://www.google.com/maps/dir/?api=1&destination=${selectedZone.latitude},${selectedZone.longitude}`;
-      Linking.openURL(url).catch((err)=>console.error("Error opening URL: ",err));
-    }
-  },[selectedZone]);
 
   const handleMapPress=useCallback(()=>{
     if (!markerClicked.current && showBottomSlider) {
