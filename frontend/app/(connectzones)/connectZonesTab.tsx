@@ -72,6 +72,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         if(!token){
           return;
         }
+        setCheckIn(true);
         try{
           const response=await axios.post('https://campus-connect-app-backend.onrender.com/check-in',{
               zoneId:selectedZone?.id,
@@ -82,7 +83,10 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
             headers:{ Authorization: `Bearer ${token}` }
           })
           if(response?.status===200 && response?.data?.data?.checkedIn){
-            setCheckIn(true);
+            checkCheckInStatus();
+          }
+          else{
+            setCheckIn(false);
           }
         }catch(error){
           if(axios.isAxiosError(error)){
@@ -92,6 +96,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
       }
       catch(error){
         console.error("ERR:",error)
+        setCheckIn(false);
       }
     }
     const checkCheckInStatus=async()=>{
@@ -100,7 +105,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
           if (!token || !selectedZone){
             return;
           }
-          const response=await axios.get('http://campus-connect-app-backend.onrender.com/check-in-status', {
+          const response=await axios.get('https://campus-connect-app-backend.onrender.com/check-in-status', {
               params:{zoneId:selectedZone?.id},
               headers:{Authorization:`Bearer ${token}`}
           });
@@ -110,7 +115,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
           else{
             setCheckIn(false);
           }
-      } catch(error){
+      }catch(error){
           console.error("ERR:",error);
       }
   };
