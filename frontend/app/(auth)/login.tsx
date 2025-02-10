@@ -6,8 +6,10 @@ import * as SecureStore from 'expo-secure-store';
 import { useRouter } from "expo-router";
 import { UserContext } from "../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
-import { registerForPushNotificationsAsync } from "../(notifications)/useNotification";
+import registerForPushNotificationsAsync from "../(notifications)/useNotification";
 import { Montserrat_600SemiBold } from "@expo-google-fonts/montserrat";
+import loaderWhite from "../../assets/loaderWhite.json" 
+import LottieView from "lottie-react-native";
 
 export default function LoginTab(){
 
@@ -16,19 +18,22 @@ export default function LoginTab(){
     const [isPasswordVisible,setIsPasswordVisible]=useState(false);
     const router=useRouter();
     const {fetchUserProfile}=useContext(UserContext);
+    const [loading, setLoading] = useState(false)
 
     const LoginUser=async()=>{
         try{
+            setLoading(true)
             const response=await axios.post('https://campus-connect-app-backend.onrender.com/login',{email,password});
             if(response.data.token) {
                 await SecureStore.setItemAsync('authToken', response.data.token);
-                Alert.alert("LOGIN SUCCESSFUL.");
                 router.replace('/(tabs)');
                 const expoPushToken=await registerForPushNotificationsAsync();
                 if (expoPushToken) {
                     await axios.post('https://campus-connect-app-backend.onrender.com/save-token',{email,expoPushToken});
                 }
                 fetchUserProfile();
+                setLoading(false)
+                return;
             }
         }catch(error){
             console.log(error);
@@ -38,6 +43,7 @@ export default function LoginTab(){
                 }
             }
         }
+        setLoading(false);
     }
 
     
@@ -84,10 +90,10 @@ export default function LoginTab(){
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.button} onPress={LoginUser}>
-                        <Text style={styles.buttonText}>
-                            Login
-                        </Text>
+                    <TouchableOpacity style={styles.button} onPress={LoginUser} disabled={loading}>
+                        {loading ? (
+                            <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+                        ) : (<Text style={styles.buttonText}>Login</Text>)}
                     </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
@@ -168,5 +174,10 @@ const styles=StyleSheet.create(
             right:15,
             top:-14
         },
+        loaderIcon:{
+            width: 25,
+            height: 25,
+            alignSelf:"center"
+        }
     }
 )

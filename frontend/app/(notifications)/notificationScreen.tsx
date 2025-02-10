@@ -1,15 +1,18 @@
 import { Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import LottieView from "lottie-react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, TouchableOpacity } from "react-native";
 import { ImageBackground, ScrollView, StyleSheet, Platform } from "react-native";
 import { View, Text, FlatList } from "react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
 
 export default function NotificationsScreen(){
   
   const [notifications, setNotifications]=useState<{ _id: string; title: string; body: string; timestamp: string }[]>([]);
   const router=useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(()=>{
     const fetchNotifications=async()=>{
@@ -21,6 +24,7 @@ export default function NotificationsScreen(){
       catch(error){
         console.error("ERROR FETCHING NOTIFICATIONS", error);
       }
+      setLoading(false)
     };
     fetchNotifications();
   },[]);
@@ -35,10 +39,14 @@ export default function NotificationsScreen(){
     <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
       <SafeAreaView>
         <View style={styles.heading}>
-          <TouchableOpacity onPress={()=>router.replace('/(tabs)/')} style={styles.backIcon}>
+          <TouchableOpacity onPress={()=>router.replace('/(tabs)')} style={styles.backIcon}>
             <Ionicons name="arrow-back-outline" color="white" size={32}/>
           </TouchableOpacity>
         </View>
+
+        {loading ? (
+          <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+        ) : (
           <View>
             <FlatList
               data={notifications}
@@ -54,6 +62,8 @@ export default function NotificationsScreen(){
               )}
             />
           </View>
+        )}
+          
       </SafeAreaView>
     </ImageBackground>
   );
@@ -94,6 +104,12 @@ const styles=StyleSheet.create({
       paddingBottom:10,
       fontFamily:"Montserrat_500Medium",
       fontWeight:200
-    }
+    },
+    loaderIcon:{
+      width: 40,
+      height: 40,
+      alignSelf:"center",
+      top: 30
+  }
 })
 

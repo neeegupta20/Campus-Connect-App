@@ -6,6 +6,9 @@ import { useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ScrollView } from "react-native";
 import axios from "axios";
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
+
 
 export default function EnterEmail(){
     
@@ -19,6 +22,7 @@ export default function EnterEmail(){
     const [emailVerify,SetEmailVerify]=useState(false);
     const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const [isPasswordVisible,setIsPasswordVisible]=useState(false);
+    const [loading, setLoading] = useState(false)
 
     const avatarMap:{[key:string]:any}={
         avatar1:require('../../assets/AVATARS/avatar1.png'),
@@ -40,13 +44,16 @@ export default function EnterEmail(){
     const avatarImage=avatarMap[avatar] ?? null;
 
     const SendOTP=async(name:string|string[],telno:string|string[],email:string,avatar:string,password:string)=>{
+        setLoading(true)
         try{
           const response=await axios.post('https://campus-connect-app-backend.onrender.com/send-otp',{email});
           if(response.status===200){
             router.replace({
               pathname:'/(auth)/OTPVerify',
               params:{name,telno,email,password,avatar}});
-              console.log('OTP SENT.')
+            //   console.log('OTP SENT.')
+            setLoading(false)
+            return;
           }
         }catch(error){
           if(axios.isAxiosError(error)){
@@ -56,6 +63,7 @@ export default function EnterEmail(){
           }
           console.log(error);
         }
+        setLoading(false)
     }
 
     return(
@@ -101,13 +109,12 @@ export default function EnterEmail(){
                         </View>
                         <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button} 
-                            onPress={()=>{
-                                SendOTP(name,telno,email,avatar,password);
-                            }}>
-                            <Text style={styles.buttonText}>
-                                Next
-                            </Text>
+                            onPress={()=>{ SendOTP(name,telno,email,avatar,password)}}
+                            disabled={loading}>
+                            {loading ? (
+                            <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/> ) : (<Text style={styles.buttonText}>Next</Text>)}
                         </TouchableOpacity>
+                        
                     </View>
                     </View>
                 </SafeAreaView>
@@ -182,4 +189,9 @@ const styles=StyleSheet.create({
         fontSize:25,
         fontWeight: "bold",
     },
+    loaderIcon:{
+        width: 25,
+        height: 25,
+        alignSelf:"center"
+    }
 });

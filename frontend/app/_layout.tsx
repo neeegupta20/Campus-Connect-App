@@ -5,6 +5,7 @@ import UserProvider, { UserContext } from "./context/UserContext";
 import { StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import SplashScreen from "@/components/SplashScreen";
+import LottieView from "lottie-react-native";
 
 function RootLayoutInner(){
     
@@ -47,7 +48,7 @@ function RootLayoutInner(){
     if (!hasCheckedAuth){
         return(
             <SafeAreaView style={styles.errorContainer}>
-                <Text style={{fontSize:20, marginTop:10,color:"white"}}>LOADING...</Text>
+                <LottieView source={"frontend/assets/loaderWhite.json"} autoPlay loop style={styles.loaderIcon}/>
             </SafeAreaView>
         )
     }
@@ -67,7 +68,14 @@ const styles=StyleSheet.create(
     {
         errorContainer:{
             alignItems:'center',
-            marginTop:350
+            marginTop:350,
+            justifyContent: "center"
+        },
+        loaderIcon:{
+            width: 60,
+            height: 60,
+            alignSelf:"center",
+            top: 300
         }
     }
 );

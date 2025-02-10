@@ -2,6 +2,8 @@ import { SafeAreaView,ScrollView,Image, Text, TextInput, StyleSheet, View, Alert
 import { useState } from "react";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import axios from "axios";
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
 
 export default function otpVerify(){
         
@@ -13,6 +15,7 @@ export default function otpVerify(){
         const password=searchParams?.password ?? '';
         const avatar=Array.isArray(searchParams?.avatar) ? searchParams?.avatar[0] : searchParams?.avatar ?? ''; 
         const [otp,setOtp]=useState(['','','','']);
+        const [loading, setLoading] = useState(false)
 
         const handleChange=(value:string,index:number)=>{
             const newOtp=[...otp];
@@ -37,13 +40,13 @@ export default function otpVerify(){
                 return;
             }
             try{
+                setLoading(true)
                 const response1=await axios.post('https://campus-connect-app-backend.onrender.com/verify-otp',{email,OTP:otpString});
                 if(response1.status===200){
                     try{
                         const dataUser={name,email,password,telno,avatar};
                         const response2=await axios.post('https://campus-connect-app-backend.onrender.com/register',dataUser);
                         if(response2.status===200){
-                            Alert.alert("USER REGISTERED. PLEASE LOGIN");
                             router.replace('/(auth)/login');
                         }
                     }catch(error){
@@ -55,6 +58,8 @@ export default function otpVerify(){
                         }
                     }
                 }
+                setLoading(false)
+                return;
             }catch(error){
                 if(axios.isAxiosError(error)){
                     if(error.response?.status===403){
@@ -63,6 +68,7 @@ export default function otpVerify(){
                 }
                 console.log(error);
             }
+            setLoading(false)
         }
   
 
@@ -91,10 +97,10 @@ export default function otpVerify(){
                             />
                         ))}
                     </View>
-                    <TouchableOpacity style={styles.button} onPress={VerifyOTP}>
-                        <Text style={styles.buttonText}>
-                            Verify
-                        </Text>
+                    <TouchableOpacity style={styles.button} onPress={VerifyOTP} disabled={loading}> 
+                        {loading ? (
+                            <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+                        ) : (<Text style={styles.buttonText}>Verify</Text>)}
                     </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
@@ -161,5 +167,10 @@ const styles=StyleSheet.create(
             color: "#888",
             marginLeft:6
         },
+        loaderIcon:{
+            width: 25,
+            height: 25,
+            alignSelf:"center"
+        }
     }
 )

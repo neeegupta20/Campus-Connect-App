@@ -6,6 +6,8 @@ import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@
 import {Literata_400Regular,Literata_500Medium,Literata_700Bold} from '@expo-google-fonts/literata';
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
 
 export default function Home(){
 
@@ -22,7 +24,7 @@ export default function Home(){
     if(!user){
         return(
             <SafeAreaView style={styles.errorContainer}>
-                <Text style={{fontSize:20, marginTop:10}}>LOADING...</Text>
+                <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
             </SafeAreaView>
         )
     }
@@ -144,6 +146,12 @@ const styles=StyleSheet.create(
             position:'absolute',
             bottom:20,
             left:40
+        },
+        loaderIcon:{
+            width: 40,
+            height: 40,
+            alignSelf:"center",
+            top: 30
         },
         redeemButton:{
             fontFamily:'Montserrat_500Medium',

@@ -6,6 +6,8 @@ import { FlatList, ImageBackground, ScrollView, StyleSheet } from "react-native"
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 import * as SecureStore from 'expo-secure-store';
 import QRCode from 'react-native-qrcode-svg';
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
 
 export default function TicketsTab(){
     
@@ -55,7 +57,7 @@ export default function TicketsTab(){
                     <Text style={styles.headingText}>M-Tickets</Text>
                 </View>       
                 {bookings===null ? (
-                    <Text style={styles.message}>LOADING...</Text>
+                    <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
                 ) : bookings.length === 0 ? (
                     <Text style={styles.message}>NO TICKETS BOOKED YET</Text>
                 ) : (
@@ -170,5 +172,11 @@ const styles=StyleSheet.create({
     ticketNumber:{
         flexDirection:'row',
         marginTop:15
+    },
+    loaderIcon:{
+        width: 40,
+        height: 40,
+        alignSelf:"center",
+        top: 30
     }
 })

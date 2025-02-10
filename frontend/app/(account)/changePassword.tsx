@@ -5,21 +5,28 @@ import { useContext, useState } from "react";
 import { Alert, ImageBackground, StyleSheet, TextInput,Platform } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 import { UserContext } from "../context/UserContext";
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
 
 export default function ChangePasswordTab(){
 
     const router=useRouter();
     const [password,SetPassword]=useState('');
     const {user}=useContext(UserContext);
+    const [loading, setLoading] = useState(false)
+
 
     const changePassword=async()=>{
+        setLoading(true)
        try {
             await axios.put('https://campus-connect-app-backend.onrender.com/change-password',{email:user?.email,newpassword:password})
             Alert.alert("PASSWORD CHANGED.")
             router.replace('/(tabs)/profile')
+            setLoading(false)
        }catch(error){
             Alert.alert("PLEASE TRY AGAIN LATER.")
        }
+       setLoading(false)
     }
     
     return(
@@ -41,10 +48,11 @@ export default function ChangePasswordTab(){
                         placeholderTextColor="gray"
                     />
                 </View>
-                <TouchableOpacity style={styles.button} onPress={changePassword}>
-                    <Text style={styles.buttonText}>
-                        Reset Password
-                    </Text>
+                <TouchableOpacity style={styles.button} onPress={changePassword} disabled={loading}>
+                    {loading?(
+                        <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+                    ):(<Text style={styles.buttonText}>Reset Password</Text>)}
+                    
                 </TouchableOpacity>
             </SafeAreaView>
         </ImageBackground>
@@ -109,4 +117,9 @@ const styles=StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
     },
+    loaderIcon:{
+        width: 25,
+        height:25,
+        alignSelf:"center"
+    }
 })
