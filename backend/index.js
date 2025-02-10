@@ -406,7 +406,7 @@ app.put("/edit-avatar",async(req,res)=>{
     }
 })
 
-app.post('check-in', async(req,res)=>{
+app.post('/check-in', async(req,res)=>{
     try{
         const authHeader=require.headers['authorisation'];
         const token=authHeader.split(' ')[1];
