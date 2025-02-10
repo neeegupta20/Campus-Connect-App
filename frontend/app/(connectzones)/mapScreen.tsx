@@ -82,13 +82,6 @@ export default function MapScreen(){
         >
         <AntDesign name="arrowleft" size={24} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleGetDirections}
-          style={styles.directionsIcon}
-          accessibilityLabel="Get directions"
-        >
-        <FontAwesome name="map-marker" size={24} color="white" />
-        </TouchableOpacity>
         <BottomSlider
           isOpen={showBottomSlider}
           onClose={deselectZone}
@@ -114,14 +107,6 @@ const styles=StyleSheet.create({
     left:20,
     backgroundColor:"rgba(0, 0, 0, 0.5)",
     padding:10,
-    borderRadius:20,
-  },
-  directionsIcon:{
-    position:"absolute",
-    top:50,
-    right:20,
-    backgroundColor:"rgba(0, 0, 0, 0.5)",
-    padding:12.5,
     borderRadius:20,
   },
 });

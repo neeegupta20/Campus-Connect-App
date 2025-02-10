@@ -104,3 +104,5 @@ GET READY FOR A NIGHT FULL OF FUN, LAUGHTER, AND UNFORGETTABLE MEMORIES.`,
         price:0
       },
   ]
+
+export default events;

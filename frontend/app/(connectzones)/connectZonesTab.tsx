@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { TouchableOpacity, View, StyleSheet, Dimensions, Text, Image } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { TouchableOpacity, View, StyleSheet, Dimensions, Text, Image, Linking } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -31,12 +31,12 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         runOnJS(setSelectedZone)(null);
         translateY.value=withSpring(SCREEN_HEIGHT-TAB_BAR_HEIGHT);
       }else{
-        translateY.value=withSpring(-SCREEN_HEIGHT / 3 - 100);
+        translateY.value=withSpring(-SCREEN_HEIGHT / 3 - 130);
       }
     });
 
   useEffect(()=>{
-    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 100 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
+    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 130 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
       damping:50,
     });
   },[isOpen,translateY]);
@@ -52,6 +52,13 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
   const rBottomSlider=useAnimatedStyle(()=>({
     transform:[{ translateY:translateY.value}],
   }));
+
+  const handleGetDirections=useCallback(()=>{
+      if (selectedZone){
+        const url=`https://www.google.com/maps/dir/?api=1&destination=${selectedZone.latitude},${selectedZone.longitude}`;
+        Linking.openURL(url).catch((err)=>console.error("Error opening URL: ",err));
+      }
+    },[selectedZone]);
 
   return(
     <GestureDetector gesture={gesture}>
@@ -72,6 +79,11 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                     :selectedZone.imageUrl
                     } style={styles.image}>
                   </Image>
+                </View>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity style={styles.button} onPress={handleGetDirections}>
+                      <Text style={styles.buttonText}>Get Directions</Text>
+                  </TouchableOpacity>
                 </View>
               </>
             )}
@@ -133,7 +145,23 @@ const styles=StyleSheet.create({
     width:130,
     height:100,
     borderRadius:10
-  }
+  },
+  buttonContainer:{
+    marginTop:30,
+    width:"50%",
+},
+button:{
+    backgroundColor: "#63D0D8",
+    paddingHorizontal:5,
+    paddingVertical:12,
+    borderRadius:10,
+    alignItems:"center",
+},
+buttonText:{
+    color:"#fff",
+    fontSize:14,
+    fontWeight: "bold",
+},
 });
 
 export default BottomSlider;
