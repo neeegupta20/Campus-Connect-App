@@ -7,7 +7,7 @@ export default function TabLayout(){
     return(
         <View style={{flex:1}}>
             <Tabs
-            screenOptions={({ route })=>({
+            screenOptions={({ route }: { route: any }) => ({
             tabBarActiveTintColor:"#63D0D8",
             headerShown:false,
             tabBarStyle:route.name==="index"
