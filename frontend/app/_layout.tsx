@@ -14,12 +14,12 @@ function RootLayoutInner(){
     const [hasCheckedAuth, setHasCheckedAuth]=useState(false);
     const [isLoading,setIsLoading]=useState(true);
 
-    useEffect(()=>{
-        const timeout=setTimeout(()=>{
-            setIsLoading(false);
-        },4250);
-        return ()=>clearTimeout(timeout);
-    }, []);
+    // useEffect(()=>{
+    //     const timeout=setTimeout(()=>{
+    //         setIsLoading(false);
+    //     },4250);
+    //     return ()=>clearTimeout(timeout);
+    // }, []);
 
     useEffect(()=>{
         if (!isLoading){
@@ -41,9 +41,9 @@ function RootLayoutInner(){
         }
     },[user,hasCheckedAuth]);
 
-    if (isLoading) {
-        return <SplashScreen />;
-    }
+    // if (isLoading) {
+    //     return <SplashScreen />;
+    // }
 
     if (!hasCheckedAuth){
         return(
