@@ -21,7 +21,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   }
 }
 
-rootProject.name = 'demoapp'
+rootProject.name = 'CAMPUS-CONNECT'
 
 dependencyResolutionManagement {
   versionCatalogs {
