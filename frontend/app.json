@@ -1,16 +1,19 @@
 {
   "expo": {
-    "name": "demoapp",
+    "name": "CAMPUS-CONNECT",
     "slug": "demoapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/app-logo.jpg",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.neegupta20.demoapp"
+      "bundleIdentifier": "com.neegupta20.demoapp",
+      "config":{
+        "googleMapsApiKey":"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -29,8 +32,6 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
@@ -43,6 +44,7 @@
       "router": {
         "origin": false
       },
+      "googleMapsApiKey":"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs",
       "eas": {
         "projectId": "07c089b9-0899-4802-b64f-d20328c71145"
       }
