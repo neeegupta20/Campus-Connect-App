@@ -13,14 +13,16 @@
       "bundleIdentifier": "com.neegupta20.demoapp",
       "config":{
         "googleMapsApiKey":"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
-      }
+      },
+      "newArchEnabled":false
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.neegupta20.demoapp"
+      "package": "com.neegupta20.demoapp",
+      "newArchEnabled":false
     },
     "web": {
       "bundler": "metro",
