@@ -53,7 +53,8 @@
     },
     "doctor": {
     "reactNativeDirectoryCheck": {
-      "exclude": ["react-native-maps", "react-native-razorpay", "react-native-ionicons", "react-native-loader-kit"]
+      "exclude": ["react-native-maps", "react-native-razorpay", "react-native-ionicons", "react-native-loader-kit"],
+      "listUnknownPackages": false
     }
   },
     "owner": "neegupta20"
