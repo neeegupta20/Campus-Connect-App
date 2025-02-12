@@ -57,6 +57,18 @@
       "listUnknownPackages": false
     }
   },
+  "builds": {
+    "ios": {
+      "local": {
+        "buildType": "archive"
+      }
+    },
+    "android": {
+      "local": {
+        "buildType": "apk"
+      }
+    }
+  },
     "owner": "neegupta20"
   }
 }
