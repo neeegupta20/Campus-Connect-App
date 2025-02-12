@@ -74,8 +74,10 @@ target 'demoapp' do
       end
     end
     installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['DEFINES_MODULE'] = 'YES'  # Ensure it's consistent
+      if target.name == 'expo-dev-menu'
+        target.build_configurations.each do |config|
+          config.build_settings['DEFINES_MODULE'] = 'YES'
+        end
       end
     end 
   end
