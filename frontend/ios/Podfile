@@ -1,3 +1,4 @@
+use_modular_headers!
 pod 'GoogleUtilities', :modular_headers => true
 pod 'FirebaseCoreInternal', :modular_headers => true
 pod 'GoogleMaps','7.4.0'
@@ -73,13 +74,6 @@ target 'demoapp' do
         end
       end
     end
-    installer.pods_project.targets.each do |target|
-      if target.name == 'expo-dev-menu'
-        target.build_configurations.each do |config|
-          config.build_settings['DEFINES_MODULE'] = 'YES'
-        end
-      end
-    end 
   end
 end
 
