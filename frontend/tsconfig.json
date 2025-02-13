@@ -6,12 +6,13 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "types": ["node", "@types/babel__generator", "@types/babel__template"]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+  ],  
 }
