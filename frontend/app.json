@@ -16,6 +16,7 @@
       },
       "newArchEnabled":false
     },
+    "jsEngine":"jsc",
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
