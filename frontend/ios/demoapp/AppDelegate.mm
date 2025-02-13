@@ -13,16 +13,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 // @generated begin react-native-maps-init - expo prebuild (DO NOT MODIFY) sync-8c365c2fcd2f53ecb56bfa9bd179959e8d254499
-#if __has_include(<GoogleMaps/GoogleMaps.h>)
+
   [GMSServices provideAPIKey:@"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"];
-#endif
 // @generated end react-native-maps-init
   // self.moduleName = @"main";
 
   // // You can add your custom initial props in the dictionary below.
   // // They will be passed down to the ViewController used by React Native.
   // self.initialProps = @{};
-  [GMSServices provideAPIKey:@"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"];
 
   // return [super application:application didFinishLaunchingWithOptions:launchOptions];
   return YES;
