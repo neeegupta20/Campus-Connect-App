@@ -63,7 +63,15 @@ target 'demoapp' do
       :mac_catalyst_enabled => false,
       :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',
     )
-
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        # Ensure that DEFINES_MODULE is not conflicting
+        if target.name == 'expo-dev-menu' || target.name == 'Main' || 
+           target.name == 'ReactNativeCompatibles' || target.name == 'SafeAreaView' || target.name == 'Vendored'
+          config.build_settings['DEFINES_MODULE'] = 'YES'
+        end
+      end
+    end
     # This is necessary for Xcode 14, because it signs resource bundles by default
     # when building for devices.
     installer.target_installation_results.pod_target_installation_results
