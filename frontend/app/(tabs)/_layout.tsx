@@ -27,11 +27,11 @@ export default function TabLayout(){
                     tabBarIcon:({color}:{color:string})=><Ionicons name="home-outline" size={30} color={color}/>
                     }}>
                 </Tabs.Screen>
-                <Tabs.Screen name="connectzones" 
+                {/* <Tabs.Screen name="connectzones" 
                     options={{title:"Connect Zones",
                     tabBarIcon:({color}:{color:string})=><Ionicons name="people-outline" size={32} color={color}/>
                     }}>
-                </Tabs.Screen>
+                </Tabs.Screen> */}
                 <Tabs.Screen name="event"
                     options={{title:"Events",
                     tabBarIcon:({color}:{color:string})=><Ionicons name="beer-outline" size={30} color={color}/>

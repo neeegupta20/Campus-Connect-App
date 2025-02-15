@@ -104,10 +104,11 @@ const styles=StyleSheet.create({
     },
     heading:{
         zIndex:10,   
-        borderWidth:2,
+        borderWidth:0,
     },
     backIcon:{
         marginTop:Platform.OS==='ios'?10:30,
+        paddingBottom:10,
         paddingLeft:15,
         width:50
     },
