@@ -39,3 +39,5 @@ app-example
 /ios
 
 node_modules/
+/frontend/.expo
+/frontend/.expo

@@ -37,26 +37,41 @@ export default function AccountsTab() {
     };
 
     const handleDeleteAccount=async()=>{
-        Alert.alert("ALL DATA RELATED TO ACCOUNT WILL BE LOST")
-        try{
-            const token=await SecureStore.getItemAsync("authToken");
-            setUser(null);
-            const response=await axios.delete('https://campus-connect-app-backend.onrender.com/delete-account',{
-                headers:{ Authorization:`Bearer ${token}`}
-            })
-            if(response.status===200){
-                await SecureStore.deleteItemAsync("authToken");
-                router.replace('/(auth)')
-            }
-            else{
-                Alert.alert("ERROR OCCURED, TRY AGAIN LATER");
-            }
-        }catch(error){
-            if(axios.isAxiosError(error)){
-                Alert.alert("NETWORK ERROR")
-            }
-        }
-    }
+        Alert.alert(
+            "WARNING",
+            "ALL DATA RELATED TO ACCOUNT WILL BE LOST",
+            [
+                {
+                    text:"Cancel",
+                    style:"cancel"
+                },
+                {
+                    text:"OK",
+                    onPress:async()=>{
+                        try {
+                            const token=await SecureStore.getItemAsync("authToken");
+                            setUser(null);
+                            const response=await axios.delete('https://campus-connect-app-backend.onrender.com/delete-account',{
+                                headers: { Authorization: `Bearer ${token}` }
+                            });
+    
+                            if(response.status===200){
+                                await SecureStore.deleteItemAsync("authToken");
+                                router.replace('/(auth)');
+                            }else{
+                                Alert.alert("ERROR OCCURED, TRY AGAIN LATER");
+                            }
+                        }catch(error){
+                            if(axios.isAxiosError(error)){
+                                Alert.alert("NETWORK ERROR");
+                            }
+                        }
+                    }
+                }
+            ]
+        );
+    };
+    
 
      if(!user){
             return(
