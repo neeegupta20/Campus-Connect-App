@@ -49,12 +49,11 @@ export default function EnterEmail(){
           const response=await axios.post('https://campus-connect-app-backend.onrender.com/send-otp',{email});
           if(response.status===200){
             router.replace({
-              pathname:'/(auth)/OTPVerify',
-              params:{name,telno,email,password,avatar}});
-            //   console.log('OTP SENT.')
-            setLoading(false)
-            return;
-          }
+                pathname:'/(auth)/OTPVerify',
+                params:{name,telno,email,password,avatar}});
+                setLoading(false)
+                return;
+            }
         }catch(error){
           if(axios.isAxiosError(error)){
             if(error.response?.status===402){

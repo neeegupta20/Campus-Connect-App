@@ -46,6 +46,7 @@ export default function AccountsTab() {
             })
             if(response.status===200){
                 await SecureStore.deleteItemAsync("authToken");
+                router.replace('/(auth)')
             }
             else{
                 Alert.alert("ERROR OCCURED, TRY AGAIN LATER");
@@ -131,6 +132,7 @@ const styles=StyleSheet.create({
         flexGrow:1,
         alignItems:"center",
         paddingTop:20,
+        backgroundColor:"black"
     },
     profileContainer:{
         alignItems:"center",
