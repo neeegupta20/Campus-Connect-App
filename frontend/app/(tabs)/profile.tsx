@@ -9,6 +9,7 @@ import { ImageBackground } from "react-native";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
 import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
+import axios, { Axios } from "axios";
 
 export default function AccountsTab() {
     
@@ -34,6 +35,27 @@ export default function AccountsTab() {
             console.error("Error logging out:", error);
         }
     };
+
+    const handleDeleteAccount=async()=>{
+        Alert.alert("ALL DATA RELATED TO ACCOUNT WILL BE LOST")
+        try{
+            const token=await SecureStore.getItemAsync("authToken");
+            setUser(null);
+            const response=await axios.delete('https://campus-connect-app-backend.onrender.com/delete-account',{
+                headers:{ Authorization:`Bearer ${token}`}
+            })
+            if(response.status===200){
+                await SecureStore.deleteItemAsync("authToken");
+            }
+            else{
+                Alert.alert("ERROR OCCURED, TRY AGAIN LATER");
+            }
+        }catch(error){
+            if(axios.isAxiosError(error)){
+                Alert.alert("NETWORK ERROR")
+            }
+        }
+    }
 
      if(!user){
             return(
@@ -90,6 +112,11 @@ export default function AccountsTab() {
                 <TouchableOpacity style={styles.tabButtons} onPress={handleLogout}>
                     <Ionicons name="log-out-outline" color="white" size={30} style={styles.tabIcons}/>
                     <Text style={styles.tabText}>Sign Out</Text>
+                    <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabButtons} onPress={handleDeleteAccount}>
+                    <Ionicons name="close-circle-outline" color="white" size={30} style={styles.tabIcons}/>
+                    <Text style={styles.tabText}>Delete Account</Text>
                     <Ionicons name="chevron-forward-outline" color="white" size={30} style={styles.iconForward}/>
                 </TouchableOpacity>
                 <View style={{marginBottom:100}}></View>

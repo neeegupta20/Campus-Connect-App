@@ -480,5 +480,21 @@ app.get('/check-in-status',async(req,res)=>{
     }
 });
 
+app.delete('/delete-account',async(req,res)=>{
+    try{
+        const authHeader=req.headers['authorization'];
+        const token=authHeader.split(' ')[1];
+        jwt.verify(token,"1234567890",async(err,tokenData)=>{
+            if(err){
+                return res.status(401).json({"MSG":"TOKEN EXPIRED OR INVALID"})
+            }
+            const deletedUser=await user.findByIdAndDelete(tokenData.id);
+            res.status(200).json({"MSG":"USER DELETED",deletedUser})
+        })
+    }catch(error){
+        res.status(500).json({error:"SERVER ERROR"});
+    }
+})
+
 
 app.listen(3000);
