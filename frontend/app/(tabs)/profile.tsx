@@ -147,7 +147,6 @@ const styles=StyleSheet.create({
         flexGrow:1,
         alignItems:"center",
         paddingTop:20,
-        backgroundColor:"black"
     },
     profileContainer:{
         alignItems:"center",

@@ -65,8 +65,8 @@ export default function Home(){
                             <ImageBackground style={styles.infoBox2} source={require('../../assets/images/zoneBox.png')}>
                                 <Text style={styles.text5}>Connect Zones</Text>
                                 <Text style={styles.text8}>{"YOUR HUB FOR CONNECTIONS !"}</Text>
-                                <View>
-                                    <Ionicons style={styles.icon2} name="chevron-forward-outline" size={24} color="white"/>
+                                <View style={styles.icon2}>
+                                    <Ionicons name="chevron-forward-outline" size={24} color="white"/>
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
@@ -233,9 +233,10 @@ const styles=StyleSheet.create(
             backgroundColor:"black",
             position:"absolute",
             top:65,
-            right:15,
+            right:20,
             padding:10,
-            borderRadius:0
-        }
+            borderRadius:20
+        },
+        
     }
 ) 

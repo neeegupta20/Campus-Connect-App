@@ -89,7 +89,7 @@ export default function AddSeats(){
                 }
             }
         }catch(error){
-            Alert.alert("PAYMENT ERROR OCCURED");
+            Alert.alert("PAYMENT NOT COMPLETED");
         }
     }
 
