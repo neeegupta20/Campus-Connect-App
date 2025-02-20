@@ -12,16 +12,16 @@ function RootLayoutInner() {
     const [isLoading, setIsLoading] = useState(true);
     const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
+    useEffect(()=>{
+        const timeout=setTimeout(()=>{
             setIsLoading(false);
-        }, 4250);
-        return () => clearTimeout(timeout);
+        },4250);
+        return()=>clearTimeout(timeout);
     }, []);
 
-    useEffect(() => {
-        if (!isLoading) {
-            const initializeAuth = async () => {
+    useEffect(()=>{
+        if (!isLoading){
+            const initializeAuth=async()=>{
                 await fetchUserProfile();
                 setHasCheckedAuth(true);
             };
@@ -30,11 +30,11 @@ function RootLayoutInner() {
     }, [isLoading]);
 
     useEffect(() => {
-        if (hasCheckedAuth) {
-            setTimeout(() => {
-                if (user) {
+        if (hasCheckedAuth){
+            setTimeout(()=>{
+                if(user){
                     router.replace("/(tabs)");
-                } else {
+                }else{
                     router.replace("/(auth)");
                 }
             },250);
@@ -71,8 +71,10 @@ export default function RootLayout() {
 
 const styles=StyleSheet.create({
     errorContainer: {
+        flex:1,
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor:"black"
     },
     loaderIcon: {
         width: 60,

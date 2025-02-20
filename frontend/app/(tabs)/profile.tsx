@@ -42,7 +42,7 @@ export default function AccountsTab() {
             "ALL DATA RELATED TO ACCOUNT WILL BE LOST",
             [
                 {
-                    text:"Cancel",
+                    text:"CANCEL",
                     style:"cancel"
                 },
                 {
