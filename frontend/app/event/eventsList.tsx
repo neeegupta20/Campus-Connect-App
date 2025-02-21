@@ -15,7 +15,7 @@ RESERVE YOUR SPOT NOW FOR A NIGHT OF MERRIMENT AND MEMORIES! 🎄✨`,
       photo1:require("../../assets/EVENT IMAGES/SnowySpirits.png") as ImageSourcePropType,
       tags:["PARTY","XMAS 2024"],
       formatDate:"Wed, 18 Dec",
-      price:200
+      price:5
     },
     {
       id: 5,

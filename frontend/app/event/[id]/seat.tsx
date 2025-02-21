@@ -72,7 +72,18 @@ export default function AddSeats(){
                             headers: { Authorization: `Bearer ${token}` },
                         })
                         if(response.status===200){
-                            router.replace('/(account)/tickets')
+                            Alert.alert(
+                                "Payment Success",
+                                "Your Tickets are Booked!",
+                                [
+                                    {
+                                        text:"OK",
+                                        onPress:()=>{
+                                            router.replace('/(account)/tickets'); // Redirect to tickets page
+                                        },
+                                    },
+                                ]
+                            );
                         }
                     }catch(error){
                         if(axios.isAxiosError(error)){
