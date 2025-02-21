@@ -21,14 +21,7 @@ export default function Home(){
         fetchUserProfile();
     },[])
 
-    if(!user){
-        return(
-            <SafeAreaView style={styles.errorContainer}>
-                <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
-            </SafeAreaView>
-        )
-    }
-
+    
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
             <ScrollView contentContainerStyle={styles.container}>
@@ -36,7 +29,7 @@ export default function Home(){
                     <View style={styles.textcontainer}>
                         <View style={{flexDirection:"column"}}>
                             <Text style={styles.greeting}>
-                                Hey there, <Text style={{textTransform:'uppercase',fontSize:20}}>{user.name} !</Text>
+                                Hey there, <Text style={{textTransform:'uppercase',fontSize:20}}>{user ? user.name:"GUEST"}</Text>
                             </Text>
                         </View>
                         <TouchableOpacity style={styles.notificationIcon} onPress={()=>router.replace('/(notifications)/notificationScreen')}>
@@ -84,8 +77,9 @@ const styles=StyleSheet.create(
             flexGrow:1,
         },
         errorContainer:{
+            flex:100,
             alignItems:'center',
-            marginTop:350
+            backgroundColor:"black"
         },
         textcontainer:{
             marginTop:45,

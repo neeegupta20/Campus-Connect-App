@@ -5,12 +5,16 @@ import React from 'react';
 export default function HomePage(){
     
     const router=useRouter();
+    
     const navigateToLogin=()=>{
         router.push('/(auth)/login');
     };
 
-    const navigateToSignUp = () => {
+    const navigateToSignUp=()=>{
         router.push('/(auth)/chooseAvatar');
+    };
+    const navigateToHome=()=>{
+        router.push('/(tabs)');
     };
 
     return(
@@ -26,6 +30,10 @@ export default function HomePage(){
                 <Text style={{color:"white",marginBottom:15,fontWeight:'bold'}}>OR</Text>
                 <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={navigateToSignUp}>
                     <Text style={styles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
+                <Text style={{color:"white",marginBottom:15,fontWeight:'bold'}}>OR</Text>
+                <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={navigateToHome}>
+                    <Text style={styles.buttonText}>Continue as Guest</Text>
                 </TouchableOpacity>
             </View>
 

@@ -1,12 +1,13 @@
 import { events } from "./eventsList";
-import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View,Platform } from "react-native";
+import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View,Platform, Alert } from "react-native";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import { Literata_400Regular,Literata_500Medium,Literata_700Bold } from '@expo-google-fonts/literata';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans'
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
 
 export default function SingleEventScreen(){
     
@@ -27,6 +28,7 @@ export default function SingleEventScreen(){
     const validEventId = Array.isArray(eventId) ? eventId[0] : eventId;
     const numericId=validEventId?parseInt(validEventId,10):undefined;
     const event=events.find((e)=>e.id===numericId);
+    const {user}=useContext(UserContext);
     
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
@@ -69,6 +71,10 @@ export default function SingleEventScreen(){
                 </Text>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={()=>{
+                            if(!user){
+                                Alert.alert("PLEASE LOGIN/ SIGN UP")
+                                return;
+                            }
                             if(numericId){
                                 router.push(`/event/${numericId}/seat`)
                             }

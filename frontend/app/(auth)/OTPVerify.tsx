@@ -4,6 +4,7 @@ import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import axios from "axios";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
+import { Ionicons } from "@expo/vector-icons";
 
 export default function otpVerify(){
         
@@ -75,6 +76,11 @@ export default function otpVerify(){
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
             <SafeAreaView style={[styles.container,{flex:1}]}>
+            <TouchableOpacity onPress={()=>{
+                    router.back()}} 
+                    style={styles.backIcon}>
+                    <Ionicons name="arrow-back-outline" color="white" size={32}/>
+                </TouchableOpacity>
                 <ScrollView contentContainerStyle={{flexGrow:1}}>
                     <Image style={styles.logo} source={require('../../assets/images/logowhite.png')}></Image>
                     <Text style={styles.title}>
@@ -115,6 +121,12 @@ const styles=StyleSheet.create(
             justifyContent:"center",
             alignItems:"center",
             padding:20
+        },
+        backIcon:{
+            position:"absolute",
+            left:20,
+            top:70,
+            zIndex:10
         },
         logo:{
             marginTop:100,

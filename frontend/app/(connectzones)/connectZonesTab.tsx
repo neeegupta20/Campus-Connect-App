@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useContext, useState } from 'react';
-import { TouchableOpacity, View, StyleSheet, Dimensions, Text, Image, Linking } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, Dimensions, Text, Image, Linking, Alert } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -67,6 +67,10 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
   const {user}=useContext(UserContext);
 
     const handleCheckIn=async()=>{
+      if(!user){
+        Alert.alert("PLEASE LOGIN/SIGN UP")
+        return;
+      }
       try{
         const token=await SecureStore.getItemAsync("authToken");
         if(!token){

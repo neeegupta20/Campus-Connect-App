@@ -30,9 +30,7 @@ export default function NotificationsScreen(){
   },[]);
 
   if(notifications===null){
-    return(
-      <Text>LOADING...</Text>
-    )
+    setLoading(true);
   }
 
   return(
