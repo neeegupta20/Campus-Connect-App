@@ -69,7 +69,7 @@ const styles=StyleSheet.create({
         paddingVertical:25
     },
     eventPhoto:{
-        height:350,
+        height:450,
         width:"100%",
         borderRadius:20
     },

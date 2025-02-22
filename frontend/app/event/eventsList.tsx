@@ -2,6 +2,34 @@ import { ImageSourcePropType } from "react-native";
 
 export const events=[
     {
+      id:8,
+      title: "LOVE IS IN THE AIR",
+      shortDescription:"VALENTINE'S DAY BASH",
+      date: "13-02-2025",
+      time: "6 PM",
+      description: "GET READY FOR THE MOST ROMANTIC AND ELECTRIFYING NIGHT OF THE YEAR! ❤️✨ JOIN US AT THE BREW ESTATE FOR LOVE IS IN THE AIR, A VALENTINE’S BASH LIKE NO OTHER! WHETHER YOU'RE CELEBRATING WITH YOUR SPECIAL SOMEONE OR YOUR SQUAD, THIS IS THE PLACE TO BE! ",
+      venue: "THE BREW ESTATE",
+      place:"https://www.google.com/maps/place/Sol+House/@30.3462194,76.3786728,15z/data=!4m2!3m1!1s0x0:0x14ccb133a32eac4d?sa=X&ved=1t:2428&ictx=111",
+      photo1:require("../../assets/EVENT IMAGES/RoseRebels.png") as ImageSourcePropType,
+      formatDate:"Thurs, 13 Feb",
+      tags:["LOVE","PARTY"],
+      price:200
+    },
+    {
+      id: 7,
+      title: "COLDPLAY LIVE STREAM",
+      shortDescription:"ROOFTOP @ MEGH'S",
+      date: "26-1-2025",
+      time: "6 PM",
+      description: "LIVE STREAMING OF COLDPLAY CONCERT IN AHMEDABAD @ MEGH'S PATIALA! 🎶✨ LOOK AT THE STARS, SEE HOW THEY SHINE FOR YOU 🌟 WITH GLOW-IN-THE-DARK BANDS, DAZZLING SKYSHOTS, AND A NIGHT FULL OF MAGIC! ✨",
+      venue: "MEGH'S PATIALA",
+      place: "https://www.google.com/maps/place/Megh's+cafe+n+bar+best+restaurant+in+patiala/@30.348662,76.3758398,21z/data=!4m7!3m6!1s0x3910291ef9be256b:0xb37bdff3096152aa!4b1!8m2!3d30.348723!4d76.3758259!16s%2Fg%2F11l2k2s10l?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
+      photo1:require("../../assets/EVENT IMAGES/ColdplayNight.png") as ImageSourcePropType,
+      formatDate:"Sun, 26 Jan",
+      tags:["LIVE","CONCERT","💛"],
+      price:200
+    },
+    {
       id: 6,
       title: "SNOWY SPIRITS",
       shortDescription:"ROOFTOP @ THE BREW ESTATE",
