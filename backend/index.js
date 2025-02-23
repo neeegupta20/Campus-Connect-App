@@ -496,5 +496,10 @@ app.delete('/delete-account',async(req,res)=>{
     }
 })
 
+app.post('/create-event',async(req,res)=>{
+    const {id,title,shortDescripton,date,time,description,venue,place,photo1,tags,formatDate,price}=req.body;
+    
+})
+
 
 app.listen(3000);
