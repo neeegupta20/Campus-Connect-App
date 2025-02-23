@@ -508,7 +508,7 @@ app.post('/create-event',async(req,res)=>{
         }
     }
     else{
-        res.status(400).json("NOT AUTHORIZED TO CREATE EVENT")
+        return res.status(400).json("NOT AUTHORIZED TO CREATE EVENT")
     }
 })
 
