@@ -1,17 +1,36 @@
 import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { events } from "../event/eventsList"
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import {Literata_400Regular,Literata_500Medium,Literata_700Bold} from '@expo-google-fonts/literata';
 import { router } from "expo-router";
 import { ImageBackground } from "react-native";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Events(){
 
     const [fontsLoaded]=useFonts({
         Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold
     })
+    const [events,setEvents]=useState(null);
+    const [loading,setLoading]=useState(true);
+
+    useEffect(()=>{
+        const fetchEvents=async()=>{
+            try{
+                const response=await axios.get('https://campus-connect-app-backend.onrender.com/fetch-events');
+                setEvents(response.data);
+                console.log(events);
+            }catch(error){
+                console.error(error);
+            }
+            finally{
+                setLoading(false);
+            }
+        }
+        fetchEvents();
+    },[])
 
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>

@@ -512,5 +512,15 @@ app.post('/create-event',async(req,res)=>{
     }
 })
 
+app.get('/fetch-events',async(req, res)=>{
+    try{
+        const allEvents=await events.find();
+        res.status(200).json(allEvents);
+    }catch(error){
+        res.status(500).json({ "ERR": "INTERNAL SERVOR ERROR", "DETAILS": error.message });
+    }
+});
+
+
 
 app.listen(3000);
