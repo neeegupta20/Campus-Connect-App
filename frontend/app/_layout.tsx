@@ -5,6 +5,7 @@ import UserProvider, { UserContext } from "./context/UserContext";
 import { StyleSheet } from "react-native";
 import SplashScreen from "@/components/SplashScreen";
 import LottieView from "lottie-react-native";
+import { EventProvider } from "./context/EventContext";
 
 function RootLayoutInner() {
     const { user, fetchUserProfile } = useContext(UserContext);
@@ -64,7 +65,9 @@ function RootLayoutInner() {
 export default function RootLayout() {
     return (
         <UserProvider>
-            <RootLayoutInner />
+            <EventProvider>
+                <RootLayoutInner />
+            </EventProvider>
         </UserProvider>
     );
 }

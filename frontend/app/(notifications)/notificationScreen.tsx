@@ -108,6 +108,6 @@ const styles=StyleSheet.create({
       height: 40,
       alignSelf:"center",
       top: 30
-  }
+    }
 })
 

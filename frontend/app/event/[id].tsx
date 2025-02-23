@@ -1,4 +1,3 @@
-import { events } from "./eventsList";
 import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View,Platform, Alert } from "react-native";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import { Ionicons } from '@expo/vector-icons';
@@ -8,6 +7,10 @@ import { Literata_400Regular,Literata_500Medium,Literata_700Bold } from '@expo-g
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans'
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
+import { useEvent } from "../context/EventContext";
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../assets/loaderWhite.json"
+
 
 export default function SingleEventScreen(){
     
@@ -21,7 +24,20 @@ export default function SingleEventScreen(){
     const toggleReadMore=()=>{
         setDescriptionExpanded(!descriptionExpanded);
     }
-
+    const imageMap:{[key:string]:any}={
+        "RoseRebels.png":require("../../assets/EVENT IMAGES/RoseRebels.png"),
+        "default.png":require("../../assets/EVENT IMAGES/logo.jpg"),
+    };
+      
+    const {events,loading}=useEvent();
+    
+    if(loading){
+        return(
+            <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
+                <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+            </SafeAreaView>
+        )
+    }
     const router=useRouter();
     const searchParams=useGlobalSearchParams();
     const eventId=searchParams.id;
@@ -42,7 +58,7 @@ export default function SingleEventScreen(){
             </View>
             <ScrollView>
                 <View style={styles.topCard}>
-                    <Image style={styles.eventPoster} source={event?.photo1}></Image>
+                    <Image style={styles.eventPoster} source={imageMap[event?.photo1 || "default.png"]}></Image>
                     <Text style={styles.eventTitle}>{event?.title}</Text>
                 </View>   
                 <View style={styles.eventInfoCard}>
@@ -238,4 +254,10 @@ const styles=StyleSheet.create({
         fontSize:18,
         fontWeight:'600',
     },
+    loaderIcon:{
+        width: 40,
+        height: 40,
+        alignSelf:"center",
+        top: 30
+    }
 })

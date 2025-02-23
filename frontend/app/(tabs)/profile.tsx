@@ -97,12 +97,10 @@ export default function AccountsTab() {
                                <Text style={{color:"white",marginBottom:15,fontWeight:'bold'}}>OR</Text>
                                <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={navigateToSignUp}>
                                    <Text style={styles.buttonText}>Sign Up</Text>
-                               </TouchableOpacity>
-                               
-                              
+                               </TouchableOpacity>   
                            </View>
                        </SafeAreaView>
-                       </ImageBackground>
+                </ImageBackground>
             )
         }
 

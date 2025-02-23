@@ -5,13 +5,15 @@ import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@
 import { Literata_400Regular,Literata_500Medium,Literata_700Bold } from '@expo-google-fonts/literata';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans'
 import { useRouter } from "expo-router";
-import { events } from "../eventsList";
 import { useGlobalSearchParams } from "expo-router/build/hooks";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store'
 import { UserContext } from "@/app/context/UserContext";
 import RazorpayCheckout from "react-native-razorpay";
+import { useEvent } from "@/app/context/EventContext";
+import LottieView from "lottie-react-native";
+import loaderWhite from "../../../assets/loaderWhite.json"
 
 export default function AddSeats(){
 
@@ -20,7 +22,15 @@ export default function AddSeats(){
         Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,
         Literata_500Medium,Literata_700Bold,OpenSans_400Regular, OpenSans_700Bold 
     })
-
+    const {events,loading}=useEvent();
+        
+    if(loading){
+        return(
+            <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
+                <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+            </SafeAreaView>
+        )
+    }
     const router=useRouter();
     const searchParams=useGlobalSearchParams();
     const eventId=searchParams.id;
@@ -231,4 +241,10 @@ const styles=StyleSheet.create({
         fontSize:18,
         fontWeight:'600',
     },
+    loaderIcon:{
+        width: 40,
+        height: 40,
+        alignSelf:"center",
+        top: 30
+    }
 })

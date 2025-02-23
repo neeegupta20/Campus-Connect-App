@@ -7,30 +7,30 @@ import { router } from "expo-router";
 import { ImageBackground } from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEvent } from "../context/EventContext";
+import loaderWhite from "../../assets/loaderWhite.json"
+import LottieView from "lottie-react-native";
 
 export default function Events(){
 
     const [fontsLoaded]=useFonts({
         Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold
     })
-    const [events,setEvents]=useState(null);
-    const [loading,setLoading]=useState(true);
 
-    useEffect(()=>{
-        const fetchEvents=async()=>{
-            try{
-                const response=await axios.get('https://campus-connect-app-backend.onrender.com/fetch-events');
-                setEvents(response.data);
-                console.log(events);
-            }catch(error){
-                console.error(error);
-            }
-            finally{
-                setLoading(false);
-            }
-        }
-        fetchEvents();
-    },[])
+    const imageMap:{[key:string]:any}={
+        "RoseRebels.png":require("../../assets/EVENT IMAGES/RoseRebels.png"),
+        "default.png":require("../../assets/EVENT IMAGES/logo.jpg"),
+    };
+  
+    const {events,loading}=useEvent();
+
+    if(loading){
+        return(
+            <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
+                <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+            </SafeAreaView>
+        )
+    }
 
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
@@ -44,7 +44,7 @@ export default function Events(){
                     keyExtractor={(item)=>item.id.toString()}
                     renderItem={({item})=>(
                         <View style={styles.eventBox}>
-                            <Image style={styles.eventPhoto} source={item.photo1}></Image>
+                            <Image style={styles.eventPhoto} source={imageMap[item.photo1]}></Image>
                             <Text style={styles.eventTitle}>{item.title}</Text>
                             <Text style={styles.eventShortDesc}>{item.shortDescription}</Text>
                             <View style={styles.tagsContainer}>
@@ -135,4 +135,10 @@ const styles=StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
     },
+    loaderIcon:{
+        width: 40,
+        height: 40,
+        alignSelf:"center",
+        top: 30
+    }
 })
