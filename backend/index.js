@@ -529,8 +529,11 @@ app.post('/create-zone', async(req,res)=>{
             const zoneData=await connectZone.create({id,name,description,latitude, longitude,imageUrl});
             res.status(200).json({"MSG":"CONNECT ZONE CREATED"})
         } catch (error) {
-            return res.status(400).json("NOT AUTHORIZED TO CREATE EVENT")
+            res.status(500).json(error)
         }
+    }
+    else{
+        return res.status(400).json("NOT AUTHORIZED TO CREATE EVENT")
     }
 })
 
