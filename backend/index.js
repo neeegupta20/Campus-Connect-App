@@ -14,6 +14,7 @@ const jwtSecret="1234567890";
 const axios = require("axios");
 const Notifications=require("../backend/models/notifications");
 const checkins=require("../backend/models/zonecheckins");
+const events = require("./models/events");
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
     port:465,
@@ -497,8 +498,18 @@ app.delete('/delete-account',async(req,res)=>{
 })
 
 app.post('/create-event',async(req,res)=>{
-    const {id,title,shortDescripton,date,time,description,venue,place,photo1,tags,formatDate,price}=req.body;
-    
+    const {id,title,shortDescripton,date,time,description,venue,place,photo1,tags,formatDate,price,password}=req.body;
+    if(password==="BALLI@1212"){
+        try{
+            const eventData=events.create({id,title,shortDescripton,date,time,description,venue,place,photo1,tags,formatDate,price});
+            res.status(200).json({"MSG":"EVENT CREATED."})
+        }catch(error){
+            res.status(500).json(error)
+        }
+    }
+    else{
+        res.status(400).json("NOT AUTHORIZED TO CREATE EVENT")
+    }
 })
 
 
