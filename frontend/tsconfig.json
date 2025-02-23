@@ -7,12 +7,17 @@
         "./*"
       ]
     },
-    "types": ["node", "@types/babel__generator", "@types/babel__template"]
+    "types": [
+      "node",
+      "@types/babel__generator",
+      "@types/babel__template"
+    ]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "android/.gradle/.expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ],  
+    "expo-env.d.ts",
+    ".expo/types/**/*.ts"
+  ]
 }

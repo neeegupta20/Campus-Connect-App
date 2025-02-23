@@ -47,7 +47,7 @@ export default function Events(){
                     <Text style={styles.tabHeading}>Events</Text>
                 </View>
                 <FlatList
-                    data={events}
+                    data={[...events].sort((a, b)=>b.id-a.id)}
                     keyExtractor={(item)=>item.id.toString()}
                     renderItem={({item})=>(
                         <View style={styles.eventBox}>
