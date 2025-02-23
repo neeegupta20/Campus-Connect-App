@@ -114,13 +114,13 @@ const styles=StyleSheet.create(
             zIndex:10
         },
         logo:{
-            marginTop:100,
+            marginTop:70,
             width:360,
             height:110,
             paddingHorizontal:30
         },
         title:{
-            marginTop:80,
+            marginTop:50,
             alignSelf:'center',
             marginHorizontal:60,
             color:"white",

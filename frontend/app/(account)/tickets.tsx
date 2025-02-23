@@ -89,6 +89,9 @@ export default function TicketsTab(){
                                         })}
                                         size={100}
                                     />
+                                    <Text style={{color:"white"}}>
+                                        ONE-SCAN QR
+                                    </Text>
                                 </View>
                             </View>
                         )}
@@ -166,7 +169,7 @@ const styles=StyleSheet.create({
     },
     qrContainer:{
         position:"absolute",
-        top:75,
+        top:60,
         right:40
     },
     ticketNumber:{

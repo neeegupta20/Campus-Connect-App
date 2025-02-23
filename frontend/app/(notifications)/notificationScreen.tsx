@@ -45,7 +45,7 @@ export default function NotificationsScreen(){
         {loading ? (
           <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
         ) : (
-          <View>
+          <View style={{marginBottom:100}}>
             <FlatList
               data={notifications}
               keyExtractor={(item)=>item._id}

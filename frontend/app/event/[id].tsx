@@ -25,10 +25,12 @@ export default function SingleEventScreen(){
     const router=useRouter();
     const searchParams=useGlobalSearchParams();
     const eventId=searchParams.id;
-    const validEventId = Array.isArray(eventId) ? eventId[0] : eventId;
+    const validEventId=Array.isArray(eventId) ? eventId[0] : eventId;
     const numericId=validEventId?parseInt(validEventId,10):undefined;
     const event=events.find((e)=>e.id===numericId);
     const {user}=useContext(UserContext);
+    const isSoldOut=[1,2,3,4,5,6,7,8].includes(event?.id ?? -1);
+
     
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
@@ -70,22 +72,26 @@ export default function SingleEventScreen(){
                 ₹ {event?.price} /-
                 </Text>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={()=>{
-                            if(!user){
-                                Alert.alert("PLEASE LOGIN/ SIGN UP")
+                    <TouchableOpacity
+                        style={[styles.button,isSoldOut && { backgroundColor: "#D3D3D3" }]}
+                        disabled={isSoldOut}
+                        onPress={() => {
+                            if (!user) {
+                                Alert.alert("PLEASE LOGIN/ SIGN UP");
                                 return;
                             }
-                            if(numericId){
-                                router.push(`/event/${numericId}/seat`)
+                            if (numericId) {
+                                router.push(`/event/${numericId}/seat`);
+                            } else {
+                                console.log("INVALID ID.");
                             }
-                            else{
-                                console.log("INVALID ID.")
-                            }
-                        }}>
-<                           Text style={styles.buttonText}>Book Tickets</Text>
+                        }}
+                    >
+                    <Text style={styles.buttonText}>{isSoldOut ? "SOLD OUT" : "Book Tickets"}</Text>
                     </TouchableOpacity>
+
                 </View>
-            </View>
+            </View>     
         </SafeAreaView>
         </ImageBackground>
     )
@@ -105,7 +111,7 @@ const styles=StyleSheet.create({
     },
     eventPoster:{
         width:350,
-        height:380,
+        height:450,
         borderRadius:30
     },
     heading:{

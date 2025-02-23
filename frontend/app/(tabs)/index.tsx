@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {  Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { UserContext } from "../context/UserContext";
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
@@ -21,7 +21,7 @@ export default function Home(){
         fetchUserProfile();
     },[])
 
-    
+
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
             <ScrollView contentContainerStyle={styles.container}>
@@ -29,7 +29,7 @@ export default function Home(){
                     <View style={styles.textcontainer}>
                         <View style={{flexDirection:"column"}}>
                             <Text style={styles.greeting}>
-                                Hey there, <Text style={{textTransform:'uppercase',fontSize:20}}>{user ? user.name:"GUEST"}</Text>
+                                Hey there, <Text style={{textTransform:'uppercase',fontSize:18}}>{user ? user.name:"GUEST"}</Text>
                             </Text>
                         </View>
                         <TouchableOpacity style={styles.notificationIcon} onPress={()=>router.replace('/(notifications)/notificationScreen')}>
@@ -91,7 +91,8 @@ const styles=StyleSheet.create(
             fontSize:22,
             fontFamily:"Montserrat_500Medium",
             fontWeight:"900",
-            marginBottom:10
+            marginBottom:10,
+            width:250
         },
         textName:{
             textTransform:'uppercase',color:"white",
