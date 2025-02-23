@@ -526,7 +526,7 @@ app.post('/create-zone', async(req,res)=>{
     const {id,name,description,latitude, longitude,imageUrl}=req.body;
     if(password==="BALLI@1212"){
         try {
-            const zoneData=await connectZone.create({d,name,description,latitude, longitude,imageUrl});
+            const zoneData=await connectZone.create({id,name,description,latitude, longitude,imageUrl});
             res.status(200).json({"MSG":"CONNECT ZONE CREATED"})
         } catch (error) {
             return res.status(400).json("NOT AUTHORIZED TO CREATE EVENT")

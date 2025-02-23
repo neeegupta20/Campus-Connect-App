@@ -28,18 +28,18 @@ export const ZoneProvider:React.FC<{ children: ReactNode }>=({ children })=>{
   const [loading,setLoading]=useState<boolean>(true);
 
   
-  const fetchZone=async()=>{
-    try{
-      const response=await axios.get("https://campus-connect-app-backend.onrender.com/fetch-zones");
-      setZones(response.data);
-    } catch(error){
-      console.error(error);
-    } finally{
-      setLoading(false);
-    }
-  };
 
   useEffect(()=>{
+    const fetchZone=async()=>{
+      try{
+        const response=await axios.get("https://campus-connect-app-backend.onrender.com/fetch-zones");
+        setZones(response.data);
+      } catch(error){
+        console.error(error);
+      } finally{
+        setLoading(false);
+      }
+    };
     fetchZone();
   }, []);
 
