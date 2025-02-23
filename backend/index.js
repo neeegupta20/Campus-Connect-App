@@ -15,6 +15,7 @@ const axios = require("axios");
 const Notifications=require("../backend/models/notifications");
 const checkins=require("../backend/models/zonecheckins");
 const events = require("./models/events");
+const connectZone = require("./models/connectZone");
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
     port:465,
@@ -521,6 +522,25 @@ app.get('/fetch-events',async(req, res)=>{
     }
 });
 
+app.post('/create-zone', async(req,res)=>{
+    const {id,name,description,latitude, longitude,imageUrl}=req.body;
+    if(password==="BALLI@1212"){
+        try {
+            const zoneData=await connectZone.create({d,name,description,latitude, longitude,imageUrl});
+            res.status(200).json({"MSG":"CONNECT ZONE CREATED"})
+        } catch (error) {
+            return res.status(400).json("NOT AUTHORIZED TO CREATE EVENT")
+        }
+    }
+})
 
+app.get('/fetch-zones', async(req,res)=>{
+    try {
+        const allZones=await connectZone.find({})
+        res.status(200).json(allZones);
+    } catch (error) {
+        res.status(500).json({ "ERR": "INTERNAL SERVOR ERROR", "DETAILS": error.message });
+    }
+})
 
 app.listen(3000);

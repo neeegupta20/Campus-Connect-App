@@ -1,4 +1,3 @@
-import { ImageSourcePropType } from "react-native"
 
 export default interface ConnectZone{
   id: number,
@@ -6,5 +5,5 @@ export default interface ConnectZone{
   description: string,
   longitude: number,
   latitude: number,
-  imageUrl: ImageSourcePropType | string
+  imageUrl: string
 }

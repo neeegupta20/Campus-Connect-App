@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useContext } from "react";
 import { View, StyleSheet, Linking, Dimensions, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import BottomSlider from "./connectZonesTab";
-import Zones from "./connectZonesList";
 import { useRouter } from "expo-router";
 import { useSelectedZone } from './selectedZoneContext';
+import { useZone, ZoneProvider } from "../context/ZonesContext";
 
 export default function MapScreen(){
+
+  const {zones}=useZone();
   const { selectedZone, setSelectedZone }=useSelectedZone(); 
   const [showBottomSlider, setShowBottomSlider]=useState(false);
   const router=useRouter();
@@ -51,7 +53,7 @@ export default function MapScreen(){
           showsUserLocation={true}
           onPress={handleMapPress} 
         >
-          {Zones.map((zone)=>(
+          {zones.map((zone)=>(
             <Marker
               key={zone.id}
               coordinate={{
