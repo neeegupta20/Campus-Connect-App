@@ -64,6 +64,12 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
       }
   },[selectedZone]);
 
+  const ImageMap={
+    "petTherapy.png": require("../../assets/EVENT IMAGES/petTherapy.png"),
+    "hackathons.png": require("../../assets/EVENT IMAGES/hackathons.png"),
+  };
+  
+
   const {user}=useContext(UserContext);
 
     const handleCheckIn=async()=>{
@@ -142,10 +148,9 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                 <Text style={styles.zoneName}>{selectedZone.name}</Text>
                 <View style={{width:370}}>
                   <Image 
-                    source={typeof selectedZone.imageUrl==="string"?{uri:selectedZone.imageUrl}
-                    :selectedZone.imageUrl
-                    } style={styles.image}>
-                  </Image>
+                    source={ImageMap[selectedZone.imageUrl as keyof typeof ImageMap]}  
+                    style={styles.image}
+                  />
                   <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>

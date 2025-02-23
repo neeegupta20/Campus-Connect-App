@@ -523,7 +523,7 @@ app.get('/fetch-events',async(req, res)=>{
 });
 
 app.post('/create-zone', async(req,res)=>{
-    const {id,name,description,latitude, longitude,imageUrl}=req.body;
+    const {id,name,description,latitude, longitude,imageUrl,password}=req.body;
     if(password==="BALLI@1212"){
         try {
             const zoneData=await connectZone.create({id,name,description,latitude, longitude,imageUrl});
