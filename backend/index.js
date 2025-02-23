@@ -501,7 +501,7 @@ app.post('/create-event',async(req,res)=>{
     const {id,title,shortDescripton,date,time,description,venue,place,photo1,tags,formatDate,price,password}=req.body;
     if(password==="BALLI@1212"){
         try{
-            const eventData=events.create({id,title,shortDescripton,date,time,description,venue,place,photo1,tags,formatDate,price});
+            const eventData=await events.create({id,title,shortDescripton,date,time,description,venue,place,photo1,tags,formatDate,price});
             res.status(200).json({"MSG":"EVENT CREATED."})
         }catch(error){
             res.status(500).json(error)
