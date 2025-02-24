@@ -52,7 +52,7 @@ export default function SingleEventScreen(){
     const numericId=validEventId?parseInt(validEventId,10):undefined;
     const event=events.find((e)=>e.id===numericId);
     const {user}=useContext(UserContext);
-    const isSoldOut=[1,2,3,4,5,6,7].includes(event?.id ?? -1);
+    const isSoldOut=[1,2,3,4,5,6,7,8].includes(event?.id ?? -1);
 
     
     return(

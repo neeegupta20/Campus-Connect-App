@@ -112,9 +112,10 @@ const styles=StyleSheet.create(
             marginVertical:30
         },
         balancebox:{
-            height:195,
-            width:350,
-            marginVertical:40,
+            height:250,
+            width:400,
+            marginTop:40,
+            marginBottom:10,
             alignSelf:"center",
             borderRadius:10
         },
