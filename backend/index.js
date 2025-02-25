@@ -553,14 +553,14 @@ app.get('/fetch-events',async(req, res)=>{
 });
 
 app.post('/create-zone',upload.single("imageUrl"),async(req,res)=>{
-    const {id,name,description,latitude, longitude,imageUrl,password}=req.body;
+    const {id,name,description,latitude, longitude,password}=req.body;
     if(password==="BALLI@1212"){
         try {
             if(!req.file){
                 return res.status(400).json({error:"PHOTO MISSING"})
             }
             const imageUrl=req.file.location;
-            const zoneData=await connectZone.create({id,name,description,latitude, longitude,imageUrl});
+            const zoneData=await connectZone.create({id,name,description,latitude,longitude,imageUrl});
             res.status(200).json({"MSG":"CONNECT ZONE CREATED"})
         } catch (error) {
             res.status(500).json(error)

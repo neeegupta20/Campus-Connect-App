@@ -21,7 +21,9 @@ const connectZoneSchema = new mongoose.Schema({
     longitude: {
         type: Number,
         required: true
-    }
+    },
+    imageUrl:String,
+    required:true
 })
 module.exports=mongoose.model("connectZone",connectZoneSchema)
 
