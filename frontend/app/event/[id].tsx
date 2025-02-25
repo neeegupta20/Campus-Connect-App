@@ -24,17 +24,6 @@ export default function SingleEventScreen(){
     const toggleReadMore=()=>{
         setDescriptionExpanded(!descriptionExpanded);
     }
-    const imageMap:{[key:string]:any}={
-        "RoseRebels.png":require("../../assets/EVENT IMAGES/RoseRebels.png"),
-        "ColdplayNight.png":require("../../assets/EVENT IMAGES/ColdplayNight.png"),
-        "GarbaNight1.jpg":require("../../assets/EVENT IMAGES/GarbaNight1.jpg"),
-        "GarbaNight2.png":require("../../assets/EVENT IMAGES/GarbaNight2.png"),
-        "HalloweenNightp1.jpeg":require("../../assets/EVENT IMAGES/HalloweenNightp1.jpeg"),
-        "HalloweenNightp2.jpeg":require("../../assets/EVENT IMAGES/HalloweenNightp2.jpeg"),
-        "HalloweenNightp3.png":require("../../assets/EVENT IMAGES/HalloweenNightp3.png"),
-        "SnowySpirits.png":require("../../assets/EVENT IMAGES/SnowySpirits.png"),
-        "default.png":require("../../assets/EVENT IMAGES/logo.jpg"),
-    };
       
     const {events,loading}=useEvent();
     
@@ -65,7 +54,7 @@ export default function SingleEventScreen(){
             </View>
             <ScrollView>
                 <View style={styles.topCard}>
-                    <Image style={styles.eventPoster} source={imageMap[event?.photo1 || "default.png"]}></Image>
+                    <Image style={styles.eventPoster} source={{uri:event?.photo1}}></Image>
                     <Text style={styles.eventTitle}>{event?.title}</Text>
                 </View>   
                 <View style={styles.eventInfoCard}>

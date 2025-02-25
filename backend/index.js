@@ -16,6 +16,8 @@ const Notifications=require("../backend/models/notifications");
 const checkins=require("../backend/models/zonecheckins");
 const events = require("./models/events");
 const connectZone = require("./models/connectZone");
+import multer from "multer";
+import multerS3 from "multer-s3";
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
     port:465,
@@ -29,6 +31,12 @@ const razorpay=new Razorpay({
     key_id: "rzp_live_oIOf24vws5pHYy",
     key_secret: "4AECc9CQZME3KUvFASv5pmT6"
 })
+import AWS from 'aws-sdk';
+const s3=new AWS.S3({
+    accessKeyId:"AKIAQE3RO7K5QHN6CR6C",
+    secretAccessKey:"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",
+    region:"eu-north-1"
+})
 app.use(express.json());
 app.use(cors({
     credentials:true,
@@ -36,6 +44,21 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.set('trust proxy',true)
+
+const upload=multer({
+    storage:multerS3({
+      s3:s3,
+      bucket:"campus-connect-bucket-images",
+      acl:"public-read",
+      metadata:(req,file, cb)=>{
+        cb(null,{fieldName:file.fieldname});
+      },
+      key:(req,file,cb)=>{
+        cb(null, `uploads/${Date.now()}_${file.originalname}`);
+      },
+    }),
+});
+  
 
 const otpStore=new Map();
 
@@ -498,11 +521,15 @@ app.delete('/delete-account',async(req,res)=>{
     }
 })
 
-app.post('/create-event',async(req,res)=>{
-    const {id,title,shortDescription,date,time,description,venue,place,photo1,tags,formatDate,price,password}=req.body;
+app.post('/create-event',upload.single(photo1),async(req,res)=>{
+    const {id,title,shortDescription,date,time,description,venue,place,tags,formatDate,price,password}=req.body;
     if(password==="BALLI@1212"){
         try{
-            const eventData=await events.create({id,title,shortDescription,date,time,description,venue,place,photo1,tags,formatDate,price});
+            if(!req.file){
+                return res.status(400).json({error:"PHOTO MISSING"})
+            }
+            const photoUrl=req.file.location;
+            const eventData=await events.create({id,title,shortDescription,date,time,description,venue,place,photo1:photoUrl,tags,formatDate,price});
             res.status(200).json({"MSG":"EVENT CREATED."})
         }catch(error){
             res.status(500).json(error)
@@ -522,10 +549,14 @@ app.get('/fetch-events',async(req, res)=>{
     }
 });
 
-app.post('/create-zone', async(req,res)=>{
+app.post('/create-zone',upload.single("imageUrl"),async(req,res)=>{
     const {id,name,description,latitude, longitude,imageUrl,password}=req.body;
     if(password==="BALLI@1212"){
         try {
+            if(!req.file){
+                return res.status(400).json({error:"PHOTO MISSING"})
+            }
+            const imageUrl=req.file.location;
             const zoneData=await connectZone.create({id,name,description,latitude, longitude,imageUrl});
             res.status(200).json({"MSG":"CONNECT ZONE CREATED"})
         } catch (error) {

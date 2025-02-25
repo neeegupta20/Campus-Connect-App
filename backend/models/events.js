@@ -34,10 +34,6 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    photo1: {
-        type: String,
-        required: true
-    },
     tags: {
         type: Array,
         required: true

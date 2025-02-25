@@ -148,7 +148,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                 <Text style={styles.zoneName}>{selectedZone.name}</Text>
                 <View style={{width:370}}>
                   <Image 
-                    source={ImageMap[selectedZone.imageUrl as keyof typeof ImageMap]}  
+                    source={{uri:selectedZone.imageUrl}}  
                     style={styles.image}
                   />
                   <Text style={styles.zoneDescription}>{selectedZone.description}</Text>

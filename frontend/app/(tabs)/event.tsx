@@ -16,18 +16,6 @@ export default function Events(){
     const [fontsLoaded]=useFonts({
         Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold
     })
-
-    const imageMap:{[key:string]:any}={
-        "RoseRebels.png":require("../../assets/EVENT IMAGES/RoseRebels.png"),
-        "ColdplayNight.png":require("../../assets/EVENT IMAGES/ColdplayNight.png"),
-        "GarbaNight1.jpg":require("../../assets/EVENT IMAGES/GarbaNight1.jpg"),
-        "GarbaNight2.png":require("../../assets/EVENT IMAGES/GarbaNight2.png"),
-        "HalloweenNightp1.jpeg":require("../../assets/EVENT IMAGES/HalloweenNightp1.jpeg"),
-        "HalloweenNightp2.jpeg":require("../../assets/EVENT IMAGES/HalloweenNightp2.jpeg"),
-        "HalloweenNightp3.png":require("../../assets/EVENT IMAGES/HalloweenNightp3.png"),
-        "SnowySpirits.png":require("../../assets/EVENT IMAGES/SnowySpirits.png"),
-        "default.png":require("../../assets/EVENT IMAGES/logo.jpg"),
-    };
   
     const {events,loading}=useEvent();
 
@@ -51,7 +39,7 @@ export default function Events(){
                     keyExtractor={(item)=>item.id.toString()}
                     renderItem={({item})=>(
                         <View style={styles.eventBox}>
-                            <Image style={styles.eventPhoto} source={imageMap[item.photo1 || "default.png"]}></Image>
+                            <Image style={styles.eventPhoto} source={{uri:item.photo1}}></Image>
                             <Text style={styles.eventTitle}>{item.title}</Text>
                             <Text style={styles.eventShortDesc}>{item.shortDescription}</Text>
                             <View style={styles.tagsContainer}>
