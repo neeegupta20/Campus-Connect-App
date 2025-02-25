@@ -35,10 +35,12 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
-/android
+/frontend/android/*
 /ios
 
 node_modules/
 
+/frontend/package-lock.json
+/frontend/package.json
 frontend/package-lock.json
 frontend/package.json
