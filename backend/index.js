@@ -16,8 +16,8 @@ const Notifications=require("../backend/models/notifications");
 const checkins=require("../backend/models/zonecheckins");
 const events = require("./models/events");
 const connectZone = require("./models/connectZone");
-import multer from "multer";
-import multerS3 from "multer-s3";
+const multer=require("multer");
+const multerS3=require("multer-s3");
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
     port:465,
@@ -31,11 +31,14 @@ const razorpay=new Razorpay({
     key_id: "rzp_live_oIOf24vws5pHYy",
     key_secret: "4AECc9CQZME3KUvFASv5pmT6"
 })
-import AWS from 'aws-sdk';
-const s3=new AWS.S3({
-    accessKeyId:"AKIAQE3RO7K5QHN6CR6C",
-    secretAccessKey:"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",
-    region:"eu-north-1"
+
+const { S3Client, PutObjectCommand }=require("@aws-sdk/client-s3");
+const s3=new S3Client({
+    region:"eu-north-1",
+    credentials:{
+        accessKeyId:"AKIAQE3RO7K5QHN6CR6C",
+        secretAccessKey:"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",
+    }
 })
 app.use(express.json());
 app.use(cors({
@@ -50,6 +53,7 @@ const upload=multer({
       s3:s3,
       bucket:"campus-connect-bucket-images",
       acl:"public-read",
+      contentType: multerS3.AUTO_CONTENT_TYPE, 
       metadata:(req,file, cb)=>{
         cb(null,{fieldName:file.fieldname});
       },
@@ -521,7 +525,7 @@ app.delete('/delete-account',async(req,res)=>{
     }
 })
 
-app.post('/create-event',upload.single(photo1),async(req,res)=>{
+app.post('/create-event',upload.single("photo1"),async(req,res)=>{
     const {id,title,shortDescription,date,time,description,venue,place,tags,formatDate,price,password}=req.body;
     if(password==="BALLI@1212"){
         try{
