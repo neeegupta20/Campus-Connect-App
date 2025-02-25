@@ -22,8 +22,10 @@ const connectZoneSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    imageUrl:String,
-    required:true
+    imageUrl:{
+        type:String,
+        required:true
+    }
 })
 module.exports=mongoose.model("connectZone",connectZoneSchema)
 
