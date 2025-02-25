@@ -19,11 +19,10 @@
     "jsEngine":"hermes",
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.neegupta20.demoapp",
-      "newArchEnabled":false
+      "package": "com.neegupta20.demoapp"
     },
     "web": {
       "bundler": "metro",
