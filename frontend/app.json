@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.neegupta20.demoapp"
+      "package": "com.neegupta20.demoapp",
+      "newArchEnabled":false
     },
     "web": {
       "bundler": "metro",
