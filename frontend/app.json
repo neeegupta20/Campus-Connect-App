@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.neegupta20.demoapp",
@@ -23,7 +22,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.neegupta20.demoapp",
-      "newArchEnabled":false
+      "newArchEnabled":false,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
+        }
+      }
     },
     "web": {
       "bundler": "metro",
@@ -45,12 +49,11 @@
         "projectId": "07c089b9-0899-4802-b64f-d20328c71145"
       }
     },
-    "doctor": {
-    "reactNativeDirectoryCheck": {
-      "exclude": ["react-native-maps", "react-native-razorpay", "react-native-ionicons", "react-native-loader-kit"],
-      "listUnknownPackages": false
+    "owner": "neegupta20",
+    "expo-build-properties":{
+      "android":{
+        "kotlinVersion":"1.9.25"
+      }
     }
-  },
-    "owner": "neegupta20"
   }
 }

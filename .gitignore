@@ -1,2 +1,15 @@
-/android
 /node_modules
+frontend/package.json
+frontend/package.json
+package.json
+package-lock.json
+frontend/package.json
+frontend/package-lock.json
+android/.gradle/
+android/.idea/
+android/app/build/
+android/build/
+/frontend/android
+/frontend/android
+/frontend/android/*
+/frontend/android
