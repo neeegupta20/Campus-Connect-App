@@ -26,14 +26,7 @@ export default function SingleEventScreen(){
     }
       
     const {events,loading}=useEvent();
-    
-    if(loading){
-        return(
-            <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
-                <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
-            </SafeAreaView>
-        )
-    }
+
     const router=useRouter();
     const searchParams=useGlobalSearchParams();
     const eventId=searchParams.id;
@@ -43,6 +36,13 @@ export default function SingleEventScreen(){
     const {user}=useContext(UserContext);
     const isSoldOut=[1,2,3,4,5,6,7,8].includes(event?.id ?? -1);
 
+    if(loading){
+        return(
+            <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
+                <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
+            </SafeAreaView>
+        )
+    }
     
     return(
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
@@ -184,7 +184,7 @@ const styles=StyleSheet.create({
     locationIcon:{
         position:"absolute",
         bottom:15,
-        left:25
+        left:22
     },
     eventVenueText:{
         position:"absolute",
