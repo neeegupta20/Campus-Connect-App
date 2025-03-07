@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Alert, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, ImageBackground, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
@@ -107,11 +107,11 @@ const styles=StyleSheet.create(
             alignItems:"center",
             padding:20,
         },
-        backIcon:{
+        backIcon: {
             position:"absolute",
             left:20,
-            top:70,
-            zIndex:10
+            top:Platform.OS==="android"?30:70,
+            zIndex:10,
         },
         logo:{
             marginTop:70,
