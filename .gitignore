@@ -13,3 +13,5 @@ android/build/
 /frontend/android
 /frontend/android/*
 /frontend/android
+frontend/package-lock.json
+frontend/package.json
