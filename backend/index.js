@@ -482,6 +482,30 @@ app.post('/check-in', async(req,res)=>{
     }
 })
 
+app.delete('/check-out',async(req,res)=>{
+    try{
+        const authHeader=req.headers['authorization'];
+        const token=authHeader.split(' ')[1];
+        if(!token){
+            return res.json(null)
+        }
+        jwt.verify(token,'1234567890',async(err,tokenData)=>{
+            if(err){
+                return res.status(401).json({ error: "INVALID OR EXPIRED TOKEN." });
+            }
+            try{
+                const {zoneId,name,email,telno}=req.body;
+                const checkOutData=await checkins.findOneAndDelete({zoneId,email})
+                res.status(200).json({message:"CHECKED-IN",data:checkInData});
+            }catch(error){
+                res.status(500).json({error:"DATABASE ERROR"});
+            }
+        })
+    }catch(error){
+        res.status(500).json({error:"SERVOR ERROR"})
+    }
+})
+
 app.get('/check-in-status',async(req,res)=>{
     try{
         const authHeader=req.headers['authorization'];
