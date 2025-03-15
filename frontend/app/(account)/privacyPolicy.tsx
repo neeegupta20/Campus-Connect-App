@@ -9,7 +9,7 @@ export default function PrivacyPolicyTab(){
     const router=useRouter();
     
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
             <SafeAreaView style={styles.container}>
                 <View style={styles.heading}>
                         <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
@@ -71,7 +71,7 @@ export default function PrivacyPolicyTab(){
                     </Text>
                 </ScrollView>
             </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     )
 }
 
@@ -79,6 +79,7 @@ const styles=StyleSheet.create({
     container:{
         flex:1,
         paddingTop:20,
+        backgroundColor:"black"
     },
     heading:{
         flexDirection:"row",

@@ -45,7 +45,7 @@ export default function SingleEventScreen(){
     }
     
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
                 <SafeAreaView style={styles.container}>
             <View style={styles.heading}>
                 <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
@@ -105,13 +105,14 @@ export default function SingleEventScreen(){
                 </View>
             </View>     
         </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
+        backgroundColor:"black"
     },
     eventHeading:{
         color:"white",

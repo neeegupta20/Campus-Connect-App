@@ -45,8 +45,8 @@ export default function MapScreen(){
           initialRegion={{
             latitude: 30.352140,
             longitude: 76.373839,
-            latitudeDelta: 0.009,
-            longitudeDelta: 0.009,
+            latitudeDelta: 0.0175,
+            longitudeDelta: 0.0175,
           }}
           zoomEnabled={true}
           scrollEnabled={true}

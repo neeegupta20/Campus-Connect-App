@@ -23,7 +23,7 @@ export default function Home(){
 
 
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
             <ScrollView contentContainerStyle={styles.container}>
                 <SafeAreaView style={{flex:1}}>
                     <View style={styles.textcontainer}>
@@ -66,7 +66,7 @@ export default function Home(){
                     </View>
                 </SafeAreaView>
             </ScrollView>
-        </ImageBackground>
+        // </ImageBackground>
         
     )
 }
@@ -75,6 +75,7 @@ const styles=StyleSheet.create(
     {
         container:{
             flexGrow:1,
+            backgroundColor:"black"
         },
         errorContainer:{
             flex:100,

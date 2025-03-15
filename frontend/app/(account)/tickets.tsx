@@ -48,7 +48,7 @@ export default function TicketsTab(){
     
         
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
             <SafeAreaView style={styles.container}>
                 <View style={styles.heading}>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
@@ -98,7 +98,7 @@ export default function TicketsTab(){
                     />
                 )}
             </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     )
 }
 
@@ -107,6 +107,7 @@ const styles=StyleSheet.create({
         flex:1,
         alignItems:"center",
         paddingTop:20,
+        backgroundColor:"black"
     },
     heading:{
         flexDirection:"row",

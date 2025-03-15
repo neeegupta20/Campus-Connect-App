@@ -34,8 +34,8 @@ export default function NotificationsScreen(){
   }
 
   return(
-    <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
-      <SafeAreaView>
+    // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.heading}>
           <TouchableOpacity onPress={()=>router.replace('/(tabs)')} style={styles.backIcon}>
             <Ionicons name="arrow-back-outline" color="white" size={32}/>
@@ -50,24 +50,28 @@ export default function NotificationsScreen(){
               data={notifications}
               keyExtractor={(item)=>item._id}
               renderItem={({item})=>(
-                <View style={styles.notificationBox}>
+                <TouchableOpacity style={styles.notificationBox} onPress={()=>{router.navigate('/(tabs)/connectzones')}}>
                   <Text style={styles.notificationTitle}>{item.title}</Text>
                   <Text style={styles.notificationDesc}>{item.body}</Text>
                   <Text style={{fontSize:12,color:"gray",paddingBottom:5}}>
                     {new Date(item.timestamp).toLocaleString()}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
             />
           </View>
         )}
           
       </SafeAreaView>
-    </ImageBackground>
+    // </ImageBackground>
   );
 };
 
 const styles=StyleSheet.create({
+    container:{
+      flex:1,
+      backgroundColor:"black"
+    },
     heading:{
       marginTop:Platform.OS==='ios'?0:40,
       zIndex:10,

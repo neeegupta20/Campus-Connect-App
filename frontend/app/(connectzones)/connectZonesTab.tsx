@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useContext, useState } from 'react';
 import { TouchableOpacity, View, StyleSheet, Dimensions, Text, Image, Linking, Alert } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector, ScrollView } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useSelectedZone } from './selectedZoneContext';
@@ -26,7 +26,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
     .onUpdate((event)=>{
       translateY.value=Math.max(
         Math.min(event.translationY+context.value.y,SCREEN_HEIGHT-TAB_BAR_HEIGHT),
-        -SCREEN_HEIGHT + 500
+        -SCREEN_HEIGHT + 50
       );
     })
     .onEnd(()=>{
@@ -40,7 +40,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
     });
 
   useEffect(()=>{
-    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT / 3 - 350 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
+    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT/3 - 350 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
       damping:50,
     });
   },[isOpen,translateY]);
@@ -106,6 +106,39 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         setCheckIn(false);
       }
     }
+
+    const handleCheckOut=async()=>{
+      try{
+        const token=await SecureStore.getItemAsync("authToken");
+        if(!token){
+          return;
+        }
+        setCheckIn(false);
+        try{
+          const response=await axios.delete('https://campus-connect-app-backend.onrender.com/check-out',{
+            data:{
+              zoneId:selectedZone?.id,
+              name:user?.name,
+              email:user?.email,
+              telno:user?.telno
+          },
+            headers:{ Authorization: `Bearer ${token}` }
+          }
+          )
+          if(response?.status===200 && response?.data?.data?.checkedIn){
+            checkCheckInStatus();
+          }
+        }catch(error){
+          if(axios.isAxiosError(error)){
+            throw error;
+          }
+        }
+      }
+      catch(error){
+        console.error("ERR:",error)
+        setCheckIn(false);
+      }
+    }
     const checkCheckInStatus=async()=>{
       try{
         const token=await SecureStore.getItemAsync("authToken");
@@ -138,7 +171,8 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSliderContainer, rBottomSlider]}>
         <ImageBackground source={require('../../assets/images/bg.jpeg')} style={styles.imageBackground}>
-          <View style={styles.line} />
+        <ScrollView>
+        <View style={styles.line} />
           <View style={styles.contentContainer}>
             <TouchableOpacity style={styles.sliderCross} onPress={handleSliderClose}>
               <Entypo name="cross" size={24} color="white" />
@@ -161,7 +195,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                   </View>
                   <View style={styles.buttonContainer}>
                     {checkIn?(
-                      <TouchableOpacity style={styles.button2}>
+                      <TouchableOpacity style={styles.button2} onPress={handleCheckOut}>
                         <Text style={styles.buttonText}>Checked-In</Text>
                       </TouchableOpacity>
                     ):(
@@ -174,6 +208,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
               </>
             )}
           </View>
+        </ScrollView>
         </ImageBackground>
       </Animated.View>
     </GestureDetector>
@@ -237,7 +272,6 @@ const styles=StyleSheet.create({
     alignSelf:'center',
     marginTop:20,
     width:"50%",
-    marginRight:10
 },
 button:{
     backgroundColor: "#63D0D8",
@@ -245,6 +279,7 @@ button:{
     paddingVertical:12,
     borderRadius:10,
     alignItems:"center",
+    marginRight:5
 },
 button2:{
   backgroundColor:"grey",

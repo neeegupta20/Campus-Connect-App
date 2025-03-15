@@ -27,7 +27,6 @@ export default function HomePage(){
                 <TouchableOpacity style={styles.button} onPress={navigateToLogin}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-                <Text style={{color:"white",marginBottom:15,fontWeight:'bold'}}>OR</Text>
                 <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={navigateToSignUp}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>

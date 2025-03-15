@@ -28,7 +28,7 @@ export default function Events(){
     }
 
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
             <SafeAreaView style={styles.container}>
                 <View style={styles.heading}>
                     <FontAwesome name="gamepad" size={40} color="white"/>
@@ -58,13 +58,14 @@ export default function Events(){
                     )}>
                 </FlatList>
             </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
+        backgroundColor:"black"
     },
     heading:{
         paddingHorizontal:15,

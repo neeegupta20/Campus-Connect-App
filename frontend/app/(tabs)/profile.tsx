@@ -85,7 +85,7 @@ export default function AccountsTab() {
 
      if(!user){
             return(
-               <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+            //    <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
                         <SafeAreaView style={styles.container}>
                            <View style={styles.header}>
                                <Image style={styles.logo} source={require('../../assets/images/logowhite.png')} />
@@ -100,12 +100,12 @@ export default function AccountsTab() {
                                </TouchableOpacity>   
                            </View>
                        </SafeAreaView>
-                </ImageBackground>
+                // </ImageBackground>
             )
         }
 
     return (
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{height:900,flex:1}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{height:900,flex:1}}>
             <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.profileContainer}>
@@ -161,7 +161,7 @@ export default function AccountsTab() {
                 <View style={{marginBottom:100}}></View>
             </ScrollView>
         </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     );
 }
 
@@ -200,6 +200,7 @@ const styles=StyleSheet.create({
         flexGrow:1,
         alignItems:"center",
         paddingTop:20,
+        backgroundColor:"black"
     },
     profileContainer:{
         alignItems:"center",

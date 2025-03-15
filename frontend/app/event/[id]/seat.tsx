@@ -115,7 +115,7 @@ export default function AddSeats(){
     }
 
     return(
-        <ImageBackground source={require('../../../assets/images/bg.jpeg')} style={{flex:1}}>
+        
             <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.heading}>
@@ -154,13 +154,13 @@ export default function AddSeats(){
                 </View>
             </View>
         </SafeAreaView>
-        </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
+        backgroundColor:"black"
     },
     heading:{
         marginTop: Platform.OS==='ios'?10:40,
