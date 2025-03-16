@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 mongoose.connect("mongodb+srv://admin:campusconnect12%40@campusconnect.pahyh.mongodb.net/CampusConnectApp");
 
 const eventSchema = new mongoose.Schema({
-    id: {
+    id:{
         type: Number,
         required: true
     },
@@ -14,40 +14,44 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    date: {
+    date:{
         type: String,
         required: true
     },
-    time: {
+    time:{
         type: String,
         required: true
     },
-    description: {
+    description:{
         type: String, 
         required: true
     },
-    venue: {
+    venue:{
         type: String, 
         required: true
     },
-    place: {
+    place:{
         type: String,
         required: true
     },
-    tags: {
+    tags:{
         type: [String],
         required: true
     },
-    formatDate: {
+    formatDate:{
         type: String,
         required: true
     },
-    price: {
+    price:{
         type: Number,
         required: true
     },
     photo1:{
         type:String,
+        required:true
+    },
+    isSoldOut:{
+        type:Boolean,
         required:true
     }
 })

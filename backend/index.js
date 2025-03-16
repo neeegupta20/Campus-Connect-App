@@ -549,14 +549,14 @@ app.delete('/delete-account',async(req,res)=>{
 })
 
 app.post('/create-event',upload.single("photo1"),async(req,res)=>{
-    const {id,title,shortDescription,date,time,description,venue,place,tags,formatDate,price,password}=req.body;
+    const {id,title,shortDescription,date,time,description,venue,place,tags,formatDate,price,isSoldOut,password}=req.body;
     if(password==="BALLI@1212"){
         try{
             if(!req.file){
                 return res.status(400).json({error:"PHOTO MISSING"})
             }
             const photoUrl=req.file.location;
-            const eventData=await events.create({id,title,shortDescription,date,time,description,venue,place,photo1:photoUrl,tags,formatDate,price});
+            const eventData=await events.create({id,title,shortDescription,date,time,description,venue,place,photo1:photoUrl,tags,formatDate,price,isSoldOut});
             res.status(200).json({"MSG":"EVENT CREATED."})
         }catch(error){
             res.status(500).json(error)
@@ -584,7 +584,7 @@ app.post('/create-zone',upload.single("imageUrl"),async(req,res)=>{
                 return res.status(400).json({error:"PHOTO MISSING"})
             }
             const imageUrl=req.file.location;
-            const zoneData=await connectZone.create({id,name,description,latitude,longitude,imageUrl});
+            const zoneData=await connectZone.create({id,name,description,latitude,longitude,imageUrl,time,date});
             res.status(200).json({"MSG":"CONNECT ZONE CREATED"})
         } catch (error) {
             res.status(500).json(error)
