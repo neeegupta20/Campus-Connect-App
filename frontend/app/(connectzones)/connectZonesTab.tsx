@@ -115,26 +115,16 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         }
         setCheckIn(false);
         try{
-<<<<<<< Updated upstream
           const response=await axios.delete('https://campus-connect-app-backend.onrender.com/check-out',{
             data:{
-=======
-          const response=await axios.post('https://campus-connect-app-backend.onrender.com/check-out',{
->>>>>>> Stashed changes
               zoneId:selectedZone?.id,
               name:user?.name,
               email:user?.email,
               telno:user?.telno
-<<<<<<< Updated upstream
           },
             headers:{ Authorization: `Bearer ${token}` }
           }
           )
-=======
-          },{
-            headers:{ Authorization: `Bearer ${token}` }
-          })
->>>>>>> Stashed changes
           if(response?.status===200 && response?.data?.data?.checkedIn){
             checkCheckInStatus();
           }
