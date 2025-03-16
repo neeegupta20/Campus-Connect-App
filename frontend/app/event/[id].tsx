@@ -86,7 +86,7 @@ export default function SingleEventScreen(){
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={[styles.button,isSoldOut && { backgroundColor: "#D3D3D3" }]}
-                        disabled={isSoldOut}
+                        disabled={event?.isSoldOut}
                         onPress={() => {
                             if (!user) {
                                 Alert.alert("PLEASE LOGIN/ SIGN UP");
@@ -99,7 +99,7 @@ export default function SingleEventScreen(){
                             }
                         }}
                     >
-                    <Text style={styles.buttonText}>{isSoldOut ? "SOLD OUT" : "Book Tickets"}</Text>
+                    <Text style={styles.buttonText}>{event?.isSoldOut ? "SOLD OUT" : "Book Tickets"}</Text>
                     </TouchableOpacity>
 
                 </View>

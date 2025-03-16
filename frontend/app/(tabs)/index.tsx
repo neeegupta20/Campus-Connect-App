@@ -42,7 +42,7 @@ export default function Home(){
                         </Text>
                     </View>
                     <View>
-                        <Image style={styles.balancebox} source={require('../../assets/images/CCCARD.png')}></Image>   
+                        <Image style={styles.balancebox} source={require('../../assets/images/CCCARD.gif')}></Image>   
                     </View>
                     <View style={{flexDirection:'column',marginHorizontal:-2}}>
                         <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>

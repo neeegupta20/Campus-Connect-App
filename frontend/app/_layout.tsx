@@ -8,40 +8,37 @@ import LottieView from "lottie-react-native";
 import { EventProvider } from "./context/EventContext";
 import { ZoneProvider } from "./context/ZonesContext";
 
-function RootLayoutInner() {
-    const { user, fetchUserProfile } = useContext(UserContext);
-    const router = useRouter();
-    const [isLoading, setIsLoading] = useState(true);
-    const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
+function RootLayoutInner(){
+    const {user,fetchUserProfile}=useContext(UserContext);
+    const router=useRouter();
+    const [isLoading, setIsLoading]=useState(true);
+    const [hasCheckedAuth, setHasCheckedAuth]=useState(false);
+    const [navigationDone, setNavigationDone]=useState(false);
 
     useEffect(()=>{
-        const timeout=setTimeout(()=>{
+        const splashTimeout=setTimeout(()=>{
             setIsLoading(false);
         },4250);
-        return()=>clearTimeout(timeout);
+        return()=>clearTimeout(splashTimeout);
     }, []);
 
     useEffect(()=>{
-        if (!isLoading){
+        if(!isLoading){
             const initializeAuth=async()=>{
                 await fetchUserProfile();
                 setHasCheckedAuth(true);
             };
             initializeAuth();
         }
-    }, [isLoading]);
+    },[isLoading]);
 
     useEffect(() => {
-        if (hasCheckedAuth){
-            setTimeout(()=>{
-                if(user){
-                    router.replace("/(tabs)");
-                }else{
-                    router.replace("/(auth)");
-                }
-            },250);
+        if (!isLoading &&hasCheckedAuth && !navigationDone) {
+            const destination = user ? "/(tabs)" : "/(auth)";
+            router.replace(destination);
+            setNavigationDone(true);
         }
-    }, [hasCheckedAuth]);
+    }, [isLoading,hasCheckedAuth, navigationDone]);
 
     if(isLoading){
         return <SplashScreen/>;
