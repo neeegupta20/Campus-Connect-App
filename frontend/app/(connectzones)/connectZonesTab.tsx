@@ -121,11 +121,11 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
               name:user?.name,
               email:user?.email,
               telno:user?.telno
-          },
+            },
             headers:{ Authorization: `Bearer ${token}` }
           }
           )
-          if(response?.status===200 && response?.data?.data?.checkedIn){
+          if(response?.status===200){
             checkCheckInStatus();
           }
         }catch(error){
@@ -136,9 +136,10 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
       }
       catch(error){
         console.error("ERR:",error)
-        setCheckIn(false);
+        setCheckIn(true);
       }
     }
+
     const checkCheckInStatus=async()=>{
       try{
         const token=await SecureStore.getItemAsync("authToken");
