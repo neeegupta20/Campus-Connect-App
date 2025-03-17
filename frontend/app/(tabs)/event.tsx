@@ -18,6 +18,7 @@ export default function Events(){
     })
   
     const {events,loading}=useEvent();
+    const [imageLoading,setImageLoading]=useState(true);
 
     if(loading){
         return(
@@ -39,7 +40,17 @@ export default function Events(){
                     keyExtractor={(item)=>item.id.toString()}
                     renderItem={({item})=>(
                         <View style={styles.eventBox}>
-                            <Image style={styles.eventPhoto} source={{uri:item.photo1}}></Image>
+                            {imageLoading &&
+                                <View style={{height:450,width:"100%",alignItems:"center"}}>
+                                    <LottieView
+                                        source={require("../../assets/loaderWhite.json")}
+                                        autoPlay
+                                        loop
+                                        style={styles.loaderIcon}
+                                    />
+                                </View>
+                            }
+                            <Image style={styles.eventPhoto} source={{uri:item.photo1}} onLoadEnd={()=>{setImageLoading(false)}}></Image>
                             <Text style={styles.eventTitle}>{item.title}</Text>
                             <Text style={styles.eventShortDesc}>{item.shortDescription}</Text>
                             <View style={styles.tagsContainer}>

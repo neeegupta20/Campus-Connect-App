@@ -26,7 +26,7 @@ export default function SingleEventScreen(){
     }
       
     const {events,loading}=useEvent();
-
+    const [imageLoading,setImageLoading]=useState(true);
     const router=useRouter();
     const searchParams=useGlobalSearchParams();
     const eventId=searchParams.id;
@@ -54,7 +54,17 @@ export default function SingleEventScreen(){
             </View>
             <ScrollView>
                 <View style={styles.topCard}>
-                    <Image style={styles.eventPoster} source={{uri:event?.photo1}}></Image>
+                    {imageLoading &&
+                        <View style={{height:450,width:"100%",alignItems:"center",marginTop:100}}>
+                            <LottieView
+                                source={require("../../assets/loaderWhite.json")}
+                                autoPlay
+                                loop
+                                style={styles.loaderIcon}
+                            />
+                        </View>
+                    }
+                    <Image style={styles.eventPoster} source={{uri:event?.photo1}} onLoadEnd={()=>{setImageLoading(false)}}></Image>
                     <Text style={styles.eventTitle}>{event?.title}</Text>
                 </View>   
                 <View style={styles.eventInfoCard}>
