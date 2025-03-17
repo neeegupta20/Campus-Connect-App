@@ -9,10 +9,9 @@ import { EventProvider } from "./context/EventContext";
 import { ZoneProvider } from "./context/ZonesContext";
 
 function RootLayoutInner(){
-    const {user,fetchUserProfile}=useContext(UserContext);
+    const {user,fetchUserProfile,isAuthChecked}=useContext(UserContext);
     const router=useRouter();
     const [isLoading, setIsLoading]=useState(true);
-    const [hasCheckedAuth, setHasCheckedAuth]=useState(false);
     const [navigationDone, setNavigationDone]=useState(false);
 
     useEffect(()=>{
@@ -26,25 +25,24 @@ function RootLayoutInner(){
         if(!isLoading){
             const initializeAuth=async()=>{
                 await fetchUserProfile();
-                setHasCheckedAuth(true);
             };
             initializeAuth();
         }
     },[isLoading]);
 
-    useEffect(() => {
-        if (!isLoading &&hasCheckedAuth && !navigationDone) {
-            const destination = user ? "/(tabs)" : "/(auth)";
+    useEffect(()=>{
+        if(!isLoading && !navigationDone && isAuthChecked){
+            const destination=user ? "/(tabs)" : "/(auth)";
             router.replace(destination);
             setNavigationDone(true);
         }
-    }, [isLoading,hasCheckedAuth, navigationDone]);
+    }, [isLoading,navigationDone]);
 
     if(isLoading){
         return <SplashScreen/>;
     }
 
-    if (!hasCheckedAuth){
+    if (!isAuthChecked){
         return (
             <SafeAreaView style={styles.errorContainer}>
                 <LottieView

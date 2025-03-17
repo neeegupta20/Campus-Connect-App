@@ -15,6 +15,7 @@ interface UserContextType{
     setUser:(user:User|null)=>void;
     fetchUserProfile:()=>Promise<void>;
     logout:()=>Promise<void>;
+    isAuthChecked:boolean;
 }
 
 export const UserContext=createContext<UserContextType>({
@@ -22,15 +23,18 @@ export const UserContext=createContext<UserContextType>({
     setUser:()=>{},
     fetchUserProfile:async()=>{},
     logout:async()=>{},
+    isAuthChecked:false,
 });
 
 export default function UserProvider({children} : {children:ReactNode}){
     const [user,setUser]=useState<User|null>(null);
+    const [isAuthChecked,setIsAuthChecked]=useState(false);
 
     const fetchUserProfile=useCallback(async()=>{
         const token=await SecureStore.getItemAsync('authToken');
         if (!token){
             setUser(null);
+            setIsAuthChecked(true);
             return;
         }
         try{
@@ -43,6 +47,8 @@ export default function UserProvider({children} : {children:ReactNode}){
         }catch(error){
             await SecureStore.deleteItemAsync('authToken');
             setUser(null);
+        }finally{
+            setIsAuthChecked(true);
         }
     },[]);
 
@@ -56,7 +62,7 @@ export default function UserProvider({children} : {children:ReactNode}){
     },[fetchUserProfile]);
 
     return(
-        <UserContext.Provider value={{ user, setUser, fetchUserProfile, logout }}>
+        <UserContext.Provider value={{ user, setUser, fetchUserProfile, logout, isAuthChecked }}>
             {children}
         </UserContext.Provider>
     );

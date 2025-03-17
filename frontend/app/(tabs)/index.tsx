@@ -7,7 +7,6 @@ import {Literata_400Regular,Literata_500Medium,Literata_700Bold} from '@expo-goo
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
-import loaderWhite from "../../assets/loaderWhite.json"
 
 export default function Home(){
 
@@ -16,11 +15,24 @@ export default function Home(){
     const [fontsLoaded]=useFonts({
         Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold
     })
+
   
     useEffect(()=>{
         fetchUserProfile();
     },[])
 
+    if(!fontsLoaded){
+        return(
+            <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
+                <LottieView
+                    source={require("../../assets/loaderWhite.json")}
+                    autoPlay
+                    loop
+                    style={styles.loaderIcon}
+                />
+            </SafeAreaView>
+        )
+    }
 
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
