@@ -26,7 +26,7 @@ export default function SingleEventScreen(){
     }
       
     const {events,loading}=useEvent();
-
+    const [imageLoading,setImageLoading]=useState(true);
     const router=useRouter();
     const searchParams=useGlobalSearchParams();
     const eventId=searchParams.id;
@@ -54,7 +54,17 @@ export default function SingleEventScreen(){
             </View>
             <ScrollView>
                 <View style={styles.topCard}>
-                    <Image style={styles.eventPoster} source={{uri:event?.photo1}}></Image>
+                    {imageLoading &&
+                        <View style={{height:450,width:"100%",alignItems:"center",marginTop:100}}>
+                            <LottieView
+                                source={require("../../assets/loaderWhite.json")}
+                                autoPlay
+                                loop
+                                style={styles.loaderIcon}
+                            />
+                        </View>
+                    }
+                    <Image style={styles.eventPoster} source={{uri:event?.photo1}} onLoadEnd={()=>{setImageLoading(false)}}></Image>
                     <Text style={styles.eventTitle}>{event?.title}</Text>
                 </View>   
                 <View style={styles.eventInfoCard}>
@@ -70,7 +80,9 @@ export default function SingleEventScreen(){
                     <Text style={styles.eventVenueText}>{event?.venue}</Text>
                 </View>
                 <View>
-                    <Text style={styles.aboutHeading}>About</Text>
+                    <View style={styles.aboutHeading}>
+                        <Text style={styles.aboutText}>About</Text>
+                    </View>
                     <Text style={styles.eventAboutText} numberOfLines={descriptionExpanded?undefined:3}>
                         {event?.description}
                     </Text>
@@ -196,13 +208,15 @@ const styles=StyleSheet.create({
         fontFamily:"OpenSans_700Bold"
     },
     aboutHeading:{
-        color:"#D1DEDD",
-        fontSize:20,
         borderBottomColor:"#63D0D8",
         borderBottomWidth:2,
         alignSelf:"flex-start",
         marginLeft:25,
         paddingBottom:4
+    },
+    aboutText:{
+        color:"#D1DEDD",
+        fontSize:20,
     },
     eventAboutText:{
         color:"white",

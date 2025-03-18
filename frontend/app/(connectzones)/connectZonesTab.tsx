@@ -9,6 +9,7 @@ import { Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
+import LottieView from "lottie-react-native";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const TAB_BAR_HEIGHT=100;
@@ -167,6 +168,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
       }
     },[selectedZone]);
   
+    const [imageLoading,setImageLoading]=useState(true);
 
   return(
     <GestureDetector gesture={gesture}>
@@ -181,10 +183,21 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
             {selectedZone && (
               <>
                 <Text style={styles.zoneName}>{selectedZone.name}</Text>
+                  {imageLoading &&
+                    <View style={{height:450,width:"100%",alignItems:"center",marginTop:100}}>
+                      <LottieView
+                        source={require("../../assets/loaderWhite.json")}
+                        autoPlay
+                        loop
+                        style={styles.loaderIcon}
+                      />
+                    </View>
+                  }
                 <View style={{width:370}}>
                   <Image 
                     source={{uri:selectedZone.imageUrl}}  
                     style={styles.image}
+                    onLoadEnd={()=>{setImageLoading(false)}}
                   />
                   <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
                 </View>
@@ -294,6 +307,12 @@ buttonText:{
     fontSize:14,
     fontWeight: "bold",
 },
+loaderIcon:{
+  width: 40,
+  height: 40,
+  alignSelf:"center",
+  top: 30
+}
 });
 
 export default BottomSlider;
