@@ -173,7 +173,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
   return(
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSliderContainer, rBottomSlider]}>
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={styles.imageBackground}>
+        {/* <ImageBackground source={require('../../assets/images/bg.jpeg')} style={styles.imageBackground}> */}
         <ScrollView>
         <View style={styles.line} />
           <View style={styles.contentContainer}>
@@ -223,7 +223,7 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
             )}
           </View>
         </ScrollView>
-        </ImageBackground>
+        {/* </ImageBackground> */}
       </Animated.View>
     </GestureDetector>
   );
@@ -233,10 +233,11 @@ const styles=StyleSheet.create({
   bottomSliderContainer: {
     height:SCREEN_HEIGHT,
     width:'100%',
-    backgroundColor:'white',
+    backgroundColor:'black',
     position:'absolute',
     top:SCREEN_HEIGHT,
     borderRadius:30,
+    padding:20
   },
   line:{
     width:75,
@@ -254,12 +255,6 @@ const styles=StyleSheet.create({
     position:'absolute',
     right:20,
     top:10,
-  },
-  imageBackground:{
-    flex:1,
-    padding:20,
-    borderRadius:30,
-    overflow:'hidden',
   },
   zoneName:{
     marginVertical:10,

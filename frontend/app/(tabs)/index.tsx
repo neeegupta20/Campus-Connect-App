@@ -36,8 +36,8 @@ export default function Home(){
 
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
-            <ScrollView contentContainerStyle={styles.container}>
-                <SafeAreaView style={{flex:1}}>
+                <SafeAreaView style={styles.container}>
+                    <ScrollView>
                     <View style={styles.textcontainer}>
                         <View style={{flexDirection:"column"}}>
                             <Text style={styles.greeting}>
@@ -58,35 +58,22 @@ export default function Home(){
                     </View>
                     <View style={{flexDirection:'column',marginHorizontal:-2}}>
                         <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>
-                            <ImageBackground style={styles.infoBox} source={require('../../assets/images/eventBox.png')}>
-                                <Text style={styles.text4}>Events</Text>
-                                <Text style={styles.text7}>{"DISCOVER EXCITING EVENTS \n RIGHT AT YOUR CORNER !"}</Text>
-                                <View style={styles.icon1}>
-                                    <Ionicons name="chevron-forward-outline" size={24} color="white"/>
-                                </View>
-                            </ImageBackground>
+                            <ImageBackground style={styles.infoBox} source={require('../../assets/images/EVENTS.png')}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>router.push('/(tabs)/connectzones')}>
-                            <ImageBackground style={styles.infoBox2} source={require('../../assets/images/zoneBox.png')}>
-                                <Text style={styles.text5}>Connect Zones</Text>
-                                <Text style={styles.text8}>{"YOUR HUB FOR CONNECTIONS !"}</Text>
-                                <View style={styles.icon2}>
-                                    <Ionicons name="chevron-forward-outline" size={24} color="white"/>
-                                </View>
-                            </ImageBackground>
+                            <ImageBackground style={styles.infoBox2} source={require('../../assets/images/connectzones.png')}/>
                         </TouchableOpacity>
                     </View>
+                    </ScrollView>
                 </SafeAreaView>
-            </ScrollView>
-        // </ImageBackground>
-        
+
     )
 }
 
 const styles=StyleSheet.create(
     {
         container:{
-            flexGrow:1,
+            flex:1,
             backgroundColor:"black"
         },
         errorContainer:{
@@ -115,7 +102,7 @@ const styles=StyleSheet.create(
             marginBottom:10
         },
         semigreet:{
-            color:'#408D93',
+            color:'#63D0D8',
             fontFamily:"Montserrat_500Medium",
             marginLeft:20
         },
@@ -176,28 +163,30 @@ const styles=StyleSheet.create(
         },
         infoBox:{
             marginTop:20,
-            height:128,
-            width:330,
+            height:115,
+            width:336,
             alignSelf:"center",
-            marginBottom:20
+            marginBottom:40,
         },
         infoBox2:{
-            height:128,
-            width:320,
+            height:115,
+            width:336,
             alignSelf:"center",
+            marginBottom:100,
+            borderRadius:20
         },
         text4:{
             fontFamily:'Montserrat_700Bold',
-            fontSize:25,
+            fontSize:30,
             position:"absolute",
-            top:20,
+            top:15,
             left:30
         },
         text5:{
             fontFamily:'Montserrat_700Bold',
-            fontSize:22,
-            position:'absolute',
-            top:20,
+            fontSize:24,
+            position:"absolute",
+            top:15,
             left:20
         },
         text6:{

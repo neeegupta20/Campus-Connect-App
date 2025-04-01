@@ -18,7 +18,7 @@ export default function HomePage(){
     };
 
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
             <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Image style={styles.logo} source={require('../../assets/images/logowhite.png')} />
@@ -40,7 +40,7 @@ export default function HomePage(){
                 <Text style={styles.footerText}>© 2025 Campus Connect</Text>
             </View>
         </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     );
 };
 
@@ -49,6 +49,7 @@ const styles=StyleSheet.create({
     container:{
         flex:1,
         padding:20,
+        backgroundColor:"black"
     },
     header:{
         alignItems:'center',
@@ -73,7 +74,7 @@ const styles=StyleSheet.create({
     button:{
         width:'80%',
         paddingVertical:15,
-        backgroundColor:'#63D0D8',
+        backgroundColor:'#63d0d8',
         borderRadius:12,
         marginBottom:20,
         alignItems:'center',

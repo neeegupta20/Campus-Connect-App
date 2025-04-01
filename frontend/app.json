@@ -13,7 +13,12 @@
       "config":{
         "googleMapsApiKey":"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
       },
-      "newArchEnabled":false
+      "newArchEnabled":false,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "jsEngine":"hermes",
     "android": {

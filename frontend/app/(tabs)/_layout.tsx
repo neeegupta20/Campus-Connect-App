@@ -10,16 +10,11 @@ export default function TabLayout(){
             screenOptions={({ route }: { route: any }) => ({
             tabBarActiveTintColor:"#63D0D8",
             headerShown:false,
-            tabBarStyle:route.name==="index"
-            ? {
-                position:"absolute",
-                backgroundColor:"transparent",
-                borderTopWidth:0,
-              }
-            : {
-                backgroundColor:"black",
-                borderTopWidth:0,
-              },
+            tabBarStyle:
+                {
+                    backgroundColor:"black",
+                    borderTopWidth:0,
+                }
             })}
             >
                 <Tabs.Screen name="index" 

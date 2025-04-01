@@ -53,7 +53,7 @@ export default function LoginTab(){
     };
 
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
             <SafeAreaView style={styles.container}>
                 <TouchableOpacity onPress={()=>{
                     router.back()}} 
@@ -97,7 +97,7 @@ export default function LoginTab(){
                     </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     )
 }
 
@@ -106,6 +106,7 @@ const styles=StyleSheet.create(
         container:{    
             alignItems:"center",
             padding:20,
+            backgroundColor:"black"
         },
         backIcon: {
             position:"absolute",

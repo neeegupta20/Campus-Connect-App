@@ -24,7 +24,7 @@ export default function AvatarSelectionTab(){
     }
     
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
           <SafeAreaView style={styles.container}>
               <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                   <Ionicons name="arrow-back-outline" color="white" size={32}/>
@@ -47,13 +47,14 @@ export default function AvatarSelectionTab(){
                   </View>
               </ScrollView>
           </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     )
 }
 
 const styles=StyleSheet.create({
   container:{
     flex:1,
+    backgroundColor:"black"
   },
   backIcon:{
     zIndex:20,

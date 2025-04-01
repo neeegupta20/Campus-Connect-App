@@ -32,7 +32,7 @@ export default function EnterName(){
     const avatarImage=avatarMap[avatar] ?? null;
 
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
             <ScrollView style={styles.container}>
                 <SafeAreaView>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
@@ -72,13 +72,14 @@ export default function EnterName(){
                     </View>
                 </SafeAreaView>
             </ScrollView>
-        </ImageBackground>
+        // </ImageBackground>
     );
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
+        backgroundColor:"black"
     },
     imageContainer:{
         marginTop:30,

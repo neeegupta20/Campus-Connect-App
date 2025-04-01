@@ -74,7 +74,7 @@ export default function otpVerify(){
   
 
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
             <SafeAreaView style={[styles.container,{flex:1}]}>
             <TouchableOpacity onPress={()=>{
                     router.back()}} 
@@ -110,7 +110,7 @@ export default function otpVerify(){
                     </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     )
 }
 
@@ -120,7 +120,8 @@ const styles=StyleSheet.create(
             flex:1,
             justifyContent:"center",
             alignItems:"center",
-            padding:20
+            padding:20,
+            backgroundColor:"black"
         },
         backIcon:{
             position:"absolute",

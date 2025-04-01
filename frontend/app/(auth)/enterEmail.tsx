@@ -66,7 +66,7 @@ export default function EnterEmail(){
     }
 
     return(
-        <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
+        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
             <ScrollView style={styles.container}>
                 <SafeAreaView>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
@@ -118,13 +118,14 @@ export default function EnterEmail(){
                     </View>
                 </SafeAreaView>
             </ScrollView>
-        </ImageBackground>
+        // </ImageBackground>
     );
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1,
+        backgroundColor:"black"
     },
     imageContainer:{
         marginTop:20,
