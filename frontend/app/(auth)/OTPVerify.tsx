@@ -84,7 +84,7 @@ export default function otpVerify(){
                 <ScrollView contentContainerStyle={{flexGrow:1}}>
                     <Image style={styles.logo} source={require('../../assets/images/logowhite.png')}></Image>
                     <Text style={styles.title}>
-                        ENTER OTP
+                        Enter OTP
                     </Text>  
                     <Text style={{color:"white",fontSize:10,marginHorizontal:65,marginTop:5}}>
                         SENT TO THE ENTERED EMAIL ID
@@ -140,9 +140,9 @@ const styles=StyleSheet.create(
             justifyContent:"center",
             marginHorizontal:15,
             color:"white",
-            fontSize:40,
+            fontSize:35,
             fontWeight:"bold",
-            paddingHorizontal:30
+            paddingHorizontal:50
         },
         otpContainer:{
           marginTop:50,  

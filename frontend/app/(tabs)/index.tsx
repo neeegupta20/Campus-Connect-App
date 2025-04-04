@@ -3,7 +3,8 @@ import {  Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, To
 import { UserContext } from "../context/UserContext";
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
-import {Literata_400Regular,Literata_500Medium,Literata_700Bold} from '@expo-google-fonts/literata';
+import { Literata_400Regular,Literata_500Medium,Literata_700Bold } from '@expo-google-fonts/literata';
+import { Poppins_400Regular,Poppins_500Medium,Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
@@ -13,7 +14,7 @@ export default function Home(){
     const {user,fetchUserProfile}=useContext(UserContext);
     const router=useRouter();
     const [fontsLoaded]=useFonts({
-        Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold
+        Roboto_500Medium,Roboto_700Bold,Roboto_400Regular,Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold,Literata_400Regular,Literata_500Medium,Literata_700Bold,Poppins_400Regular,Poppins_500Medium,Poppins_700Bold
     })
 
   
@@ -41,7 +42,7 @@ export default function Home(){
                     <View style={styles.textcontainer}>
                         <View style={{flexDirection:"column"}}>
                             <Text style={styles.greeting}>
-                                Hey there, <Text style={{textTransform:'uppercase',fontSize:18}}>{user ? user.name:"GUEST"}</Text>
+                                Hey there, <Text style={{fontSize:30}}>{user ? user.name.split(" ")[0]:"Guest"}</Text>
                             </Text>
                         </View>
                         <TouchableOpacity style={styles.notificationIcon} onPress={()=>router.replace('/(notifications)/notificationScreen')}>
@@ -54,7 +55,8 @@ export default function Home(){
                         </Text>
                     </View>
                     <View>
-                        <Image style={styles.balancebox} source={require('../../assets/images/CCCARD.gif')}></Image>   
+                        <Image style={styles.balancebox} source={require('../../assets/images/cardHome.gif')}></Image>
+                        {/* <Image style={styles.balancebox2} source={require('../../assets/images/logowhite.png')}></Image>    */}
                     </View>
                     <View style={{flexDirection:'column',marginHorizontal:-2}}>
                         <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>
@@ -88,11 +90,11 @@ const styles=StyleSheet.create(
         },
         greeting:{
             color:"white",
-            fontSize:22,
-            fontFamily:"Montserrat_500Medium",
+            fontSize:30,
+            fontFamily:"Poppins_500Medium",
             fontWeight:"900",
             marginBottom:10,
-            width:250
+            width:260
         },
         textName:{
             textTransform:'uppercase',color:"white",
@@ -103,8 +105,9 @@ const styles=StyleSheet.create(
         },
         semigreet:{
             color:'#63D0D8',
-            fontFamily:"Montserrat_500Medium",
-            marginLeft:20
+            fontFamily:"Poppins_500Medium",
+            marginLeft:20,
+            fontSize:16
         },
         line:{
             height:1,
@@ -112,12 +115,19 @@ const styles=StyleSheet.create(
             marginVertical:30
         },
         balancebox:{
-            height:250,
-            width:400,
-            marginTop:40,
-            marginBottom:10,
+            height:158,
+            width:336,
+            marginTop:50,
+            marginBottom:40,
             alignSelf:"center",
             borderRadius:10
+        },
+        balancebox2:{
+            height:100,
+            width:280,
+            position:"absolute",
+            top:85,
+            right:60
         },
         text1:{
             color:'white',
@@ -149,24 +159,12 @@ const styles=StyleSheet.create(
             alignSelf:"center",
             top: 30
         },
-        redeemButton:{
-            fontFamily:'Montserrat_500Medium',
-            backgroundColor:'#B0B0B0',
-            width:90,
-            height:26,
-            paddingHorizontal:15,
-            borderRadius:250,
-            position:'absolute',
-            bottom:17,
-            right:30,
-            alignItems:'center'
-        },
         infoBox:{
             marginTop:20,
             height:115,
             width:336,
             alignSelf:"center",
-            marginBottom:40,
+            marginBottom:30,
         },
         infoBox2:{
             height:115,

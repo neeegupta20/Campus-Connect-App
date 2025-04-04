@@ -19,6 +19,7 @@
     "@expo-google-fonts/literata": "^0.2.3",
     "@expo-google-fonts/montserrat": "^0.2.3",
     "@expo-google-fonts/open-sans": "^0.2.3",
+    "@expo-google-fonts/poppins": "^0.3.0",
     "@expo-google-fonts/roboto": "^0.2.3",
     "@expo/config-plugins": "~9.0.0",
     "@expo/prebuild-config": "~8.0.0",

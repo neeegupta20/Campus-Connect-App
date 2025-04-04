@@ -62,7 +62,7 @@ export default function LoginTab(){
                 </TouchableOpacity>
                 <ScrollView contentContainerStyle={{flexGrow:1}}>
                     <Image style={styles.logo} source={require('../../assets/images/logowhite.png')}></Image>
-                    <Text style={styles.title}>LOGIN</Text> 
+                    <Text style={styles.title}>Login</Text> 
                     <View style={styles.grid}>
                         <View style={styles.inputContainer}>
                             <TextInput 
@@ -126,7 +126,7 @@ const styles=StyleSheet.create(
             marginHorizontal:60,
             color:"white",
             fontSize:30,
-            fontFamily:"Montserrat_700Bold",
+            fontFamily:"Poppins_700Bold",
             fontWeight:"bold",
         },
         input:{

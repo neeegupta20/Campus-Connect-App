@@ -63,7 +63,7 @@ const styles=StyleSheet.create({
   headText:{
     color:"white",
     marginVertical:50,
-    fontFamily:"Montserrat_700Bold",
+    fontFamily:"Poppins_700Bold",
     fontSize:30,
   },
   scrollContainer:{

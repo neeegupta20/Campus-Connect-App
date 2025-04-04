@@ -41,7 +41,7 @@ export default function EnterName(){
                     <View style={styles.imageContainer}>
                         {avatarImage && <Image source={avatarImage} style={styles.avatarImage}/>}
                         <Text style={styles.headText}>
-                            ENTER NAME
+                            Name
                         </Text>
                         <View style={styles.inputContainer}>
                             <TextInput 
@@ -98,7 +98,7 @@ const styles=StyleSheet.create({
         color:"white",
         marginTop:40,
         marginBottom:30,
-        fontFamily:"OpenSans_700Bold",
+        fontFamily:"Poppins_700Bold",
         fontSize:30,
     },
     input:{

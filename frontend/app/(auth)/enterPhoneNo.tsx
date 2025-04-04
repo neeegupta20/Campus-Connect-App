@@ -42,7 +42,7 @@ export default function EnterPhoneNumber(){
                     <View style={styles.imageContainer}>
                         {avatarImage && <Image source={avatarImage} style={styles.avatarImage}/>}
                         <Text style={styles.headText}>
-                            ENTER PHONE NUMBER
+                         Phone Number
                         </Text>
                         <View style={styles.inputContainer}>
                             <TextInput 
@@ -99,8 +99,8 @@ const styles=StyleSheet.create({
         color:"white",
         marginTop:40,
         marginBottom:30,
-        fontFamily:"OpenSans_700Bold",
-        fontSize:25,
+        fontFamily:"Poppins_700Bold",
+        fontSize:30,
     },
     input:{
         flex:1,
