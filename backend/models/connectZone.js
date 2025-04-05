@@ -33,6 +33,10 @@ const connectZoneSchema = new mongoose.Schema({
     date:{
         type:String,
         required:true
+    },
+    venue:{
+        type:String,
+        required:true
     }
 })
 module.exports=mongoose.model("connectZone",connectZoneSchema)

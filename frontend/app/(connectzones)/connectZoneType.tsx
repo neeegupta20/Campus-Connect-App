@@ -5,5 +5,8 @@ export default interface ConnectZone{
   description: string,
   longitude: number,
   latitude: number,
-  imageUrl: string
+  imageUrl: string,
+  time:string,
+  date:string,
+  venue:string
 }

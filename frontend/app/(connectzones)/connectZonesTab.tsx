@@ -10,6 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
 import LottieView from "lottie-react-native";
+import { Ionicons } from '@expo/vector-icons';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const TAB_BAR_HEIGHT=100;
@@ -36,12 +37,12 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
         runOnJS(setSelectedZone)(null);
         translateY.value=withSpring(SCREEN_HEIGHT-TAB_BAR_HEIGHT);
       }else{
-        translateY.value=withSpring(-SCREEN_HEIGHT/3 - 350);
+        translateY.value=withSpring(-SCREEN_HEIGHT/3 - 500);
       }
     });
 
   useEffect(()=>{
-    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT/3 - 350 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
+    translateY.value=withSpring(isOpen ? -SCREEN_HEIGHT/3 - 500 : SCREEN_HEIGHT - TAB_BAR_HEIGHT, {
       damping:50,
     });
   },[isOpen,translateY]);
@@ -199,7 +200,12 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
                     style={styles.image}
                     onLoadEnd={()=>{setImageLoading(false)}}
                   />
+              
                   <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
+                </View>
+                <View>
+                  <Ionicons style={styles.timeIcon} name='time-outline' color="white" size={30}></Ionicons>
+                  <Text style={styles.zoneTime}>{selectedZone.time}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                   <View style={styles.buttonContainer}>
@@ -267,7 +273,8 @@ const styles=StyleSheet.create({
     fontSize:14,
     marginTop:20,
     color:'white',
-    fontFamily:"Montserrat_500Medium"
+    fontFamily:"Montserrat_500Medium",
+    paddingHorizontal:10
   },
   image:{
     marginRight:20,
@@ -307,6 +314,12 @@ loaderIcon:{
   height: 40,
   alignSelf:"center",
   top: 30
+},
+timeIcon:{
+
+},
+zoneTime:{
+
 }
 });
 

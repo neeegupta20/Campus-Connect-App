@@ -8,6 +8,9 @@ interface Zones {
   latitude: number;
   longitude: number;
   imageUrl: string;
+  time:string;
+  date:string;
+  venue:string;
 }
 
 
