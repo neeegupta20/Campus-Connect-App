@@ -577,7 +577,7 @@ app.get('/fetch-events',async(req, res)=>{
 });
 
 app.post('/create-zone',upload.single("imageUrl"),async(req,res)=>{
-    const {id,name,description,latitude, longitude,password}=req.body;
+    const {id,name,description,latitude, longitude,password,time,date}=req.body;
     if(password==="BALLI@1212"){
         try {
             if(!req.file){
