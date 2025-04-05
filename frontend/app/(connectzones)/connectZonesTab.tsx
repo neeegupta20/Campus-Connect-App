@@ -11,6 +11,7 @@ import axios from 'axios';
 import { UserContext } from '../context/UserContext';
 import LottieView from "lottie-react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { Poppins_400Regular } from '@expo-google-fonts/poppins';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const TAB_BAR_HEIGHT=100;
@@ -203,11 +204,16 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
               
                   <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
                 </View>
-                <View>
+                <View style={{marginTop:30,flexDirection:'row'}}>
+                  <Ionicons style={styles.calendarIcon} name='calendar-outline' color="white" size={30}></Ionicons>
+                  <Text style={styles.zoneDate}>{selectedZone.date}</Text>
                   <Ionicons style={styles.timeIcon} name='time-outline' color="white" size={30}></Ionicons>
                   <Text style={styles.zoneTime}>{selectedZone.time}</Text>
                 </View>
-                <View style={{flexDirection:'row'}}>
+                <View style={{marginVertical:15}}>
+                  <Text style={styles.zoneVenue}>📍 {selectedZone.venue}</Text>
+                </View>
+                <View style={{flexDirection:'row',marginTop:20}}>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={handleGetDirections}>
                         <Text style={styles.buttonText}>Get Directions</Text>
@@ -270,10 +276,10 @@ const styles=StyleSheet.create({
     fontFamily:"Montserrat_700Bold"
   },
   zoneDescription:{
-    fontSize:14,
+    fontSize:16,
     marginTop:20,
     color:'white',
-    fontFamily:"Montserrat_500Medium",
+    fontFamily:"Poppins_500Medium",
     paddingHorizontal:10
   },
   image:{
@@ -316,10 +322,35 @@ loaderIcon:{
   top: 30
 },
 timeIcon:{
-
+  paddingHorizontal:100,
+  marginTop:12
 },
 zoneTime:{
-
+   color:"white",
+   fontFamily:"Poppins_400Regular",
+   fontSize:22,
+   position:"absolute",
+   right:120,
+   top:12
+},
+calendarIcon:{
+  paddingHorizontal:10,
+  marginTop:10
+},
+zoneDate:{
+   color:"white",
+   fontFamily:"Poppins_400Regular",
+   fontSize:20,
+   position:"absolute",
+   left:50,
+   top:12
+},
+zoneVenue:{
+  color:"white",
+  fontFamily:"Poppins_500Medium",
+  position:"absolute",
+  marginHorizontal:10,
+  fontSize:20,
 }
 });
 
