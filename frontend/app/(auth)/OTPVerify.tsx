@@ -15,6 +15,7 @@ export default function otpVerify(){
         const telno=searchParams?.telno ?? '';
         const password=searchParams?.password ?? '';
         const avatar=Array.isArray(searchParams?.avatar) ? searchParams?.avatar[0] : searchParams?.avatar ?? ''; 
+        const type=searchParams?.type ?? 'register'
         const [otp,setOtp]=useState(['','','','']);
         const [loading, setLoading] = useState(false)
 
@@ -44,19 +45,26 @@ export default function otpVerify(){
                 setLoading(true)
                 const response1=await axios.post('https://campus-connect-app-backend.onrender.com/verify-otp',{email,OTP:otpString});
                 if(response1.status===200){
-                    try{
-                        const dataUser={name,email,password,telno,avatar};
-                        const response2=await axios.post('https://campus-connect-app-backend.onrender.com/register',dataUser);
-                        if(response2.status===200){
-                            router.replace('/(auth)/login');
-                        }
-                    }catch(error){
-                        if(axios.isAxiosError(error)){
-                            if(error.response?.status===422){
-                              Alert.alert("USER ALREADY EXISTS. PLEASE LOGIN.");
-                              router.replace('/(auth)/login');
+                    if(type==='register'){
+                        try{
+                            const dataUser={name,email,password,telno,avatar};
+                            const response2=await axios.post('https://campus-connect-app-backend.onrender.com/register',dataUser);
+                            if(response2.status===200){
+                                router.replace('/(auth)/login');
+                            }
+                        }catch(error){
+                            if(axios.isAxiosError(error)){
+                                if(error.response?.status===422){
+                                  Alert.alert("USER ALREADY EXISTS. PLEASE LOGIN.");
+                                  router.replace('/(auth)/login');
+                                }
                             }
                         }
+                    } else if(type==="forgotPassword"){
+                        router.replace({
+                            pathname:'/(auth)/enterNewPassword',
+                            params:{email}
+                        })
                     }
                 }
                 setLoading(false)
@@ -74,7 +82,6 @@ export default function otpVerify(){
   
 
     return(
-        // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
             <SafeAreaView style={[styles.container,{flex:1}]}>
             <TouchableOpacity onPress={()=>{
                     router.back()}} 
@@ -110,7 +117,6 @@ export default function otpVerify(){
                     </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
-        // </ImageBackground>
     )
 }
 

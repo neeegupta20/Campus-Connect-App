@@ -10,6 +10,8 @@ export default function AuthLayout(){
             <Stack.Screen name="enterEmail"/>
             <Stack.Screen name="OTPVerify"/>
             <Stack.Screen name="login"/>
+            <Stack.Screen name="forgotPassword"/>
+            <Stack.Screen name="enterNewPassword"/>
         </Stack>
     );
 }

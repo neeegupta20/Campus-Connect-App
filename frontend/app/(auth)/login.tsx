@@ -73,7 +73,7 @@ export default function LoginTab(){
                                 placeholderTextColor="gray">
                             </TextInput>
                         </View>
-                        <View style={[styles.inputContainer]}>
+                        <View style={styles.inputContainer}>
                             <TextInput
                                 placeholder="PASSWORD"
                                 value={password}
@@ -89,6 +89,9 @@ export default function LoginTab(){
                                 </Text>
                             </TouchableOpacity>
                         </View>
+                        <TouchableOpacity onPress={()=>{router.push('/(auth)/forgotPassword')}} style={styles.forgotButton}>
+                            <Text style={styles.forgotText}>Forgot Password?</Text>
+                        </TouchableOpacity>                      
                     </View>
                     <TouchableOpacity style={styles.button} onPress={LoginUser} disabled={loading}>
                         {loading ? (
@@ -138,6 +141,7 @@ const styles=StyleSheet.create(
             fontSize:20,
             borderColor:"#63D0D8",
             color:"white",
+           
         },
         inputContainer:{
             width:"100%",
@@ -147,18 +151,20 @@ const styles=StyleSheet.create(
             alignItems:"center",
             borderRadius:20,
             position:"relative",
+            marginVertical:10
         },
         buttonContainer:{
             alignSelf:'center',
             width:"100%",
-            marginHorizontal:2
+            
         },
         button:{
             backgroundColor: "#63D0D8",
             padding: 15,
             borderRadius:16,
             alignItems: "center",
-            marginHorizontal:30
+            marginHorizontal:30,
+            marginVertical:10
         },
         buttonText:{
             color: "#fff",
@@ -179,6 +185,14 @@ const styles=StyleSheet.create(
             width: 25,
             height: 25,
             alignSelf:"center"
+        },
+        forgotText:{
+            color:"white",
+            fontFamily:"Poppins_500Medium",
+            fontSize:16
+        },
+        forgotButton:{
+            marginLeft:170
         }
     }
 )
