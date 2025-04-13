@@ -333,7 +333,7 @@ app.get("/scan-ticket",async(req,res)=>{
 });
 
 app.put('/change-password',async(req,res)=>{
-    const {email,newpassword}=req.body;
+    let {email,newpassword}=req.body;
     email=email.toLowerCase();
     const hashedPassword=bcrypt.hashSync(newpassword,bcryptSalt);
     const Founduser=await user.findOneAndUpdate(
