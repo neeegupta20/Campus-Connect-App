@@ -1,5 +1,5 @@
 import { SafeAreaView,ScrollView,Image, Text, TextInput, StyleSheet, View, Alert, TouchableOpacity, ImageBackground } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useGlobalSearchParams } from "expo-router/build/hooks";
 import axios from "axios";
 import LottieView from "lottie-react-native";
@@ -79,7 +79,49 @@ export default function otpVerify(){
             }
             setLoading(false)
         }
-  
+    const [secondsLeft,setSecondsLeft]=useState(30);
+
+    useEffect(()=>{
+        let timer:NodeJS.Timeout;
+
+        if (secondsLeft>0){
+            timer=setInterval(()=>{
+                setSecondsLeft((prev)=>prev-1);
+            },1000);
+        }
+        return()=>clearInterval(timer);
+    }, [secondsLeft]);
+
+    const handleResendCode=async()=>{
+        if(secondsLeft>0){
+            return;
+        }
+        try{
+            setLoading(true);
+            const response=await axios.post('https://campus-connect-app-backend.onrender.com/send-otp',{email});
+            if(response.status===200){
+                  setLoading(false)
+              }
+          }catch(error){
+            if(axios.isAxiosError(error)){
+              if(error.response?.status===402){
+                Alert.alert("OTP NOT DELIVERABLE.");
+              }
+            }
+            console.log(error);
+          }
+        setSecondsLeft(30);
+    };
+
+    const formatTime=(seconds:number)=>{
+        const minutes=Math.floor(seconds/60)
+        .toString()
+        .padStart(2,'0');
+        const secs=(seconds%60).toString().padStart(2, '0');
+        return `${minutes}:${secs}`;
+    };
+    
+    const isButtonDisabled=secondsLeft>0;
 
     return(
             <SafeAreaView style={[styles.container,{flex:1}]}>
@@ -115,6 +157,12 @@ export default function otpVerify(){
                             <LottieView source={loaderWhite} autoPlay loop style={styles.loaderIcon}/>
                         ) : (<Text style={styles.buttonText}>Verify</Text>)}
                     </TouchableOpacity>
+                    <View style={styles.timerContainer}>
+                        <Text style={styles.timerText}>{formatTime(secondsLeft)}</Text>
+                        <TouchableOpacity onPress={handleResendCode}>
+                            <Text style={{color:isButtonDisabled?"#888":"#63D0D8",fontSize:18}}>Resend Code</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </SafeAreaView>
     )
@@ -190,6 +238,16 @@ const styles=StyleSheet.create(
             width: 25,
             height: 25,
             alignSelf:"center"
-        }
+        },
+        timerContainer:{
+            marginTop:40,
+            alignSelf:"center",
+            flexDirection:'row',
+            gap:10
+        },
+        timerText:{
+            color:"white",
+            fontSize:18
+        },
     }
 )
