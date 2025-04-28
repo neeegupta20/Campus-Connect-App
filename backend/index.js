@@ -24,7 +24,7 @@ const transporter=nodemailer.createTransport({
     secure:true,
     auth:{
         user: 'support@campusconnect.me',
-        pass: 'Campusconnect12@',
+        pass: 'CampusConnect12@',
     },
 });
 const razorpay=new Razorpay({
