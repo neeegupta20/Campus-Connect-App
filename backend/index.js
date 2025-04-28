@@ -95,7 +95,7 @@ app.post("/send-otp",async(req,res)=>{
       });
     }catch(error){
       if(error.responseCode===550||error.code==="EAUTH"){
-        return res.status(402).json({
+        return res.status(400).json({
           error: "INVALID EMAIL ADDRESS OR OTP NOT DELIVERABLE.",
         });
       }
