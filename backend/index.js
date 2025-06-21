@@ -33,7 +33,6 @@ const razorpay=new Razorpay({
 })
 
 const { S3Client, PutObjectCommand }=require("@aws-sdk/client-s3");
-const user = require("./models/user");
 const s3=new S3Client({
     region:"eu-north-1",
     credentials:{
