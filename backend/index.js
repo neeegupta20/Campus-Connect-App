@@ -33,6 +33,7 @@ const razorpay=new Razorpay({
 })
 
 const { S3Client, PutObjectCommand }=require("@aws-sdk/client-s3");
+const user = require("./models/user");
 const s3=new S3Client({
     region:"eu-north-1",
     credentials:{
@@ -602,6 +603,23 @@ app.get('/fetch-zones', async(req,res)=>{
         res.status(200).json(allZones);
     } catch (error) {
         res.status(500).json({ "ERR": "INTERNAL SERVOR ERROR", "DETAILS": error.message });
+    }
+})
+
+app.post('/delete-account-web', async(req,res)=>{
+    const {email} = req.body;
+    if(!email){
+        return res.status(400).json({message: "EMAIL IS REQUIRED"});
+    }
+
+    try {
+        const user = await user.findOneAndDelete({email});
+        if(!user){
+            return res.status(404).json({message: "USER NOT FOUND"});
+        }
+        return res.status(200).json({message: "ACCOUNT DELETED SUCCESSFULLY"});
+    } catch (error) {
+        return res.status(500).json({message: "INTERNAL SERVER ERROR"});
     }
 })
 
