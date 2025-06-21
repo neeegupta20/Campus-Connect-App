@@ -613,8 +613,8 @@ app.post('/delete-account-web', async(req,res)=>{
     }
 
     try {
-        const user = await user.findOneAndDelete({email});
-        if(!user){
+        const User = await user.findOneAndDelete({email});
+        if(!User){
             return res.status(404).json({message: "USER NOT FOUND"});
         }
         return res.status(200).json({message: "ACCOUNT DELETED SUCCESSFULLY"});
