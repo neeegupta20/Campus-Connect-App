@@ -67,7 +67,7 @@ const styles=StyleSheet.create({
         backgroundColor:"black"
     },
     heading:{
-        top: Platform.OS==="ios"?10:70,
+        top: Platform.OS==="ios"?10:30,
         flexDirection:"row",
         alignItems: "center",
         width:"100%",

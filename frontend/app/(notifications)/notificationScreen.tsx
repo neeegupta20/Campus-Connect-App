@@ -76,12 +76,12 @@ const styles=StyleSheet.create({
       backgroundColor:"black"
     },
     heading:{
-      marginTop:Platform.OS==='ios'?0:40,
+      marginTop: Platform.OS==="ios"?0:40,
       zIndex:10,
-      height:50,
+      height:Platform.OS==='ios'?55:70,
     },
     backIcon:{
-      top: Platform.OS==="ios"?0:70,
+      top: Platform.OS==="ios"?0:10,
       paddingVertical:10,
       paddingLeft:15,
       width:50,
