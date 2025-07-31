@@ -69,8 +69,7 @@ const styles=StyleSheet.create({
   backIcon:{
     zIndex:20,
     padding:20,
-    top: Platform.OS==="android"?30:70,
-    // marginTop: Platform.OS==="android"?30:70,
+    top: Platform.OS==="ios"?0:70,
   },
   headText:{
     color:"white",
