@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import {  Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {  Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, Platform } from "react-native";
 import { UserContext } from "../context/UserContext";
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
@@ -40,34 +40,34 @@ export default function Home(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
                 <SafeAreaView style={styles.container}>
-                    <ScrollView>
-                    <View style={styles.textcontainer}>
-                        <View style={{flexDirection:"column"}}>
-                            <Text style={styles.greeting}>
-                                Hey there, <Text style={{fontSize:30}}>{user ? user.name.split(" ")[0]:"Guest"}</Text>
+                    <ScrollView contentContainerStyle={{marginTop:10}}>
+                        <View style={styles.textcontainer}>
+                            <View style={{flexDirection:"column"}}>
+                                <Text style={styles.greeting}>
+                                    Hey there, <Text style={{fontSize:30}}>{user ? user.name.split(" ")[0]:"Guest"}</Text>
+                                </Text>
+                            </View>
+                            <TouchableOpacity style={styles.notificationIcon} onPress={()=>router.replace('/(notifications)/notificationScreen')}>
+                                <Ionicons name="notifications-outline" color="white" size={27}/>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <Text style={styles.semigreet}>
+                                Have a Great Day to Connect.
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.notificationIcon} onPress={()=>router.replace('/(notifications)/notificationScreen')}>
-                            <Ionicons name="notifications-outline" color="white" size={27}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <Text style={styles.semigreet}>
-                            Have a Great Day to Connect.
-                        </Text>
-                    </View>
-                    <View>
-                        <Image style={styles.balancebox} source={require('../../assets/images/cardHome.gif')}></Image>
-                        {/* <Image style={styles.balancebox2} source={require('../../assets/images/logowhite.png')}></Image>    */}
-                    </View>
-                    <View style={{flexDirection:'column',marginHorizontal:-2}}>
-                        <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>
-                            <ImageBackground style={styles.infoBox} source={require('../../assets/images/EVENTS.png')}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>router.push('/(tabs)/connectzones')}>
-                            <ImageBackground style={styles.infoBox2} source={require('../../assets/images/connectzones.png')}/>
-                        </TouchableOpacity>
-                    </View>
+                        <View>
+                            <Image style={styles.balancebox} source={require('../../assets/images/cardHome.gif')}></Image>
+                            {/* <Image style={styles.balancebox2} source={require('../../assets/images/logowhite.png')}></Image>    */}
+                        </View>
+                        <View style={{flexDirection:'column',marginHorizontal:-2}}>
+                            <TouchableOpacity onPress={()=>router.push('/(tabs)/event')}>
+                                <ImageBackground style={styles.infoBox} source={require('../../assets/images/EVENTS.png')}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>router.push('/(tabs)/connectzones')}>
+                                <ImageBackground style={styles.infoBox2} source={require('../../assets/images/connectzones.png')}/>
+                            </TouchableOpacity>
+                        </View>
                     </ScrollView>
                 </SafeAreaView>
 
@@ -78,12 +78,12 @@ const styles=StyleSheet.create(
     {
         container:{
             flex:1,
-            backgroundColor:"black"
+            backgroundColor:"black",
         },
         errorContainer:{
             flex:100,
             alignItems:'center',
-            backgroundColor:"black"
+            backgroundColor:"black",
         },
         textcontainer:{
             marginTop:45,

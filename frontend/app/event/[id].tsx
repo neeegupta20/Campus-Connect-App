@@ -145,7 +145,7 @@ const styles=StyleSheet.create({
         borderWidth:0,
     },
     backIcon:{
-        marginTop:Platform.OS==='ios'?10:30,
+        marginTop:Platform.OS==='ios'?10:50,
         paddingBottom:10,
         paddingLeft:15,
         width:50

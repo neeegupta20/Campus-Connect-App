@@ -1,4 +1,4 @@
-import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Platform } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts,Roboto_500Medium,Roboto_700Bold,Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold } from '@expo-google-fonts/montserrat'
@@ -80,7 +80,7 @@ const styles=StyleSheet.create({
     },
     heading:{
         paddingHorizontal:15,
-        marginTop:40,
+        marginTop:Platform.OS==='android'?50:10,
         flexDirection:"row",
         gap:10,
         marginBottom:20

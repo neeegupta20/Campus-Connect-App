@@ -58,7 +58,7 @@ const styles=StyleSheet.create({
   },
   backIcon:{
     zIndex:20,
-    top: Platform.OS==="ios"?10:70,
+    top: Platform.OS==="ios"?10:50,
     padding:20,
   },
   headText:{
@@ -66,7 +66,7 @@ const styles=StyleSheet.create({
     marginVertical:50,
     fontFamily:"Poppins_700Bold",
     fontSize:30,
-    marginTop:Platform.OS==='android'?30:20
+    marginTop:Platform.OS==='android'?90:20
   },
   scrollContainer:{
     alignItems:"center",

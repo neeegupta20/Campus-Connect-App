@@ -89,7 +89,7 @@ const styles=StyleSheet.create({
         width:180,
         height:180,
         borderRadius:150,
-        marginTop:Platform.OS==='android'?50:20
+        marginTop:Platform.OS==='android'?90:20
     },
     backIcon:{
         marginLeft:20,
