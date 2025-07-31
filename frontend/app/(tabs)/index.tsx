@@ -86,7 +86,7 @@ const styles=StyleSheet.create(
             backgroundColor:"black",
         },
         textcontainer:{
-            marginTop:45,
+            marginTop:Platform.OS==='android'?50:30,
             marginLeft:20,
             flexDirection:"row"
         },

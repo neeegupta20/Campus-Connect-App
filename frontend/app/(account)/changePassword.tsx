@@ -67,7 +67,7 @@ const styles=StyleSheet.create({
         backgroundColor:"black"
     },
     heading:{
-        marginTop:Platform.OS==='android'?30:70,
+        top: Platform.OS==="ios"?10:70,
         flexDirection:"row",
         alignItems: "center",
         width:"100%",

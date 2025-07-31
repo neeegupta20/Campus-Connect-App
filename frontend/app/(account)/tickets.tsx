@@ -117,8 +117,7 @@ const styles=StyleSheet.create({
         width:"100%",
         paddingHorizontal:15,
         marginBottom:20,
-        top: Platform.OS=="android"?30:70,
-
+        top: Platform.OS==="ios"?10:70,
     },
     headingText:{
         color:"white",

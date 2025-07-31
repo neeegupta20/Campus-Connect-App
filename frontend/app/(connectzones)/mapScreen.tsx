@@ -102,10 +102,9 @@ const styles=StyleSheet.create({
   goBackIcon:{
     position:"absolute",
     left:20,
-    backgroundColor:"rgba(0, 0, 0, 0.5)",
+    backgroundColor:"rgba(0,0,0,0.5)",
     padding:10,
     borderRadius:20,
-    top: Platform.OS==="android"?30:70,
-    marginTop: Platform.OS==="android"?30:70,
+    top:Platform.OS==="android"?30:70,
   },
 });

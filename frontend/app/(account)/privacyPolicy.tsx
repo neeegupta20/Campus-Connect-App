@@ -86,10 +86,9 @@ const styles=StyleSheet.create({
         flexDirection:"row",
         alignItems: "center",
         width:"100%",
-        paddingHorizontal:15,
+        paddingHorizontal:5,
         marginBottom:20,
-        top: Platform.OS==='android'?30:70,
-        // marginTop: Platform.OS==='android'?30:70, 
+        top: Platform.OS==="ios"?0:70,
     },
     headingText:{
         color:"white",
