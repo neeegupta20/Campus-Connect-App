@@ -202,7 +202,7 @@ const styles=StyleSheet.create(
             fontWeight:"bold"
         },
         forgotButton:{
-            marginLeft:220
+            marginLeft:200
         }
     }
 )

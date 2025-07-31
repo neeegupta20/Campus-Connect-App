@@ -81,12 +81,11 @@ const styles=StyleSheet.create({
       height:50,
     },
     backIcon:{
-      top: Platform.OS==="android"?30:70,
-      marginTop: Platform.OS==="android"?30:70,
-      // paddingVertical:10,
-      // paddingLeft:15,
-      // width:50,
-      // zIndex:10,
+      top: Platform.OS==="ios"?0:70,
+      paddingVertical:10,
+      paddingLeft:15,
+      width:50,
+      zIndex:10,
     },
     notificationBox:{
       backgroundColor: "#1e1e1e",

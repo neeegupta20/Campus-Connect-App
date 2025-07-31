@@ -66,6 +66,7 @@ const styles=StyleSheet.create({
     marginVertical:50,
     fontFamily:"Poppins_700Bold",
     fontSize:30,
+    marginTop:Platform.OS==='android'?30:20
   },
   scrollContainer:{
     alignItems:"center",
