@@ -8,8 +8,11 @@ import { UserContext } from "../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
 import registerForPushNotificationsAsync from "../(notifications)/useNotification";
 import { Montserrat_600SemiBold } from "@expo-google-fonts/montserrat";
-import loaderWhite from "../../assets/loaderWhite.json" 
+import loaderWhite from "../../assets/loaderWhite.json"
 import LottieView from "lottie-react-native";
+import { StatusBar } from "expo-status-bar";
+import { KeyboardAvoidingView } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function LoginTab(){
 
@@ -55,13 +58,17 @@ export default function LoginTab(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
             <SafeAreaView style={styles.container}>
+                {/* <KeyboardAvoidingView 
+                    behavior={Platform.OS==='ios'?'padding':'height'}
+                    keyboardVerticalOffset={Platform.OS==='android'?10:0}> */}
+                 <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
                 <TouchableOpacity onPress={()=>{
                     router.back()}} 
                     style={styles.backIcon}>
                     <Ionicons name="arrow-back-outline" color="white" size={32}/>
                 </TouchableOpacity>
-                <ScrollView contentContainerStyle={{flexGrow:1}}>
-                    <Image style={styles.logo} source={require('../../assets/images/logowhite.png')}></Image>
+                <ScrollView contentContainerStyle={{marginTop:150}}>
+                    {/* <Image style={styles.logo} source={require('../../assets/images/logowhite.png')}></Image> */}
                     <Text style={styles.title}>Login</Text> 
                     <View style={styles.grid}>
                         <View style={styles.inputContainer}>
@@ -99,6 +106,7 @@ export default function LoginTab(){
                         ) : (<Text style={styles.buttonText}>Login</Text>)}
                     </TouchableOpacity>
                 </ScrollView>
+                {/* </KeyboardAvoidingView> */}
             </SafeAreaView>
         // </ImageBackground>
     )
@@ -107,14 +115,14 @@ export default function LoginTab(){
 const styles=StyleSheet.create(
     {
         container:{    
-            alignItems:"center",
             padding:20,
-            backgroundColor:"black"
+            backgroundColor:"black",
+            flex:1,
         },
         backIcon: {
             position:"absolute",
-            left:20,
-            top:Platform.OS==="android"?30:70,
+            left:Platform.OS==='android'?20:0,
+            top:Platform.OS==="android"?70:70,
             zIndex:10,
         },
         logo:{
@@ -154,8 +162,9 @@ const styles=StyleSheet.create(
             marginVertical:10
         },
         buttonContainer:{
-            alignSelf:'center',
+            // alignSelf:'center',
             width:"100%",
+            flex:1
             
         },
         button:{
@@ -164,12 +173,13 @@ const styles=StyleSheet.create(
             borderRadius:16,
             alignItems: "center",
             marginHorizontal:30,
-            marginVertical:10
+            marginVertical:80,
         },
         buttonText:{
             color: "#fff",
             fontSize: 18,
             fontWeight: "bold",
+            position: "fixed",
         },
         grid:{
             padding:20,

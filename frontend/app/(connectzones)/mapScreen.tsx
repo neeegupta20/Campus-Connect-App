@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useContext } from "react";
-import { View, StyleSheet, Linking, Dimensions, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Linking, Dimensions, TouchableOpacity, Platform } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -8,6 +8,7 @@ import BottomSlider from "./connectZonesTab";
 import { useRouter } from "expo-router";
 import { useSelectedZone } from './selectedZoneContext';
 import { useZone, ZoneProvider } from "../context/ZonesContext";
+import { StatusBar } from "expo-status-bar";
 
 export default function MapScreen(){
 
@@ -39,6 +40,7 @@ export default function MapScreen(){
 
   return(
     <GestureHandlerRootView style={styles.container}>
+
       <View style={styles.mapContainer}>
         <MapView
           style={styles.mapContainer}
@@ -99,10 +101,11 @@ const styles=StyleSheet.create({
   },
   goBackIcon:{
     position:"absolute",
-    top:50,
     left:20,
     backgroundColor:"rgba(0, 0, 0, 0.5)",
     padding:10,
     borderRadius:20,
+    top: Platform.OS==="android"?30:70,
+    marginTop: Platform.OS==="android"?30:70,
   },
 });

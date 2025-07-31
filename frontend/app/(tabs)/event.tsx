@@ -80,10 +80,10 @@ const styles=StyleSheet.create({
     },
     heading:{
         paddingHorizontal:15,
-        marginTop:20,
+        marginTop:40,
         flexDirection:"row",
         gap:10,
-        marginBottom:30
+        marginBottom:20
     },
     tabHeading:{
         color:"white",

@@ -7,6 +7,8 @@ import { SafeAreaView, TouchableOpacity } from "react-native";
 import { ImageBackground, ScrollView, StyleSheet, Platform } from "react-native";
 import { View, Text, FlatList } from "react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
+import { StatusBar } from "expo-status-bar";
+
 
 export default function NotificationsScreen(){
   
@@ -36,6 +38,7 @@ export default function NotificationsScreen(){
   return(
     // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
       <SafeAreaView style={styles.container}>
+        <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
         <View style={styles.heading}>
           <TouchableOpacity onPress={()=>router.replace('/(tabs)')} style={styles.backIcon}>
             <Ionicons name="arrow-back-outline" color="white" size={32}/>
@@ -78,10 +81,12 @@ const styles=StyleSheet.create({
       height:50,
     },
     backIcon:{
-      paddingVertical:10,
-      paddingLeft:15,
-      width:50,
-      zIndex:10
+      top: Platform.OS==="android"?30:70,
+      marginTop: Platform.OS==="android"?30:70,
+      // paddingVertical:10,
+      // paddingLeft:15,
+      // width:50,
+      // zIndex:10,
     },
     notificationBox:{
       backgroundColor: "#1e1e1e",

@@ -7,6 +7,7 @@ import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 import { UserContext } from "../context/UserContext";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
+import { StatusBar } from "expo-status-bar";
 
 export default function ChangePasswordTab(){
 
@@ -32,6 +33,7 @@ export default function ChangePasswordTab(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
             <SafeAreaView style={styles.container}>
+                <StatusBar style="light" backgroundColor="#00000" translucent={true}/>
                 <View style={styles.heading}>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                         <Ionicons name="arrow-back-outline" color="white" size={32} />
@@ -65,7 +67,7 @@ const styles=StyleSheet.create({
         backgroundColor:"black"
     },
     heading:{
-        marginTop:Platform.OS==='ios'?10:30,
+        marginTop:Platform.OS==='android'?30:70,
         flexDirection:"row",
         alignItems: "center",
         width:"100%",
@@ -77,6 +79,7 @@ const styles=StyleSheet.create({
         fontSize:24,
         fontWeight:"bold",
         marginLeft:10,
+
     },
     backIcon:{
         padding:10,

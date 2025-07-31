@@ -4,8 +4,8 @@ import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { ScrollView } from "react-native";
-
+import { ScrollView, Platform } from "react-native";
+import { StatusBar } from "expo-status-bar";
 export default function EnterPhoneNumber(){
     
     const searchParams=useGlobalSearchParams();
@@ -35,6 +35,7 @@ export default function EnterPhoneNumber(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
             <ScrollView style={styles.container}>
+                <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
                 <SafeAreaView>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                         <Ionicons name="arrow-back-outline" color="white" size={32}/>
@@ -92,7 +93,8 @@ const styles=StyleSheet.create({
         borderRadius:150,
     },
     backIcon:{
-        marginTop:20,
+        top: Platform.OS==="android"?30:70,
+        marginTop: Platform.OS==="android"?30:70,
         marginLeft:20
     },
     headText:{

@@ -3,11 +3,12 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, ImageBackground } from "react-native";
-import { SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
+import { SafeAreaView, ScrollView, TouchableOpacity, Platform } from "react-native";
 import { StyleSheet } from "react-native";
 import { Image } from "react-native";
 import { Text, View } from "react-native";
 import * as SecureStore from 'expo-secure-store'
+import { StatusBar } from "expo-status-bar";
 
 export default function AvatarSelectionTab(){
 
@@ -34,6 +35,7 @@ export default function AvatarSelectionTab(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
           <SafeAreaView style={styles.container}>
+              <StatusBar style="light" backgroundColor="#00000" translucent={true}/>
               <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                   <Ionicons name="arrow-back-outline" color="white" size={32}/>
               </TouchableOpacity>
@@ -66,7 +68,9 @@ const styles=StyleSheet.create({
   },
   backIcon:{
     zIndex:20,
-    padding:20
+    padding:20,
+    top: Platform.OS==="android"?30:70,
+    // marginTop: Platform.OS==="android"?30:70,
   },
   headText:{
     color:"white",

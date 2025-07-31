@@ -5,7 +5,7 @@ import axios from "axios";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
 import { Ionicons } from "@expo/vector-icons";
-
+import { StatusBar } from "expo-status-bar";
 export default function otpVerify(){
         
         const router=useRouter();
@@ -125,6 +125,7 @@ export default function otpVerify(){
 
     return(
             <SafeAreaView style={[styles.container,{flex:1}]}>
+                 <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
             <TouchableOpacity onPress={()=>{
                     router.back()}} 
                     style={styles.backIcon}>

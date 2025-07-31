@@ -2,12 +2,13 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, ImageBackground, ScrollView, StyleSheet } from "react-native";
+import { FlatList, ImageBackground, ScrollView, StyleSheet, Platform } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
 import * as SecureStore from 'expo-secure-store';
 import QRCode from 'react-native-qrcode-svg';
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
+import { StatusBar } from "expo-status-bar";
 
 export default function TicketsTab(){
     
@@ -50,6 +51,7 @@ export default function TicketsTab(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
             <SafeAreaView style={styles.container}>
+                <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
                 <View style={styles.heading}>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                         <Ionicons name="arrow-back-outline" color="white" size={32} />
@@ -115,6 +117,8 @@ const styles=StyleSheet.create({
         width:"100%",
         paddingHorizontal:15,
         marginBottom:20,
+        top: Platform.OS=="android"?30:70,
+
     },
     headingText:{
         color:"white",
@@ -124,6 +128,7 @@ const styles=StyleSheet.create({
     },
     backIcon:{
         padding:10,
+    
     },
     message:{
         color:"white",

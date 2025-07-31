@@ -1,6 +1,7 @@
 import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image, Dimensions, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 
 export default function HomePage(){
     
@@ -20,6 +21,7 @@ export default function HomePage(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
             <SafeAreaView style={styles.container}>
+                <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
             <View style={styles.header}>
                 <Image style={styles.logo} source={require('../../assets/images/logowhite.png')} />
             </View>

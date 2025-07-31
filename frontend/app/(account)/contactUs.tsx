@@ -1,8 +1,9 @@
 import { Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { ImageBackground, StyleSheet } from "react-native";
-import { SafeAreaView, Text, TouchableOpacity, View} from "react-native";
+import { SafeAreaView, Text, TouchableOpacity, View, Platform} from "react-native";
 
 export default function ContactUsTab(){
     
@@ -11,6 +12,7 @@ export default function ContactUsTab(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1}}>
             <SafeAreaView style={styles.container}>
+            <StatusBar style="light" backgroundColor="#00000" translucent={true}/>
             <View style={styles.heading}>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                         <Ionicons name="arrow-back-outline" color="white" size={32} />
@@ -42,6 +44,7 @@ const styles=StyleSheet.create({
         width:"100%",
         paddingHorizontal:15,
         marginBottom:20,
+        top: Platform.OS==='android'?30:70,
     },
     headingText:{
         color:"white",

@@ -2,7 +2,7 @@ import { Montserrat_600SemiBold } from "@expo-google-fonts/montserrat";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ImageBackground } from "react-native";
+import { ImageBackground, Platform } from "react-native";
 import { SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import { Image } from "react-native";
@@ -58,7 +58,8 @@ const styles=StyleSheet.create({
   },
   backIcon:{
     zIndex:20,
-    padding:20
+    top: Platform.OS==="android"?30:70,
+    padding:20,
   },
   headText:{
     color:"white",

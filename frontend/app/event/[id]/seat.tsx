@@ -14,6 +14,7 @@ import RazorpayCheckout from "react-native-razorpay";
 import { useEvent } from "@/app/context/EventContext";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../../assets/loaderWhite.json"
+import {StatusBar} from "expo-status-bar";
 
 export default function AddSeats(){
 
@@ -117,6 +118,7 @@ export default function AddSeats(){
     return(
         
             <SafeAreaView style={styles.container}>
+                <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
             <ScrollView>
                 <View style={styles.heading}>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>

@@ -1,6 +1,6 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { Text, TouchableOpacity, View, TextInput, ImageBackground } from "react-native";
-import { Image, SafeAreaView, StyleSheet } from "react-native";
+import { Image, SafeAreaView, StyleSheet, Platform } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -91,8 +91,9 @@ const styles=StyleSheet.create({
         borderRadius:150,
     },
     backIcon:{
-        marginTop:20,
-        marginLeft:20
+        marginLeft:20,
+        top: Platform.OS==="android"?30:70,
+        marginTop: Platform.OS==="android"?30:70,
     },
     headText:{
         color:"white",

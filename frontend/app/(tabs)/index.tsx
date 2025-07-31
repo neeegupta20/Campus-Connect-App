@@ -8,6 +8,7 @@ import { Poppins_400Regular,Poppins_500Medium,Poppins_700Bold } from '@expo-goog
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
+import { StatusBar } from "expo-status-bar";
 
 export default function Home(){
 
@@ -25,6 +26,7 @@ export default function Home(){
     if(!fontsLoaded){
         return(
             <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
+                <StatusBar style="light" backgroundColor="#00000" translucent={true}/>
                 <LottieView
                     source={require("../../assets/loaderWhite.json")}
                     autoPlay

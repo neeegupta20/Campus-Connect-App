@@ -10,7 +10,7 @@ import { UserContext } from "../context/UserContext";
 import { useEvent } from "../context/EventContext";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
-
+import { StatusBar } from "expo-status-bar";
 
 export default function SingleEventScreen(){
     
@@ -46,7 +46,8 @@ export default function SingleEventScreen(){
     
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:1000}}>
-                <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container}>
+                <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
             <View style={styles.heading}>
                 <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                     <Ionicons name="arrow-back-outline" color="white" size={32}/>

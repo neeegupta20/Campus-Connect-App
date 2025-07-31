@@ -8,8 +8,8 @@ import { ScrollView } from "react-native";
 import axios from "axios";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
-
-
+import { StatusBar } from "expo-status-bar";
+import { Platform } from "react-native";
 export default function ForgotPassword(){
     
     const router=useRouter();
@@ -50,6 +50,7 @@ export default function ForgotPassword(){
 
     return(
             <ScrollView style={styles.container}>
+                <StatusBar style="light" translucent={true} backgroundColor="transparent"/>
                 <SafeAreaView>
                     <TouchableOpacity onPress={()=>router.back()} style={styles.backIcon}>
                         <Ionicons name="arrow-back-outline" color="white" size={32}/>
@@ -101,8 +102,9 @@ const styles=StyleSheet.create({
         borderRadius:150,
     },
     backIcon:{
-        marginTop:20,
-        marginLeft:20
+        marginTop: Platform.OS === "android" ? 30 : 70,
+        top:Platform.OS==="android"?30:70,
+        marginLeft:20,
     },
     headText:{
         color:"white",

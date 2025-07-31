@@ -4,7 +4,7 @@ import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { ScrollView } from "react-native";
+import { ScrollView, Platform } from "react-native";
 import axios from "axios";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
@@ -137,7 +137,8 @@ const styles=StyleSheet.create({
         borderRadius:150,
     },
     backIcon:{
-        marginTop:20,
+        top: Platform.OS==="android"?30:70,
+        marginTop: Platform.OS==="android"?30:70,
         marginLeft:20
     },
     headText:{
