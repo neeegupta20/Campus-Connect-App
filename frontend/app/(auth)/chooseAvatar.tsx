@@ -58,7 +58,7 @@ const styles=StyleSheet.create({
   },
   backIcon:{
     zIndex:20,
-    top: Platform.OS==="android"?30:70,
+    top: Platform.OS==="ios"?10:70,
     padding:20,
   },
   headText:{

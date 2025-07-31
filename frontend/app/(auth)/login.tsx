@@ -12,7 +12,6 @@ import loaderWhite from "../../assets/loaderWhite.json"
 import LottieView from "lottie-react-native";
 import { StatusBar } from "expo-status-bar";
 import { KeyboardAvoidingView } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function LoginTab(){
 
@@ -121,8 +120,8 @@ const styles=StyleSheet.create(
         },
         backIcon: {
             position:"absolute",
-            left:Platform.OS==='android'?20:0,
-            top:Platform.OS==="android"?70:70,
+            left:20,
+            top:Platform.OS==="android"?70:80,
             zIndex:10,
         },
         logo:{
@@ -199,10 +198,11 @@ const styles=StyleSheet.create(
         forgotText:{
             color:"white",
             fontFamily:"Poppins_500Medium",
-            fontSize:16
+            fontSize:16,
+            fontWeight:"bold"
         },
         forgotButton:{
-            marginLeft:170
+            marginLeft:220
         }
     }
 )

@@ -93,8 +93,7 @@ const styles=StyleSheet.create({
         borderRadius:150,
     },
     backIcon:{
-        top: Platform.OS==="android"?30:70,
-        marginTop: Platform.OS==="android"?30:70,
+        top: Platform.OS==="ios"?10:70,
         marginLeft:20
     },
     headText:{

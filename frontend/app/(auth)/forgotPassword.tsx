@@ -102,8 +102,7 @@ const styles=StyleSheet.create({
         borderRadius:150,
     },
     backIcon:{
-        marginTop: Platform.OS === "android" ? 30 : 70,
-        top:Platform.OS==="android"?30:70,
+        top: Platform.OS==="ios"?10:70,
         marginLeft:20,
     },
     headText:{

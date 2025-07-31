@@ -1,2 +1,5 @@
 frontend/package-lock.json
 frontend/package.json
+frontend/.DS_Store
+backend/.DS_Store
+*/.DS_Store
