@@ -18,6 +18,7 @@ const events = require("./models/events");
 const connectZone = require("./models/connectZone");
 const multer=require("multer");
 const multerS3=require("multer-s3");
+const Carousel = require("../backend/models/carouselData");
 const transporter=nodemailer.createTransport({
     host:'smtpout.secureserver.net',
     port:465,
@@ -619,6 +620,34 @@ app.post('/delete-account-web', async(req,res)=>{
         return res.status(200).json({message: "ACCOUNT DELETED SUCCESSFULLY"});
     } catch (error) {
         return res.status(500).json({message: "INTERNAL SERVER ERROR"});
+    }
+})
+
+app.post('/create-carousel', upload.single('imageUrl'), async(req,res)=>{
+    const {id, title, description, subtitle}=req.body;
+    if(password==="BALLI@1212"){
+        try {
+            if(!req.file){
+                return res.status(400).json({error:"Photo Missing"})
+            }
+            const imageUrl=req.file.location;
+            const caroData = await Carousel.create({id, title, imageUrl, description,subtitle});
+            res.status(200).json({"MSG":"Carousel Slide Added"});
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+    else{
+        return res.status(400).json({error:"Not Authorized"})
+    }
+})
+
+app.get('/fetch-carousel', async(req,res)=>{
+    try {
+        const allPages=await Carousel.find({});
+        res.status(200).json(allPages);
+    } catch (error) {
+        res.status(500).json({"error":error.message});
     }
 })
 
