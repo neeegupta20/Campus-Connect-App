@@ -624,14 +624,14 @@ app.post('/delete-account-web', async(req,res)=>{
 })
 
 app.post('/create-carousel', upload.single('imageUrl'), async(req,res)=>{
-    const {id, title, description, subtitle}=req.body;
+    const {id, title, description, subtitle, password}=req.body;
     if(password==="BALLI@1212"){
         try {
             if(!req.file){
                 return res.status(400).json({error:"Photo Missing"})
             }
             const imageUrl=req.file.location;
-            const caroData = await Carousel.create({id, title, imageUrl, description,subtitle});
+            const caroData = await Carousel.create({id, title, imageUrl, description, subtitle});
             res.status(200).json({"MSG":"Carousel Slide Added"});
         } catch (error) {
             res.status(500).json(error)
