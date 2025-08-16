@@ -9,6 +9,9 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import { StatusBar } from "expo-status-bar";
+import CarouselLayout from "../../components/CarouselLayout";
+import { createBrotliCompress } from "zlib";
+import { CarouselProvider } from "../context/CarouselContext";
 
 export default function Home(){
 
@@ -40,7 +43,7 @@ export default function Home(){
     return(
         // <ImageBackground source={require('../../assets/images/bg.jpeg')} style={{flex:1,height:900}}>
                 <SafeAreaView style={styles.container}>
-                    <ScrollView contentContainerStyle={{marginTop:10}}>
+                    <ScrollView contentContainerStyle={{marginTop:10}} nestedScrollEnabled={true}>
                         <View style={styles.textcontainer}>
                             <View style={{flexDirection:"column"}}>
                                 <Text style={styles.greeting}>
@@ -57,7 +60,11 @@ export default function Home(){
                             </Text>
                         </View>
                         <View>
-                            <Image style={styles.balancebox} source={require('../../assets/images/cardHome.gif')}></Image>
+                            <CarouselProvider>
+                                <CarouselLayout/>
+                            </CarouselProvider>
+                            {/* <Image style={styles.balancebox} source={require('../../assets/images/cardHome.gif')}></Image> */}
+                            
                             {/* <Image style={styles.balancebox2} source={require('../../assets/images/logowhite.png')}></Image>    */}
                         </View>
                         <View style={{flexDirection:'column',marginHorizontal:-2}}>
@@ -172,8 +179,7 @@ const styles=StyleSheet.create(
             height:115,
             width:336,
             alignSelf:"center",
-            marginBottom:100,
-            borderRadius:20
+            borderRadius:10
         },
         text4:{
             fontFamily:'Montserrat_700Bold',
@@ -235,6 +241,6 @@ const styles=StyleSheet.create(
             padding:10,
             borderRadius:20
         },
-        
+
     }
 ) 
