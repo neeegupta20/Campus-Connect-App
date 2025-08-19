@@ -266,17 +266,7 @@ app.post('/reserve-event',async(req,res)=>{
                 return res.status(422).json({MSG:"ALREADY RESERVED."});
             }
             
-            
-            if(eventId===7){
-                const {PubgUId,PubgTeamName} = req.body;
-                bookingData.PubgUId=PubgUId;
-                bookingData.PubgTeamName=PubgTeamName
-            }
-            if(eventId===8){
-                const {weddingGender} = req.body;
-                bookingData.weddingGender=weddingGender
 
-            }
             const bookingData=await reservation.create({
                 name,
                 numberOfPeople,
@@ -290,6 +280,16 @@ app.post('/reserve-event',async(req,res)=>{
                 teamName:PubgTeamName,
                 gender:weddingGender
             });
+            if(eventId===7){
+                const {PubgUId,PubgTeamName} = req.body;
+                bookingData.PubgUId=PubgUId;
+                bookingData.PubgTeamName=PubgTeamName
+            }
+            if(eventId===8){
+                const {weddingGender} = req.body;
+                bookingData.weddingGender=weddingGender
+
+            }
             sendConfirmationEmail({
                 name:name,
                 email:tokenData.email,
