@@ -27,5 +27,6 @@ const styles=StyleSheet.create({
   animation:{
     width:600,
     height:1000,
+    alignSelf:'center'
   },
 });

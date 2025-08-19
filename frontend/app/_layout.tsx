@@ -7,7 +7,7 @@ import SplashScreen from "@/components/SplashScreen";
 import LottieView from "lottie-react-native";
 import { EventProvider } from "./context/EventContext";
 import { ZoneProvider } from "./context/ZonesContext";
-
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 function RootLayoutInner(){
     const {user,fetchUserProfile,isAuthChecked}=useContext(UserContext);
     const router=useRouter();
@@ -60,13 +60,15 @@ function RootLayoutInner(){
 
 export default function RootLayout() {
     return (
-        <UserProvider>
-            <ZoneProvider>
-            <EventProvider>
-                <RootLayoutInner />
-            </EventProvider>
-            </ZoneProvider>
-        </UserProvider>
+        <GestureHandlerRootView>
+            <UserProvider>
+                <ZoneProvider>
+                    <EventProvider>
+                        <RootLayoutInner />
+                    </EventProvider>
+                    </ZoneProvider>
+            </UserProvider>
+        </GestureHandlerRootView>
     );
 }
 

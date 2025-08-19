@@ -9,9 +9,9 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import { StatusBar } from "expo-status-bar";
-import CarouselLayout from "../../components/CarouselLayout";
-import { createBrotliCompress } from "zlib";
-import { CarouselProvider } from "../context/CarouselContext";
+// import CarouselLayout from "../../components/CarouselLayout";
+// import { createBrotliCompress } from "zlib";
+// import { CarouselProvider } from "../context/CarouselContext";
 
 export default function Home(){
 
@@ -60,10 +60,10 @@ export default function Home(){
                             </Text>
                         </View>
                         <View>
-                            <CarouselProvider>
+                            {/* <CarouselProvider>
                                 <CarouselLayout/>
-                            </CarouselProvider>
-                            {/* <Image style={styles.balancebox} source={require('../../assets/images/cardHome.gif')}></Image> */}
+                            </CarouselProvider> */}
+                            <Image style={styles.balancebox} source={require('../../assets/images/cardHome.gif')}></Image>
                             
                             {/* <Image style={styles.balancebox2} source={require('../../assets/images/logowhite.png')}></Image>    */}
                         </View>

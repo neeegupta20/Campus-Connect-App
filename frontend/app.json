@@ -8,30 +8,30 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "androidStatusBar": {
-        "backgroundColor": "#ffffff",
-        "translucent": true
+      "backgroundColor": "#ffffff",
+      "translucent": true
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.neegupta20.demoapp",
-      "config":{
-        "googleMapsApiKey":"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
+      "config": {
+        "googleMapsApiKey": "AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
       },
-      "newArchEnabled":false,
+      "newArchEnabled": false,
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
         }
       }
     },
-    "jsEngine":"hermes",
+    "jsEngine": "hermes",
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.neegupta20.demoapp",
-      "newArchEnabled":false,
+      "newArchEnabled": false,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs"
@@ -44,7 +44,8 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
@@ -53,15 +54,15 @@
       "router": {
         "origin": false
       },
-      "googleMapsApiKey":"AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs",
+      "googleMapsApiKey": "AIzaSyC-oVpVHtl7Ez3youDdG9AO_595YSQhkLs",
       "eas": {
         "projectId": "07c089b9-0899-4802-b64f-d20328c71145"
       }
     },
     "owner": "neegupta20",
-    "expo-build-properties":{
-      "android":{
-        "kotlinVersion":"1.9.25"
+    "expo-build-properties": {
+      "android": {
+        "kotlinVersion": "1.9.25"
       }
     }
   }

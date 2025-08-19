@@ -11,6 +11,7 @@ import { useEvent } from "../context/EventContext";
 import LottieView from "lottie-react-native";
 import loaderWhite from "../../assets/loaderWhite.json"
 import { StatusBar } from "expo-status-bar";
+import { TextInput } from "react-native-gesture-handler";
 
 export default function SingleEventScreen(){
     
@@ -35,6 +36,10 @@ export default function SingleEventScreen(){
     const event=events.find((e)=>e.id===numericId);
     const {user}=useContext(UserContext);
     const isSoldOut=[1,2,3,4,5,6,7,8].includes(event?.id ?? -1);
+    const [UId,setUId]=useState("");
+    const [teamName,setTeamName]=useState("");
+    const [gender,setGender] = useState<"Groom Side" | "Bride Side" | null>(null);
+
 
     if(loading){
         return(
@@ -80,6 +85,44 @@ export default function SingleEventScreen(){
                     <Ionicons style={styles.locationIcon} name="location-outline" color="white" size={35}/>
                     <Text style={styles.eventVenueText}>{event?.venue}</Text>
                 </View>
+                {event?.id===7 && (
+                    <View style={styles.moreInputContainer}>
+                        <View>
+                            <TextInput
+                                placeholder="PUBG UID" 
+                                value={UId} 
+                                style={styles.input}
+                                onChangeText={(text)=>setUId(text)}
+                                placeholderTextColor='gray'>
+                            </TextInput>
+                            <TextInput
+                                placeholder="Squad Name" 
+                                value={teamName} 
+                                style={styles.input}
+                                onChangeText={(text)=>setTeamName(text)}
+                                placeholderTextColor='gray'>
+                            </TextInput>
+                        </View>
+                    </View>
+                )}
+                {event?.id===8 && (
+                   <View style={styles.moreInputContainer2}>
+                        <TouchableOpacity
+                            style={[styles.option,gender === "Groom Side" && { backgroundColor: "#4A90E2" },]}
+                            onPress={() => setGender("Groom Side")}>
+                        <Text style={[styles.optionText,gender === "Groom Side" && { color: "white" },]}>
+                            🤵🏻 Groom Side
+                        </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.option,gender === "Bride Side" && { backgroundColor: "#FF69B4" },]}
+                            onPress={() => setGender("Bride Side")}>
+                            <Text style={[styles.optionText,gender === "Bride Side" && { color: "white" },]}>
+                                👰🏻‍♀️ Bride Side
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
                 <View>
                     <View style={styles.aboutHeading}>
                         <Text style={styles.aboutText}>About</Text>
@@ -106,7 +149,12 @@ export default function SingleEventScreen(){
                                 return;
                             }
                             if (numericId) {
-                                router.push(`/event/${numericId}/seat`);
+                                router.push({
+                                pathname: "/event/[id]/seat",
+                                params: { 
+                                    id: String(numericId), gender, UId, teamName
+                                },
+                                });
                             } else {
                                 console.log("INVALID ID.");
                             }
@@ -160,7 +208,7 @@ const styles=StyleSheet.create({
         height:130,
         marginHorizontal:20,
         marginTop:18,
-        marginBottom:30,
+        marginBottom:20,
         borderRadius:20,
     },
     calendarIcon:{
@@ -213,7 +261,8 @@ const styles=StyleSheet.create({
         borderBottomWidth:2,
         alignSelf:"flex-start",
         marginLeft:25,
-        paddingBottom:4
+        paddingBottom:4,
+        marginTop:20
     },
     aboutText:{
         color:"#D1DEDD",
@@ -271,5 +320,41 @@ const styles=StyleSheet.create({
         height: 40,
         alignSelf:"center",
         top: 30
-    }
+    },
+    moreInputContainer:{
+        flex:1,
+        flexDirection:'column',
+        alignSelf:'center'
+    },
+    input:{
+        flex:1,
+        height:50,
+        borderColor:"#63D0D8",
+        borderWidth:1,
+        paddingHorizontal:100,
+        borderRadius:10,
+        color:"white",
+        fontSize:20,
+        marginVertical:10
+    },
+    moreInputContainer2: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 10,
+  },
+  option: {
+    flex: 1,
+    marginHorizontal: 5,
+    paddingVertical: 15,
+    borderRadius: 10,
+    backgroundColor: "white",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
+  optionText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "black",
+  },
 })

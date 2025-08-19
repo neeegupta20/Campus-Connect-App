@@ -35,6 +35,9 @@ export default function AddSeats(){
     const router=useRouter();
     const searchParams=useGlobalSearchParams();
     const eventId=searchParams.id;
+    const PubgUId=searchParams.UId;
+    const PubgTeamName=searchParams.teamName;
+    const weddingGender=searchParams.gender;
     const validEventId = Array.isArray(eventId) ? eventId[0] : eventId;
     const numericId=validEventId?parseInt(validEventId,10):undefined;
     const event=events.find((e)=>e.id===numericId);
@@ -78,6 +81,9 @@ export default function AddSeats(){
                                 eventName:event?.title,
                                 eventDate:event?.formatDate,
                                 eventTime:event?.time,
+                                PubgUId:PubgUId,
+                                PubgTeamName:PubgTeamName,
+                                weddingGender:weddingGender,
                                 paymentId:paymentResponse.razorpay_payment_id
                             },{
                             headers: { Authorization: `Bearer ${token}` },
