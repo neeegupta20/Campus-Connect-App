@@ -33,6 +33,18 @@ const reservationSchema = mongoose.Schema({
     isScanned:{
         type:Boolean,
         default:false
+    },
+    uid:{
+        type:Number,
+        required:false
+    },
+    teamName:{
+        type:String,
+        required:false
+    },
+    gender:{
+        type:String,
+        required:false
     }
 })
 
