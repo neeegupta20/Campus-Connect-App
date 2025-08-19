@@ -270,11 +270,12 @@ app.post('/reserve-event',async(req,res)=>{
             if(eventId===7){
                 const {PubgUId,PubgTeamName} = req.body;
                 bookingData.PubgUId=PubgUId;
+                bookingData.PubgTeamName=PubgTeamName
             }
             if(eventId===8){
                 const {weddingGender} = req.body;
-                bookingData.PubgTeamName=PubgTeamName
-                
+                bookingData.weddingGender=weddingGender
+
             }
             const bookingData=await reservation.create({
                 name,
