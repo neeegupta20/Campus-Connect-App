@@ -269,20 +269,13 @@ app.post('/reserve-event',async(req,res)=>{
             
             if(eventId===7){
                 const {PubgUId,PubgTeamName} = req.body;
-                if(!PubgUId || !PubgTeamName){
-                    return res.status(400).json({error: "UID and Team is required"})
-                }else{
-                    bookingData.PubgUId=PubgUId;
-                }
+                bookingData.PubgUId=PubgUId;
+                bookingData.PubgTeamName=PubgTeamName
             }
             if(eventId===8){
                 const {weddingGender} = req.body;
-                if(!weddingGender){
-                    return res.status(400).json({error: "gender is required"})
-                }
-                else{
-                    bookingData.PubgTeamName=PubgTeamName
-                }
+                bookingData.weddingGender=weddingGender
+
             }
             const bookingData=await reservation.create({
                 name,
