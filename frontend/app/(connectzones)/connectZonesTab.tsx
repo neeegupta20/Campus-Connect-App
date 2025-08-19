@@ -204,11 +204,15 @@ const BottomSlider:React.FC<{isOpen:boolean;onClose:()=>void }>=({ isOpen, onClo
               
                   <Text style={styles.zoneDescription}>{selectedZone.description}</Text>
                 </View>
-                <View style={{marginTop:30,flexDirection:'row'}}>
-                  <Ionicons style={styles.calendarIcon} name='calendar-outline' color="white" size={30}></Ionicons>
-                  <Text style={styles.zoneDate}>{selectedZone.date}</Text>
-                  <Ionicons style={styles.timeIcon} name='time-outline' color="white" size={30}></Ionicons>
-                  <Text style={styles.zoneTime}>{selectedZone.time}</Text>
+                <View style={{marginTop:30,flexDirection:'row',gap:24}}>
+                  <View style={{flexDirection:'row'}}>
+                      <Ionicons style={styles.calendarIcon} name='calendar-outline' color="white" size={30}></Ionicons>
+                      <Text style={styles.zoneDate}>{selectedZone.date}</Text>
+                  </View>
+                  <View style={{flexDirection:'row'}}>
+                    <Ionicons style={styles.timeIcon} name='time-outline' color="white" size={30}></Ionicons>
+                    <Text style={styles.zoneTime}>{selectedZone.time}</Text>
+                  </View>
                 </View>
                 <View style={{marginVertical:15}}>
                   <Text style={styles.zoneVenue}>📍 {selectedZone.venue}</Text>
@@ -322,28 +326,20 @@ loaderIcon:{
   top: 30
 },
 timeIcon:{
-  paddingHorizontal:100,
-  marginTop:12
+  paddingHorizontal:10,
 },
 zoneTime:{
    color:"white",
    fontFamily:"Poppins_400Regular",
    fontSize:22,
-   position:"absolute",
-   right:120,
-   top:12
 },
 calendarIcon:{
   paddingHorizontal:10,
-  marginTop:10
 },
 zoneDate:{
    color:"white",
    fontFamily:"Poppins_400Regular",
    fontSize:20,
-   position:"absolute",
-   left:50,
-   top:12
 },
 zoneVenue:{
   color:"white",
