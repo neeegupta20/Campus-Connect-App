@@ -40,7 +40,6 @@ export default function SingleEventScreen(){
     const [teamName,setTeamName]=useState("");
     const [gender,setGender] = useState<"Groom Side" | "Bride Side" | null>(null);
 
-
     if(loading){
         return(
             <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
@@ -146,6 +145,14 @@ export default function SingleEventScreen(){
                         onPress={() => {
                             if (!user) {
                                 Alert.alert("PLEASE LOGIN/ SIGN UP");
+                                return;
+                            }
+                            if(numericId===7 && (!UId || !teamName)){
+                                Alert.alert("DETAILS MISSING.")
+                                return;
+                            }
+                            if(numericId===8 && !gender){
+                                Alert.alert("PLEASE SELECT YOUR SIDE")
                                 return;
                             }
                             if (numericId) {
