@@ -222,7 +222,7 @@ app.post('/reserve-event',async(req,res)=>{
         if(!token){
             return res.json(null);
         }
-        const {name,numberOfPeople,telno,eventId,eventName,eventDate,eventTime,paymentId}=req.body;
+        const {name,numberOfPeople,telno,eventId,eventName,eventDate,eventTime,paymentId,PubgUId,PubgTeamName,weddingGender}=req.body;
         const payment=await razorpay.payments.fetch(paymentId);
         if(payment.status!=="captured"){
             return res.status(400).json({
@@ -266,7 +266,6 @@ app.post('/reserve-event',async(req,res)=>{
                 return res.status(422).json({MSG:"ALREADY RESERVED."});
             }
             
-
             const bookingData=await reservation.create({
                 name,
                 numberOfPeople,
@@ -276,17 +275,11 @@ app.post('/reserve-event',async(req,res)=>{
                 venueName:eventName,
                 Date:eventDate,
                 Time:eventTime,
+                uid:PubgUId,
+                teamName:PubgTeamName,
+                gender:weddingGender
             });
-            if(eventId===7){
-                const {PubgUId,PubgTeamName} = req.body;
-                bookingData.PubgUId=PubgUId;
-                bookingData.PubgTeamName=PubgTeamName
-            }
-            if(eventId===8){
-                const {weddingGender} = req.body;
-                bookingData.weddingGender=weddingGender
-
-            }
+            
             sendConfirmationEmail({
                 name:name,
                 email:tokenData.email,

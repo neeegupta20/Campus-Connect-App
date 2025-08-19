@@ -36,15 +36,21 @@ const reservationSchema = mongoose.Schema({
     },
     uid:{
         type:Number,
-        required:false
+        required:function(){
+            return this.event==="7"
+        }
     },
     teamName:{
         type:String,
-        required:false
+        required:function(){
+            return this.event==="7"
+        }
     },
     gender:{
         type:String,
-        required:false
+        required:function(){
+            return this.event==="8"
+        }
     }
 })
 
