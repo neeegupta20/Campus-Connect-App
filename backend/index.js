@@ -276,9 +276,6 @@ app.post('/reserve-event',async(req,res)=>{
                 venueName:eventName,
                 Date:eventDate,
                 Time:eventTime,
-                uid:PubgUId,
-                teamName:PubgTeamName,
-                gender:weddingGender
             });
             if(eventId===7){
                 const {PubgUId,PubgTeamName} = req.body;
