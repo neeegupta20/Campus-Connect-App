@@ -19,28 +19,31 @@ const connectZone = require("./models/connectZone");
 const multer=require("multer");
 const multerS3=require("multer-s3");
 const Carousel = require("../backend/models/carouselData");
-const transporter=nodemailer.createTransport({
-    host:'smtpout.secureserver.net',
-    port:465,
-    secure:true,
-    auth:{
-        user: 'support@campusconnect.me',
-        pass: 'CampusConnect12@',
+require("dotenv").config();
+
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT),
+    secure: process.env.SMTP_SECURE === "true",
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
     },
 });
-const razorpay=new Razorpay({
-    key_id: "rzp_live_oIOf24vws5pHYy",
-    key_secret: "4AECc9CQZME3KUvFASv5pmT6"
-})
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 const { S3Client, PutObjectCommand }=require("@aws-sdk/client-s3");
-const s3=new S3Client({
-    region:"eu-north-1",
-    credentials:{
-        accessKeyId:"AKIAQE3RO7K5QHN6CR6C",
-        secretAccessKey:"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",
-    }
-})
+const s3 = new S3Client({
+    region: process.env.AWS_REGION,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    },
+});
+
 app.use(express.json());
 app.use(cors({
     credentials:true,
